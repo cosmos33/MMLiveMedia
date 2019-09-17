@@ -57,6 +57,16 @@
 
 @property(nonatomic,readonly) NSString *rtmpURL;
 
+/**
+ CDN供应商
+ */
+@property (nonatomic, assign) int provider;
+
+/**
+ 商业类型
+ */
+@property (nonatomic, assign) int businessType;
+
 //可以动态的设置耳返
 @property(nonatomic, assign) BOOL enableAudioPreview;
 
