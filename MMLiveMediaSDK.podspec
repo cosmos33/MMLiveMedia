@@ -37,4 +37,5 @@ TODO: Add long description of the pod here.
   s.vendored_libraries =  'Frameworks/**/*.{a}'
   s.libraries = 'stdc++', 'c++', 'xml2'
   s.framework = 'VideoToolbox' , 'Accelerate'
+  
 end
