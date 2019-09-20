@@ -53,7 +53,7 @@
 - (void)startPlay;
 
 //停止播放
-- (void)stopPlay;
+- (void)stopPlay:(void (^)(BOOL))StopCompleteBlock;
 
 //设置播放模式,暂时没有实现
 - (void)setAudioRoute:(int)audioRoute;
