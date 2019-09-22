@@ -8,12 +8,14 @@
 
 @property (nonatomic, readwrite) NSUInteger width;
 @property (nonatomic, readwrite) NSUInteger height;
+@property (nonatomic, readwrite) NSUInteger framerate;
 @property (nonatomic, readonly, nullable) CVPixelBufferPoolRef pixelBufferPool;
 @property (nonatomic, strong, nullable) NSMutableData *videoSPSandPPS;
 @property (atomic) BOOL isStart;
 @property (nonatomic, assign) BOOL useDataRateLimit;  //default NO
 
 - (_Nonnull instancetype) initWithBitrate:(NSUInteger)bitrate width:(int)width height:(int)height;
+- (_Nonnull instancetype) initWithBitrate:(NSUInteger)bitrate width:(int)width height:(int)height framerate:(int)framerate;
 - (BOOL) encodePixelBuffer:(nonnull CVPixelBufferRef)pixerBuffer prestime:(CMTime)frameTime duration:(CMTime)duration;
 - (void) prepareForEncode;
 - (uint64_t) getTotalBytesProduct;
@@ -21,4 +23,5 @@
 - (void)setUserDefineSeiPayload:(NSData *_Nullable)seiPayload;
 - (NSData *_Nonnull)getUserDefineSeiData;
 - (void)dynamicChangeBitrate:(int)bitrate;
+- (void)dynamicChangeFramerate:(int)framerate;
 @end

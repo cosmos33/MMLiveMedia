@@ -24,8 +24,11 @@ typedef struct YUV420PFrame {
 
 - (instancetype)initWithFrameSize:(CGSize)frameSize;
 
+- (instancetype)initWithFrameSize:(CGSize)frameSize pixelBuffer:(CVPixelBufferRef)pixelBuffer;
+
 - (CVPixelBufferRef)convertYUV420ToPixelBuffer:(YUV420PFrame)videoFrame CF_RETURNS_NOT_RETAINED;
 
 - (CMSampleBufferRef)convertYUV420ToSampleBuffer:(YUV420PFrame)videoFrame CF_RETURNS_NOT_RETAINED;
 
+- (CMSampleBufferRef)convertPixelBufferToSampleBuffer:(CVPixelBufferRef)pixelBuffer;
 @end
