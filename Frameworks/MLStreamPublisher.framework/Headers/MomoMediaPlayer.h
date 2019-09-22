@@ -55,6 +55,8 @@
 //停止播放
 - (void)stopPlay:(void (^)(BOOL))StopCompleteBlock;
 
+- (void)stopPlayWithoutRemoveView:(void (^)(BOOL))StopCompleteBlock;
+
 //设置播放模式,暂时没有实现
 - (void)setAudioRoute:(int)audioRoute;
 
@@ -66,6 +68,8 @@
 
 //恢复播放,暂时没有实现
 - (void)resume;
+
+- (void)updatePlayerViewWithFrame:(CGRect)frame;
 @end
 
 #endif /* MomoMediaEngine_h */

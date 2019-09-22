@@ -87,5 +87,7 @@
 - (void)pausePublish;//退后台调用该接口
 
 - (void)resumePublish;//回前台恢复推流调用该接口
+
+- (void)updateLocalViewWithFrame:(CGRect)frame;
 @end
 #endif /* MomoMediaEngine_h */
