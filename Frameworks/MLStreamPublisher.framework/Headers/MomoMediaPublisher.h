@@ -8,13 +8,6 @@
 #ifndef MomoMediaEngine_h
 #define MomoMediaEngine_h
 #import <Foundation/Foundation.h>
-#import "MomoMediaContext.h"
-
-typedef NS_ENUM(NSUInteger, MomoMediaPublisherLinkType) {
-    MomoMediaPublisherLinkTypeDefault,
-    MomoMediaPublisherLinkTypeAgora,
-};
-
 @class MomoMediaPublisher;
 @protocol MomoMediaPublisherDelegate <NSObject>
 
@@ -29,31 +22,6 @@ typedef NS_ENUM(NSUInteger, MomoMediaPublisherLinkType) {
 - (void)MomoMediaEnginePublishingStartBuffer:(MomoMediaPublisher*)publisher error:(NSError*)error;
 // 推流卡顿结束
 - (void)MomoMediaEnginePublishingEndBuffer:(MomoMediaPublisher *)publisher error:(NSError*)error;
-// 用户自己加入频道
-- (void)MomoMediaEnginePublisher:(MomoMediaPublisher *)publisher hostDidJoinChannel:(NSString *)channel;
-// 其他用户加入频道
-- (void)MomoMediaEnginePublisher:(MomoMediaPublisher *)publisher didRemoteJoinChannel:(NSString *)channel withUid:(NSUInteger)uid;
-// rtmp推流器已经有数据发出
-- (void)MomoMediaEnginePublisherDidStartRtmpPushPublishing:(MomoMediaPublisher *)publisher error:(NSError*)error;
-// 其他用户退出频道
-- (void)MomoMediaEnginePublisher:(MomoMediaPublisher *)publisher onMemberExitWithUserId:(NSString *)userId reason:(NSInteger)reason;
-// 用户离开频道
-- (void)MomoMediaEnginePublisherDidLeaveChannel:(MomoMediaPublisher *)publisher;
-// 连麦成功
-- (void)MomoMediaEnginePublisher:(MomoMediaPublisher *)publisher onConnectionSuccessWithHostId:(NSString *)hostId guestId:(NSString *)guestId;
-// 其他用户掉线
-- (void)MomoMediaEnginePublisher:(MomoMediaPublisher *)publisher didOfflineOfUid:(NSString *)uid;
-- (void)MomoMediaEnginePublisher:(MomoMediaPublisher *)publisher didOfflineOfUid:(NSString *)uid reason:(NSUInteger)reason;
-//声网上报错误
-- (void)MomoMediaEnginePublisher:(MomoMediaPublisher *)publisher didOccurError:(NSError*)error;
-// 收到其他用户第一帧视频
-- (void)MomoMediaEnginePublisher:(MomoMediaPublisher *)publisher didReceivedVideoForRemoteId:(NSString *)uid remoteView:(UIView *)remoteView;
-// 其他用户声音是否静音
-- (void)MomoMediaEnginePublisher:(MomoMediaPublisher *)publisher didRemoteAudioMuted:(BOOL)muted remoteUid:(NSUInteger)uid;
-// 其他用户画面是否关闭
-- (void)MomoMediaEnginePublisher:(MomoMediaPublisher *)publisher didRemoteVideoMuted:(BOOL)muted remoteUid:(NSUInteger)uid;
-// 推流数据到达cdn（经验值），只用于平滑切换的优化方案
-- (void)MomoMediaEnginePublisherDidReceivedCDN:(MomoMediaPublisher *)publisher frameCount:(NSUInteger)frameCount;
 @end
 
 @interface MomoMediaPublishConfiguration : NSObject
@@ -121,33 +89,5 @@ typedef NS_ENUM(NSUInteger, MomoMediaPublisherLinkType) {
 - (void)resumePublish;//回前台恢复推流调用该接口
 
 - (void)updateLocalViewWithFrame:(CGRect)frame;
-
-/// 设置连麦类型
-/// @param linkType 连麦类型
-- (void)setLinkType:(MomoMediaPublisherLinkType)linkType;
-
-/// 设置是否为主播
-/// @param isHost 是否为主播
-- (void)setIsHost:(BOOL)isHost;
-
-/// 关闭本地视频分送
-/// @param mute 是否关闭本地视频发送
-- (void)muteLocalVideo:(BOOL)mute;
-
-/// 设置sdk app id
-/// @param appID sdk app id
-/// @param channelKey 动态key
-- (void)setSdkAppID:(NSString *)appID withChannelKey:(NSString *)channelKey;
-
-/// 更新sdk动态key
-/// @param channelKey sdk动态key
-- (void)renewChannelKey:(NSString *)channelKey;
-
-/// 更新连线SEI
-/// @param info SEI信息
-- (void)updateSeiDataForConnectWithSeiDict:(NSDictionary *)info;
-
-
-
 @end
 #endif /* MomoMediaEngine_h */
