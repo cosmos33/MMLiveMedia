@@ -18,53 +18,55 @@
 
  @return 当前sdk版本号
  */
-+ (NSString *)sdkVersion;
++ (NSString *_Nonnull)sdkVersion;
 
 /**
  获取当前设置的user id
 
  @return user id
  */
-+ (NSString *)userID;
-
-/**
- 获取当前设置的room id
-
- @return room id
- */
-+ (NSString *)roomID;
++ (NSString *_Nullable)userID;
 
 /**
  获取当前设置的app id
 
  @return app id
  */
-+ (NSString *)appid;
++ (NSString *_Nullable)appid;
 
 /**
  获取当前设置的app秘钥
 
  @return app秘钥
  */
-+ (NSString *)secret;
++ (NSString *_Nullable)secret;
 
 /**
  获取当前设置的app私有版本号（注意：是私有版本号，非appsStore显示的公开版本）
 
  @return app私有版本号
  */
-+ (NSString *)appVerNum;
++ (NSString *_Nullable)appVerNum;
 
-#pragma mark - setter
-/**
- 设置room id
+/// 获取当前设置的room id
++ (NSString *_Nullable)roomID;
 
- @param roomID room id
- */
-+ (void)setRoomID:(NSString *)roomID;
+/// 获取当前设置的主播cdn供应商
++ (int)provider;
 
+/// 获取当前设置的主播业务类型
++ (int)businessType;
 
-#pragma mark - init method
+/// 获取当前设置的观众room id
++ (NSString *_Nullable)guestRoomID;
+
+/// 获取当前设置的观众cdn供应商
++ (int)guestProvider;
+
+/// 获取当前设置的观众业务类型
++ (int)guestBusinessType;
+
+#pragma mark - public method
 /**
  初始化sdk
 
@@ -73,10 +75,26 @@
  @param appVerNum app私有版本号（注意：是私有版本号，公开版本号无需设置，sdk内自动读取工程配置）
  @param userId 用户id
  */
-+ (void)initSDKWithAppId:(NSString *)appId
-                  secret:(NSString *)secret
-               appVerNum:(NSString *)appVerNum
-                  userId:(NSString *)userId;
++ (void)initSDKWithAppId:(NSString *_Nonnull)appId
+                  secret:(NSString *_Nonnull)secret
+               appVerNum:(NSString *_Nonnull)appVerNum
+                  userId:(NSString *_Nonnull)userId
+             resultBlock:(void(^ _Nullable)(BOOL success))resultBlock;
+
+/// 设置主播日志信息
+/// @param roomId 房间号
+/// @param provider cdn供应商
+/// @param businessType 业务类型
++ (void)updateConfigWithRoomId:(NSString *_Nullable)roomId provider:(int)provider businessType:(int)businessType;
+
+/// 设置观众日志信息
+/// @param roomId 房间号
+/// @param provider cdn供应商
+/// @param businessType 业务类型
++ (void)updateGuestConfigWithRoomId:(NSString *_Nullable)roomId provider:(int)provider businessType:(int)businessType;
+
+/// 清理config
++ (void)uninitConfig;
 
 @end
 #endif /* MomoMediaContext_h */
