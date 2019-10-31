@@ -16,6 +16,7 @@
 - (void)MomoMediaPlayerFailed:(MomoMediaPlayer*)player; //播放失败
 - (void)MomoMediaPlayerStartBuffer:(MomoMediaPlayer*)player; //播放卡顿开始
 - (void)MomoMediaPlayerEndBuffer:(MomoMediaPlayer*)player; //播放卡顿结束
+- (void)MomoMediaPlayer:(MomoMediaPlayer*)player didRecvUserInfo:(NSDictionary *)seiInfo; //收到透传sei
 @end
 
 @interface MomoMediaPlayerConfiguration : NSObject

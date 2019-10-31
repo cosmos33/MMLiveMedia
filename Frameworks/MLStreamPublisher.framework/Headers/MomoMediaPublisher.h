@@ -114,10 +114,14 @@ typedef NS_ENUM(NSUInteger, MomoMediaPublisherLinkType) {
 
 /// 设置连麦类型
 /// @param linkType 连麦类型
+/// @param appId 第三方连麦sdk的appid
 - (void)setLinkType:(MomoMediaPublisherLinkType)linkType appId:(NSString *)appId;
 
-/// 设置是否为主播
+/// 设置加入房间的配置信息
 /// @param isHost 是否为主播
+/// @param channelName 连麦房间id
+/// @param userId 连麦用户id
+/// @param channelKey 用户认证信息
 - (void)setJoinParamsIsHost:(BOOL)isHost channelName:(NSString *)channelName userId:(long)userId channelKey:(NSString *)channelKey;
 
 /// 关闭本地视频分送
