@@ -128,6 +128,8 @@ IJK_EXTERN NSString *const IJKMoviePlayerPlaybackRestartAudioQueue;
 
 IJK_EXTERN NSString *const IJKMoviePlayerPlaybackVideoTsBackError;
 IJK_EXTERN NSString *const IJKMoviePlayerPlaybackChangeMaxBuffer;
+
+IJK_EXTERN NSString *const IJKMoviePlayerPlaybackAudioQueuePlayFailed;
 @end
 
 #pragma mark IJKMediaResource
