@@ -8,15 +8,96 @@
 #ifndef MMLiveRTC_h
 #define MMLiveRTC_h
 #import <Foundation/Foundation.h>
-#import "MMCommonProtocols.h"
 #import "MMCommonParam.h"
+
+@class MMLiveRTC;
+#pragma mark - MMLiveRTCDelegate
+@protocol MMLiveRTCDelegate <NSObject>
+
+/**
+推流器开始推流
+*/
+- (void)MMLiveRTCPushStarting:(MMLiveRTC *)pusher type:(MMLivePushType)type error:(NSError*)error;
+
+/**
+推流器停止推流
+*/
+- (void)MMLiveRTCPushStopped:(MMLiveRTC *)pusher type:(MMLivePushType)type error:(NSError*)error;
+
+/**
+推流器推流失败
+*/
+- (void)MMLiveRTCPushFailed:(MMLiveRTC *)pusher type:(MMLivePushType)type error:(NSError*)error;
+
+/**
+推流卡顿开始
+*/
+- (void)MMLiveRTCBufferStart:(MMLiveRTC *)pusher type:(MMLivePushType)type error:(NSError*)error;
+
+/**
+推流卡顿结束
+*/
+- (void)MMLiveRTCBufferStopped:(MMLiveRTC *)pusher type:(MMLivePushType)type error:(NSError*)error;
+
+/**
+推流数据到达cdn（经验值），只用于平滑切换的优化方案
+*/
+- (void)MMLiveRTCPushReplaced:(MMLiveRTC *)pusher type:(MMLivePushType)type error:(NSError*)error;
+
+/**
+用户自己加入频道
+*/
+- (void)MMLiveRTC:(MMLiveRTC *)pusher hostDidJoinChannel:(NSString *)channel type:(MMLivePushType)type;
+
+/**
+其他用户加入频道
+*/
+- (void)MMLiveRTC:(MMLiveRTC *)pusher didMemberJoinChannel:(NSString *)channel withUid:(NSUInteger)uid type:(MMLivePushType)type;
+
+/**
+其他用户退出频道
+*/
+- (void)MMLiveRTC:(MMLiveRTC *)pusher MemberLeaveWithUserId:(NSString *)userId reason:(NSInteger)reason type:(MMLivePushType)type;
+
+/**
+用户离开频道
+*/
+- (void)MMLiveRTChostDidLeaveChannel:(MMLiveRTC *)pusher type:(MMLivePushType)type;
+
+/**
+其他用户掉线
+*/
+- (void)MMLiveRTC:(MMLiveRTC *)pusher didMemberOfflineWithUid:(NSString *)uid type:(MMLivePushType)type;
+
+/**
+收到其他用户第一帧视频
+*/
+- (void)MMLiveRTC:(MMLiveRTC *)pusher didReceivedFirstVideoFrameWithRemoteId:(NSString *)uid remoteView:(UIView *)remoteView type:(MMLivePushType)type;
+
+/**
+其他用户声音是否静音
+*/
+- (void)MMLiveRTC:(MMLiveRTC *)pusher didMemberAudioMuted:(BOOL)muted remoteUid:(NSUInteger)uid type:(MMLivePushType)type;
+
+/**
+其他用户画面是否关闭
+*/
+- (void)MMLiveRTC:(MMLiveRTC *)pusher didMemberVideoMuted:(BOOL)muted remoteUid:(NSUInteger)uid type:(MMLivePushType)type;
+
+/**
+连线错误
+*/
+- (void)MMLiveRTC:(id)pusher didOccurError:(RTCErrorCode)errorCode type:(MMLivePushType)type;
+@end
+
+
 @interface MMLiveRTC: NSObject
 
 - (instancetype) initWithUserConfig:(MMLiveUserConfig *)userConfig;
 /**
 设置代理
 */
-@property (nonatomic, weak) id<MMLivePusherDelegate> delegate;
+@property (nonatomic, weak) id<MMLiveRTCDelegate> delegate;
 
 /**
 获取MMLivePusherConfig

@@ -138,7 +138,7 @@
 - (void) removeGesture:(MLObjectTriggeredDecoration*) decoration;
 
 #pragma mark - 设置
-@property (nonatomic, weak) id<MMLivePusherDelegate> pushdelegate;
+@property (nonatomic, weak) id<MMLiveEngineDelegate> delegate;
 @property (nonatomic, readonly, strong) MMLiveMediaConfig *pusherConfig;
 @property (nonatomic, readonly, copy) NSString *rtmpURL;
 - (instancetype)initUserConfig:(MMLiveUserConfig *)config engineType:(MMLiveEngineType)type;
@@ -261,8 +261,6 @@
 - (void) switchPusherType;
 
 #pragma mark - 播放器
-@property (nonatomic, weak) id<MMLivePlayerDelegate> playdelegate;
-
 /**
 
 设置追帧延迟

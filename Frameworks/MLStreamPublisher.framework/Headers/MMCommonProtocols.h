@@ -8,123 +8,128 @@
 #ifndef MMCommonProtocols_h
 #define MMCommonProtocols_h
 #import <Foundation/Foundation.h>
-#pragma mark - MMlivePlayerDelegate
-@class MMLivePlayer;
-@protocol MMLivePlayerDelegate <NSObject>
-/**
-开始渲染
-*/
-- (void)MMLivePlayerStartRendering:(MMLivePlayer *)player;
+#import "MMCommonParam.h"
+#pragma mark - MMLiveEngineDelegate
 
-/**
-正常结束
-*/
-- (void)MMLivePlayerDidFinish:(MMLivePlayer *)player;
-
-/**
-播放错误
-*/
-- (void)MMLivePlayerFailed:(MMLivePlayer *)player;
-
-/**
-开始缓冲
-*/
-- (void)MMLivePlayerStartBuffer:(MMLivePlayer *)player;
-
-/**
-结束缓冲
-*/
-- (void)MMLivePlayerEndBuffer:(MMLivePlayer *)player;
-
-/**
-收到透传sei
-*/
-- (void)MMLivePlayer:(MMLivePlayer *)player didRecvUserInfo:(NSDictionary *)seiInfo;
-@end
-
-
-#pragma mark - MMLivePusherDelegate
-@protocol MMLivePusherDelegate <NSObject>
+@class MMLiveEngine;
+@protocol MMLiveEngineDelegate <NSObject>
 
 /**
 推流器开始推流
 */
-- (void)MMLivePusherDidStartPushing:(id)pusher error:(NSError*)error;
+- (void)MMLiveEnginePushStarting:(MMLiveEngine *)engine type:(MMLivePushType)type error:(NSError*)error;
 
 /**
 推流器停止推流
 */
-- (void)MMLivePusherDidStopPushing:(id)pusher error:(NSError*)error;
+- (void)MMLiveEnginePushStopped:(MMLiveEngine *)engine type:(MMLivePushType)type error:(NSError*)error;
 
 /**
 推流器推流失败
 */
-- (void)MMLivePusherFailed:(id)pusher error:(NSError*)error;
+- (void)MMLiveEnginePushFailed:(MMLiveEngine *)engine type:(MMLivePushType)type error:(NSError*)error;
 
 /**
 推流卡顿开始
 */
-- (void)MMLivePusherStartBuffer:(id)pusher error:(NSError*)error;
+- (void)MMLiveEngineBufferStart:(MMLiveEngine *)engine type:(MMLivePushType)type error:(NSError*)error;
 
 /**
 推流卡顿结束
 */
-- (void)MMLivePusherStopBuffer:(id)pusher error:(NSError*)error;
-
-/**
-用户自己加入频道
-*/
-- (void)MMLivePusher:(id)pusher hostDidJoinChannel:(NSString *)channel;
-
-/**
-其他用户加入频道
-*/
-- (void)MMLivePusher:(id)pusher didRemoteJoinChannel:(NSString *)channel withUid:(NSUInteger)uid;
-
-/**
-rtmp推流器已经有数据发出
-*/
-- (void)MMLivePusherDidStartRtmpPushing:(id)pusher error:(NSError*)error;
-
-/**
-其他用户退出频道
-*/
-- (void)MMLivePusher:(id)pusher memberExitWithUserId:(NSString *)userId reason:(NSInteger)reason;
-
-/**
-用户离开频道
-*/
-- (void)MMLivePusherDidLeaveChannel:(id)pusher;
-
-/**
-连麦成功
-*/
-- (void)MMLivePusher:(id)pusher connectionSuccessWithHostId:(NSString *)hostId guestId:(NSString *)guestId;
-
-/**
-其他用户掉线
-*/
-- (void)MMLivePusher:(id)pusher didOfflineOfUid:(NSString *)uid;
-
-/**
-收到其他用户第一帧视频
-*/
-- (void)MMLivePusher:(id)pusher didReceivedVideoForRemoteId:(NSString *)uid remoteView:(UIView *)remoteView;
-
-/**
-其他用户声音是否静音
-*/
-- (void)MMLivePusher:(id)pusher didRemoteAudioMuted:(BOOL)muted remoteUid:(NSUInteger)uid;
-
-/**
-其他用户画面是否关闭
-*/
-- (void)MMLivePusher:(id)pusher didRemoteVideoMuted:(BOOL)muted remoteUid:(NSUInteger)uid;
+- (void)MMLiveEngineBufferStopped:(MMLiveEngine *)engine type:(MMLivePushType)type error:(NSError*)error;
 
 /**
 推流数据到达cdn（经验值），只用于平滑切换的优化方案
 */
-- (void)MMLivePusherDidReceivedCDN:(id)pusher frameCount:(NSUInteger)frameCount;
+- (void)MMLiveEnginePushReplaced:(MMLiveEngine *)engine type:(MMLivePushType)type error:(NSError*)error;
+
+/**
+用户自己加入频道
+*/
+- (void)MMLiveEngine:(MMLiveEngine *)engine hostDidJoinChannel:(NSString *)channel type:(MMLivePushType)type;
+
+/**
+其他用户加入频道
+*/
+- (void)MMLiveEngine:(MMLiveEngine *)engine didMemberJoinChannel:(NSString *)channel withUid:(NSUInteger)uid type:(MMLivePushType)type;
+
+/**
+其他用户退出频道
+*/
+- (void)MMLiveEngine:(MMLiveEngine *)engine MemberLeaveWithUserId:(NSString *)userId reason:(NSInteger)reason type:(MMLivePushType)type;
+
+/**
+用户离开频道
+*/
+- (void)MMLiveEnginehostDidLeaveChannel:(MMLiveEngine *)engine type:(MMLivePushType)type;
+
+/**
+其他用户掉线
+*/
+- (void)MMLiveEngine:(MMLiveEngine *)engine didMemberOfflineWithUid:(NSString *)uid type:(MMLivePushType)type;
+
+/**
+收到其他用户第一帧视频
+*/
+- (void)MMLiveEngine:(MMLiveEngine *)engine didReceivedFirstVideoFrameWithRemoteId:(NSString *)uid remoteView:(UIView *)remoteView type:(MMLivePushType)type;
+
+/**
+其他用户声音是否静音
+*/
+- (void)MMLiveEngine:(MMLiveEngine *)engine didMemberAudioMuted:(BOOL)muted remoteUid:(NSUInteger)uid type:(MMLivePushType)type;
+
+/**
+其他用户画面是否关闭
+*/
+- (void)MMLiveEngine:(MMLiveEngine *)engine didMemberVideoMuted:(BOOL)muted remoteUid:(NSUInteger)uid type:(MMLivePushType)type;
+
+/**
+连线错误
+*/
+- (void)MMLiveEngine:(MMLiveEngine *)engine didOccurError:(RTCErrorCode)errorCode type:(MMLivePushType)type;
+
+/**
+开始渲染
+*/
+- (void)MMLiveEnginePlayStartRendering:(MMLiveEngine *)engine;
+
+/**
+正常结束
+*/
+- (void)MMLiveEnginePlayDidFinish:(MMLiveEngine *)engine;
+
+/**
+播放错误
+*/
+- (void)MMLiveEnginePlayFailed:(MMLiveEngine *)engine;
+
+/**
+开始缓冲
+*/
+- (void)MMLiveEnginePlayStartBuffer:(MMLiveEngine *)engine;
+
+/**
+结束缓冲
+*/
+- (void)MMLiveEnginePlayEndBuffer:(MMLiveEngine *)engine;
+
+/**
+收到透传sei
+*/
+- (void)MMLiveEngine:(MMLiveEngine *)engine didRecvPlayUserInfo:(NSDictionary *)seiInfo;
+
+/**
+开始准备播放
+ */
+- (void)MMLiveEnginePlayDidStartPrepare:(MMLiveEngine *)engine;
+
+/**
+视频流size变化
+*/
+- (void)MMLiveEngine:(MMLiveEngine *)engine didChangePlaySize:(CGSize)size;
+
+
 @end
 
 #endif /* MMCommonProtocols_h */

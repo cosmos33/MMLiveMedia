@@ -30,11 +30,12 @@ typedef enum{
 }MMLiveRTCClientRole;
 
 typedef enum{
-    MMLiveRTCTypeConfAG = 1,
-    MMLiveRTCTypeConfTX = 2,
-    MMLiveRTCTypeConfWL = 3,
-    MMLiveRTCTypeConfMM = 4,
-}MMLiveRTCType;
+    MMLivePushTypeConfNONE = 0,
+    MMLivePushTypeConfAG = 1,
+    MMLivePushTypeConfTX = 2,
+    MMLivePushTypeConfWL = 3,
+    MMLivePushTypeConfMM = 4,
+}MMLivePushType;
 
 typedef enum{
     MMLiveAEFilterYUYIN = 0,// 原声
@@ -52,6 +53,18 @@ typedef enum{
     MMLiveAEFilterGiftRobot = 12,//礼物机器人
 }MMLiveAEFilter;
 
+typedef NS_ENUM(NSUInteger, RTCErrorCode)
+{
+    RTCErrorCodeNone                    = 0,
+    RTCErrorCodeInvalidAppId            = 1,
+    RTCErrorCodeInvalidChannelName      = 2,
+    RTCErrorCodeInvalidChannelKey       = 3,
+    RTCErrorCodeJoinChannelRejected     = 4,
+    RTCErrorCodeChannelKeyExpired       = 5,
+    RTCErrorCodeStartCall               = 6,
+    RTCErrorCodeEngineUnavailable       = 7 //底层引擎因为一些原因导致不可用
+};
+
 @interface MMLiveUserConfig : NSObject
 @property (nonatomic, copy) NSString *appId;
 @property (nonatomic, copy) NSString *userId;
@@ -61,9 +74,10 @@ typedef enum{
 @end
 
 @interface MMLiveRoomParams : NSObject
-@property (nonatomic) MMLiveRTCType linkType;
+@property (nonatomic) MMLivePushType linkType;
 @property (nonatomic, copy) NSString *confId;
 @property (nonatomic) MMLiveRTCClientRole role;
+@property (nonatomic) BOOL isHost;
 @property (nonatomic, copy) NSString *channelKey;
 @end
 

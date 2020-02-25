@@ -11,6 +11,51 @@
 #import "MMCommonParam.h"
 #import "MMCommonProtocols.h"
 
+@class MMLivePlayer;
+@protocol MMLivePlayerDelegate <NSObject>
+/**
+开始渲染
+*/
+- (void)MMLivePlayerStartRendering:(MMLivePlayer *)player;
+
+/**
+正常结束
+*/
+- (void)MMLivePlayerDidFinish:(MMLivePlayer *)player;
+
+/**
+播放错误
+*/
+- (void)MMLivePlayerFailed:(MMLivePlayer *)player;
+
+/**
+开始缓冲
+*/
+- (void)MMLivePlayerStartBuffer:(MMLivePlayer *)player;
+
+/**
+结束缓冲
+*/
+- (void)MMLivePlayerEndBuffer:(MMLivePlayer *)player;
+
+/**
+收到透传sei
+*/
+- (void)MMLivePlayer:(MMLivePlayer *)player didRecvUserInfo:(NSDictionary *)seiInfo;
+
+/**
+开始准备播放
+ */
+- (void)MMLivePlayerDidStartPrepare:(MMLivePlayer *)player;
+
+/**
+视频流size变化
+*/
+- (void)MMLivePlayer:(MMLivePlayer *)player didChangeSize:(CGSize)size;
+
+
+@end
+
 @interface MMLivePlayer : NSObject
 
 /**
