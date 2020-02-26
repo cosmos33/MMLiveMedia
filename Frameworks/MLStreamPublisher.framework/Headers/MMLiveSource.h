@@ -44,6 +44,13 @@
 - (void) setPreviewSize:(NSInteger)width height:(NSInteger)height;
 
 /**
+* 选择渲染方式
+*
+* @param renderMode 0 GPU渲染,1 metal 渲染
+*/
+- (void) setRenderMode:(MMLiveRenderMode)renderMode;
+
+/**
 * 开始预览
 *
 * @param cameraId 0 代表后置摄像头 ，1 代表前置摄像头

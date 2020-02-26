@@ -9,7 +9,6 @@
 #define MomoMediaEngine_h
 #import <Foundation/Foundation.h>
 #import "MMCommonParam.h"
-#import "MMCommonProtocols.h"
 
 @class MMLivePlayer;
 @protocol MMLivePlayerDelegate <NSObject>
@@ -79,9 +78,8 @@
 *  设置播放view
 *
 * @param view  播放器渲染的父view
-* @param frame  播放器渲染的view的frame
 */
-- (void)setPlayerView:(UIView *)view frame:(CGRect)frame;
+- (void)setPlayerView:(UIView *)view;
 
 /**
  *  移除视频渲染的view
@@ -93,7 +91,7 @@
 *
 * @param url 完整的 URL（如果播放的是本地视频文件，这里传本地视频文件的完整路径）
 */
-- (int)startPlayWithUrl:(NSURL *)url;
+- (int)startPlay:(NSString *)url;
 
 /**
 * 停止播放音视频流
@@ -110,7 +108,7 @@
 /**
 *  设置静音
 */
-- (void)setMuteEnable:(BOOL)enable;
+- (void)setMute:(BOOL)enable;
 
 /**
  设置追帧延迟

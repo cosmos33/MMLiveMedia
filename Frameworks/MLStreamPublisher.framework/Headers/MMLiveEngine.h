@@ -10,13 +10,156 @@
 #import <Foundation/Foundation.h>
 #import <MLVideoProcessing/MLCameraSource.h>
 #import "MMCommonParam.h"
-#import "MMCommonProtocols.h"
+
+#pragma mark - MMLiveEngineDelegate
+
+@class MMLiveEngine;
+@protocol MMLiveEnginePusherDelegate <NSObject>
+
+/**
+推流器开始推流
+*/
+- (void)MMLiveEnginePusherStarting:(MMLiveEngine *)engine type:(MMLivePushType)type error:(NSError*)error;
+
+/**
+推流器停止推流
+*/
+- (void)MMLiveEnginePusherStopped:(MMLiveEngine *)engine type:(MMLivePushType)type error:(NSError*)error;
+
+/**
+推流器推流失败
+*/
+- (void)MMLiveEnginePusherFailed:(MMLiveEngine *)engine type:(MMLivePushType)type error:(NSError*)error;
+
+/**
+推流卡顿开始
+*/
+- (void)MMLiveEnginePusherBufferStart:(MMLiveEngine *)engine type:(MMLivePushType)type error:(NSError*)error;
+
+/**
+推流卡顿结束
+*/
+- (void)MMLiveEnginePusherBufferStopped:(MMLiveEngine *)engine type:(MMLivePushType)type error:(NSError*)error;
+
+/**
+推流数据到达cdn（经验值），只用于平滑切换的优化方案
+*/
+- (void)MMLiveEnginePusherReplaced:(MMLiveEngine *)engine type:(MMLivePushType)type error:(NSError*)error;
+
+/**
+用户自己加入频道
+*/
+- (void)MMLiveEnginePusher:(MMLiveEngine *)engine localDidJoinChannel:(NSString *)channel type:(MMLivePushType)type;
+
+/**
+其他用户加入频道
+*/
+- (void)MMLiveEnginePusher:(MMLiveEngine *)engine didMemberJoinChannel:(NSString *)channel withUid:(NSUInteger)uid type:(MMLivePushType)type;
+
+/**
+其他用户退出频道
+*/
+- (void)MMLiveEnginePusher:(MMLiveEngine *)engine MemberLeaveWithUserId:(NSString *)userId reason:(NSInteger)reason type:(MMLivePushType)type;
+
+/**
+用户离开频道
+*/
+- (void)MMLiveEnginePusherLocalDidLeaveChannel:(MMLiveEngine *)engine type:(MMLivePushType)type;
+
+/**
+其他用户掉线
+*/
+- (void)MMLiveEnginePusher:(MMLiveEngine *)engine didMemberOfflineWithUid:(NSString *)uid type:(MMLivePushType)type;
+
+/**
+收到其他用户第一帧视频
+*/
+- (void)MMLiveEnginePusher:(MMLiveEngine *)engine didReceivedFirstVideoFrameWithRemoteId:(NSString *)uid remoteView:(UIView *)remoteView type:(MMLivePushType)type;
+
+/**
+其他用户声音是否静音
+*/
+- (void)MMLiveEnginePusher:(MMLiveEngine *)engine didMemberAudioMuted:(BOOL)muted remoteUid:(NSUInteger)uid type:(MMLivePushType)type;
+
+/**
+其他用户画面是否关闭
+*/
+- (void)MMLiveEnginePusher:(MMLiveEngine *)engine didMemberVideoMuted:(BOOL)muted remoteUid:(NSUInteger)uid type:(MMLivePushType)type;
+
+/**
+连线错误
+*/
+- (void)MMLiveEnginePusher:(MMLiveEngine *)engine didOccurError:(RTCErrorCode)errorCode type:(MMLivePushType)type;
+
+@end
+
+@protocol MMLiveEnginePlayerDelegate <NSObject>
+
+/**
+播放器开始渲染
+*/
+- (void)MMLiveEnginePlayerStartRendering:(MMLiveEngine *)engine;
+
+/**
+播放器正常结束
+*/
+- (void)MMLiveEnginePlayerDidFinish:(MMLiveEngine *)engine;
+
+/**
+播放器播放错误
+*/
+- (void)MMLiveEnginePlayerFailed:(MMLiveEngine *)engine;
+
+/**
+播放器开始缓冲
+*/
+- (void)MMLiveEnginePlayerStartBuffer:(MMLiveEngine *)engine;
+
+/**
+播放器结束缓冲
+*/
+- (void)MMLiveEnginePlayerEndBuffer:(MMLiveEngine *)engine;
+
+/**
+播放器收到透传sei
+*/
+- (void)MMLiveEnginePlayer:(MMLiveEngine *)engine didRecvUserInfo:(NSDictionary *)seiInfo;
+
+/**
+播放器开始准备播放
+ */
+- (void)MMLiveEnginePlayerDidStartPrepare:(MMLiveEngine *)engine;
+
+/**
+播放器收到视频流size变化
+*/
+- (void)MMLiveEnginePlayer:(MMLiveEngine *)engine didChangeSize:(CGSize)size;
+
+
+@end
+
 
 @protocol MLStreamMediaDataConsumer;
 @interface MMLiveEngine : NSObject <MLStreamMediaDataConsumer>
-+ (void) initConfig:(NSString*)Appid secret:(NSString*)secret appVer:(NSString*)appVer userId:(NSString*)userId;
 
-+ (void) deinitConfig;
+/**
+设置配置信息
+@param appId 业务id
+@param secret 秘钥
+@param appVer app版本号
+@param userId 用户id
+@param completeHandler 回调 (errorCode: 0 - 成功, 1 - 参数异常, 2 - 缓存信息重复, 3 - 配置信息拉取失败, 4 - appid和secret校验失败)
+*/
++ (void)setConfigWithAppId:(NSString *)appId
+                    secret:(NSString *)secret
+                    appVer:(NSString *)appVer
+                    userId:(NSString *)userId
+           completeHandler:(void (^)(int errorCode))completeHandler;
+
+/**
+清理配置信息
+*/
++ (void)cleanConfig;
 
 #pragma mark - 预览
 
@@ -35,6 +178,13 @@
 * @param height 预览高
 */
 - (void) setPreviewSize:(NSInteger)width height:(NSInteger)height;
+
+/**
+* 选择渲染方式
+*
+* @param renderMode 0 GPU渲染,1 metal 渲染
+*/
+- (void) setRenderMode:(MMLiveRenderMode)renderMode;
 
 /**
 * 开始预览
@@ -138,7 +288,7 @@
 - (void) removeGesture:(MLObjectTriggeredDecoration*) decoration;
 
 #pragma mark - 设置
-@property (nonatomic, weak) id<MMLiveEngineDelegate> delegate;
+@property (nonatomic, weak) id<MMLiveEnginePusherDelegate> pusherDelegate;
 @property (nonatomic, readonly, strong) MMLiveMediaConfig *pusherConfig;
 @property (nonatomic, readonly, copy) NSString *rtmpURL;
 - (instancetype)initUserConfig:(MMLiveUserConfig *)config engineType:(MMLiveEngineType)type;
@@ -261,6 +411,8 @@
 - (void) switchPusherType;
 
 #pragma mark - 播放器
+@property (nonatomic, weak) id<MMLiveEnginePlayerDelegate> playerDelegate;
+
 /**
 
 设置追帧延迟
@@ -322,7 +474,7 @@
 /**
 * 获取播放器的状态
 *
-* @param MMLivePlayerStatus 枚举状态
+* return MMLivePlayerStatus 枚举状态
 */
 - (MMLivePlayerStatus) getPlayStatus;
 

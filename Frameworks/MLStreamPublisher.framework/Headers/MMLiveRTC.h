@@ -128,7 +128,7 @@
 进房
 @param config 进房信息
 */
-- (void)enterRoom:(MMLiveMediaConfig *)config;
+- (int)enterRoom:(MMLiveMediaConfig *)config;
 
 /**
 退房

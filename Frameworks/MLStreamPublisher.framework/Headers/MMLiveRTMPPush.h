@@ -57,7 +57,7 @@
 *
 * @param config 推流媒体参数
 */
-- (void) startPush:(MMLiveMediaConfig*) config;
+- (int) startPush:(MMLiveMediaConfig*) config;
 
 /**
 * 停止推流

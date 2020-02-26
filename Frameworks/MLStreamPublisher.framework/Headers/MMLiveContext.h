@@ -57,7 +57,7 @@
 /**
 清理配置信息
 */
-+ (void)clean;
++ (void)cleanConfig;
 
 /**
  获取配置

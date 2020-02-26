@@ -65,6 +65,11 @@ typedef NS_ENUM(NSUInteger, RTCErrorCode)
     RTCErrorCodeEngineUnavailable       = 7 //底层引擎因为一些原因导致不可用
 };
 
+typedef enum{
+    MMLiveRenderModeGPUImage = 0,
+    MMLiveRenderModeMetalPetal = 1,
+}MMLiveRenderMode;
+
 @interface MMLiveUserConfig : NSObject
 @property (nonatomic, copy) NSString *appId;
 @property (nonatomic, copy) NSString *userId;
