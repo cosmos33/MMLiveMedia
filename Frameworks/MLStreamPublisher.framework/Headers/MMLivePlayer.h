@@ -58,6 +58,11 @@
 @interface MMLivePlayer : NSObject
 
 /**
+*  用户配置信息
+*/
+@property (nonatomic, strong) MMLiveUserConfig *userConfig;
+
+/**
 *  播放器回调
 */
 @property (nonatomic, weak) id <MMLivePlayerDelegate> delegate;

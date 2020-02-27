@@ -104,6 +104,8 @@
 */
 @property (nonatomic, readonly, strong) MMLiveMediaConfig *pusherConfig;
 
+@property (nonatomic, strong) MMLiveUserConfig *userConfig;
+
 @property (nonatomic, strong) id sourceHandle;
 
 /**

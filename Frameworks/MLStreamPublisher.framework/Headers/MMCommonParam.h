@@ -19,22 +19,22 @@ typedef NS_ENUM(NSInteger, MMLivePlayerStatus) {
 };
 
 typedef enum{
-    MMLiveEngineTypePlay = 1,
-    MMLiveEngineTypePush = 2,
-    MMLiveEngineTypeNone = 3,
+    MMLiveEngineTypePlay = 1,//设置engine 是播放器功能
+    MMLiveEngineTypePush = 2,//设置engine 是rtmp推流或者rtc功能
+    MMLiveEngineTypeNone = 3,//设置engine 暂时不具备功能
 }MMLiveEngineType;
 
 typedef enum{
-    MMLiveRTCClientRoleBroadcaster = 1,
-    MMLiveRTCClientRoleAudience = 2,
+    MMLiveRTCClientRoleBroadcaster = 1,//连线的角色是主播或者副播
+    MMLiveRTCClientRoleAudience = 2,   //连线的角色是观众
 }MMLiveRTCClientRole;
 
 typedef enum{
     MMLivePushTypeConfNONE = 0,
-    MMLivePushTypeConfAG = 1,
-    MMLivePushTypeConfTX = 2,
-    MMLivePushTypeConfWL = 3,
-    MMLivePushTypeConfMM = 4,
+    MMLivePushTypeConfAG = 1,//连线供应商 声网
+    MMLivePushTypeConfTX = 2,//连线供应商 腾讯
+    MMLivePushTypeConfWL = 3,//连线供应商 三体
+    MMLivePushTypeConfMM = 4,//连线供应商 陌陌
 }MMLivePushType;
 
 typedef enum{
@@ -66,8 +66,8 @@ typedef NS_ENUM(NSUInteger, RTCErrorCode)
 };
 
 typedef enum{
-    MMLiveRenderModeGPUImage = 0,
-    MMLiveRenderModeMetalPetal = 1,
+    MMLiveRenderModeGPUImage = 0,//特效处理使用GPU
+    MMLiveRenderModeMetalPetal = 1,//特效处理使用metal
 }MMLiveRenderMode;
 
 @interface MMLiveUserConfig : NSObject
@@ -79,38 +79,38 @@ typedef enum{
 @end
 
 @interface MMLiveRoomParams : NSObject
-@property (nonatomic) MMLivePushType linkType;
-@property (nonatomic, copy) NSString *confId;
-@property (nonatomic) MMLiveRTCClientRole role;
-@property (nonatomic) BOOL isHost;
-@property (nonatomic, copy) NSString *channelKey;
+@property (nonatomic) MMLivePushType linkType;//推流类型
+@property (nonatomic, copy) NSString *confId;//供应商appid
+@property (nonatomic) MMLiveRTCClientRole role;//角色
+@property (nonatomic) BOOL isHost;//YES 主播 能够转推CDN；NO副播 不会转推
+@property (nonatomic, copy) NSString *channelKey;//连线进房的密钥
 @end
 
 @interface MMLiveLinkMember : NSObject
-@property (nonatomic, copy) NSString *userId;
-@property (nonatomic, assign) CGRect rect;
-@property (nonatomic) CGFloat volume;
-@property (nonatomic) int muteFlag;
-@property (nonatomic) int offLineFlag;
+@property (nonatomic, copy) NSString *userId;//连线布局某个用户的uid
+@property (nonatomic, assign) CGRect rect;//连线布局某个用户的frame
+@property (nonatomic) CGFloat volume;//该用户的音量状态
+@property (nonatomic) int muteFlag;//该用户的静音状态
+@property (nonatomic) int offLineFlag;//该用户的离线状态
 @end
 
 @interface MMLiveSei : NSObject
-@property (nonatomic, copy) NSString *userId;
-@property (nonatomic, strong) UIColor* color;
-@property (nonatomic) CGSize canvasSize;
-@property (nonatomic, strong) NSArray<MMLiveLinkMember*>* transcodingMembers;
-@property (nonatomic, strong) NSArray<MMLiveLinkMember*>* infoMembers;
-@property (nonatomic, copy) NSString *extString;
+@property (nonatomic, copy) NSString *userId;//主播的uid
+@property (nonatomic, strong) UIColor* color;//背景颜色
+@property (nonatomic) CGSize canvasSize;//转推画布大小
+@property (nonatomic, strong) NSArray<MMLiveLinkMember*>* transcodingMembers;//转推cdn的布局
+@property (nonatomic, strong) NSArray<MMLiveLinkMember*>* infoMembers;//观众端有效流的布局
+@property (nonatomic, copy) NSString *extString;//透传sei
 @end
 
 @interface MMLiveMediaConfig : NSObject
-@property (nonatomic) NSInteger videoFPS;
-@property (nonatomic) CGSize videoEncodeSize;
-@property (nonatomic) CGFloat videoBitRate;
-@property (nonatomic) CGFloat audioBitRate;
-@property (nonatomic) CGFloat audioSampleRate;
-@property (nonatomic) NSInteger audioChannels;
-@property (nonatomic, copy) NSString *url;
+@property (nonatomic) NSInteger videoFPS;//推流的帧率
+@property (nonatomic) CGSize videoEncodeSize;//视频编码尺寸
+@property (nonatomic) CGFloat videoBitRate;//视频编码码率
+@property (nonatomic) CGFloat audioBitRate;//音频编码码率
+@property (nonatomic) CGFloat audioSampleRate;//音频采样率
+@property (nonatomic) NSInteger audioChannels;//音频声道
+@property (nonatomic, copy) NSString *url;//推流地址
 @end
 
 #endif /* MMCommonParam_h */

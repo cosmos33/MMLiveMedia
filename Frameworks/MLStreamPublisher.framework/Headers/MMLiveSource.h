@@ -140,16 +140,44 @@
 /**
 * 设置大眼级别
 *
-* @param level 大眼级别，level 0～1。。
+* @param level 大眼级别，level 0～1。
 */
 - (void) setEyeScaleLevel:(CGFloat)level;
 
 /**
 * 设置瘦脸级别
 *
-* @param level 大脸级别，level 0～1。。
+* @param level 大脸级别，level 0～1。
 */
 - (void) setFaceScaleLevel:(CGFloat)level;
+
+/**
+* 设置削脸
+*
+* @param level 大脸级别，level -0.5 ~ 0.5。
+*/
+- (void) setFaceWidthLevel:(CGFloat)level;
+
+/**
+* 设置下巴
+*
+* @param level 下巴级别，level -0.5 ~ 0.5。
+*/
+- (void) setChinLengthLevel:(CGFloat)level;
+
+/**
+* 设置鼻子
+*
+* @param level 鼻子大小级别，level -0.5 ~ 0.5。
+*/
+- (void) setNoseSizeLevel:(CGFloat)level;
+
+/**
+* 设置嘴唇厚度
+*
+* @param level 嘴唇厚度级别，level -0.5 ~ 0.5。
+*/
+- (void) setLipThicknessLevel:(CGFloat)level;
 
 /**
 * 设置指定素材滤镜特效

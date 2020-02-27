@@ -244,6 +244,34 @@
 - (void) setFaceScaleLevel:(CGFloat)level;
 
 /**
+* 设置削脸
+*
+* @param level 大脸级别，level -0.5 ~ 0.5。
+*/
+- (void) setFaceWidthLevel:(CGFloat)level;
+
+/**
+* 设置下巴
+*
+* @param level 下巴级别，level -0.5 ~ 0.5。
+*/
+- (void) setChinLengthLevel:(CGFloat)level;
+
+/**
+* 设置鼻子
+*
+* @param level 鼻子大小级别，level -0.5 ~ 0.5。
+*/
+- (void) setNoseSizeLevel:(CGFloat)level;
+
+/**
+* 设置嘴唇厚度
+*
+* @param level 嘴唇厚度级别，level -0.5 ~ 0.5。
+*/
+- (void) setLipThicknessLevel:(CGFloat)level;
+
+/**
 * 设置指定素材滤镜特效
 *
 * @param filter 滤镜的lookup图片
@@ -291,6 +319,7 @@
 @property (nonatomic, weak) id<MMLiveEnginePusherDelegate> pusherDelegate;
 @property (nonatomic, readonly, strong) MMLiveMediaConfig *pusherConfig;
 @property (nonatomic, readonly, copy) NSString *rtmpURL;
+@property (nonatomic, strong) MMLiveUserConfig* userConfig;
 - (instancetype)initUserConfig:(MMLiveUserConfig *)config engineType:(MMLiveEngineType)type;
 
 #pragma mark - RTMP

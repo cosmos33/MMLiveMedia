@@ -48,6 +48,7 @@
 @interface MMLiveRTMPPush : NSObject
 @property (nonatomic, weak) id<MMLiveRTMPPushDelegate> delegate;
 @property (nonatomic, readonly, strong) MMLiveMediaConfig *pusherConfig;
+@property (nonatomic, strong) MMLiveUserConfig *userConfig;
 @property (nonatomic, strong) id sourceHandle;
 
 - (instancetype) initWithUserConfig:(MMLiveUserConfig *)userConfig;
