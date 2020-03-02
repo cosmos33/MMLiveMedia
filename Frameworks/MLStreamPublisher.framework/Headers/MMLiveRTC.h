@@ -87,7 +87,7 @@
 /**
 连线错误
 */
-- (void)MMLiveRTC:(id)pusher didOccurError:(RTCErrorCode)errorCode type:(MMLivePushType)type;
+- (void)MMLiveRTC:(MMLiveRTC *)pusher didOccurError:(RTCErrorCode)errorCode type:(MMLivePushType)type;
 @end
 
 

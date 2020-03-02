@@ -476,6 +476,11 @@
 - (void) setPlayerView:(UIView*) view;
 
 /**
+ *  移除视频渲染的view
+ */
+- (void)removePlayerView;
+
+/**
 * 启动从指定 URL 播放 音视频流
 *
 * @param url 完整的 URL（如果播放的是本地视频文件，这里传本地视频文件的完整路径）
