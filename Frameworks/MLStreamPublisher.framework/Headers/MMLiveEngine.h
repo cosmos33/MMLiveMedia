@@ -272,6 +272,27 @@
 - (void) setLipThicknessLevel:(CGFloat)level;
 
 /**
+* 设置腮红
+*
+* @param level 腮红级别，level 0.0 ~ 1.0。
+*/
+- (void)setMakeUpBlushLevel:(CGFloat)level;
+
+/**
+* 设置修容
+*
+* @param level 修容级别，level 0.0 ~ 1.0。
+*/
+- (void)setMakeUpFaceShadow:(CGFloat)level;
+
+/**
+* 设置眼影
+*
+* @param level 眼影级别，level 0.0 ~ 1.0。
+*/
+- (void)setMakeUpEyeShadow:(CGFloat)level;
+
+/**
 * 设置指定素材滤镜特效
 *
 * @param filter 滤镜的lookup图片
