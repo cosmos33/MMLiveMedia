@@ -187,6 +187,13 @@
 - (void) setRenderMode:(MMLiveRenderMode)renderMode;
 
 /**
+* 选择是否用doki美颜
+*
+* @param enable YES用doki美颜，NO 用老版美颜
+*/
+- (void) setUseDokiBeautyEnable:(BOOL)enable;
+
+/**
 * 开始预览
 *
 * @param cameraId 0 代表前置摄像头 ，1 代表后置摄像头
