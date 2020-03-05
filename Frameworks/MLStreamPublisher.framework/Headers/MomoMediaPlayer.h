@@ -16,7 +16,6 @@
 - (void)MomoMediaPlayerFailed:(MomoMediaPlayer*)player; //播放失败
 - (void)MomoMediaPlayerStartBuffer:(MomoMediaPlayer*)player; //播放卡顿开始
 - (void)MomoMediaPlayerEndBuffer:(MomoMediaPlayer*)player; //播放卡顿结束
-- (void)MomoMediaPlayer:(MomoMediaPlayer*)player didRecvUserInfo:(NSDictionary *)seiInfo; //收到透传sei
 @end
 
 @interface MomoMediaPlayerConfiguration : NSObject
@@ -31,6 +30,15 @@
 //正在拉流的状态,1正在拉流,0拉流结束
 @property (nonatomic, assign) BOOL isPlaying;
 
+/**
+ CDN供应商
+ */
+@property (nonatomic, assign) int provider;
+
+/**
+ 商业类型
+ */
+@property (nonatomic, assign) int businessType;
 
 //初始化播放器,可以通过此接口传入view和url,也可以分别通过startPlayWithURL和setupOnContainerView来设置view和url
 - (instancetype)initWithURL:(NSString*)url view:(UIView *)view;
