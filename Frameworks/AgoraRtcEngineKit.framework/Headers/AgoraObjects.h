@@ -52,6 +52,7 @@ __attribute__((visibility("default"))) @interface AgoraRtcRemoteVideoStats : NSO
 @property (assign, nonatomic) NSUInteger receivedFrameRate;
 @property (assign, nonatomic) NSUInteger packetLossRate;
 @property (assign, nonatomic) AgoraVideoStreamType rxStreamType;
+@property (assign, nonatomic) UInt64 rxVideoBytes;
 @end
 
 __attribute__((visibility("default"))) @interface AgoraRtcLocalAudioStats : NSObject
@@ -69,6 +70,10 @@ __attribute__((visibility("default"))) @interface AgoraRtcRemoteAudioStats : NSO
 @property (assign, nonatomic) NSUInteger numChannels;
 @property (assign, nonatomic) NSUInteger receivedSampleRate;
 @property (assign, nonatomic) NSUInteger receivedBitrate;
+@property (assign, nonatomic) NSUInteger freezeCnt;
+@property (assign, nonatomic) NSUInteger freezeCnt2;
+@property (assign, nonatomic) NSUInteger plcCnt;
+@property (assign, nonatomic) UInt64 totalReceivedBytes;
 @end
 
 __attribute__((visibility("default"))) @interface AgoraRtcAudioVolumeInfo : NSObject

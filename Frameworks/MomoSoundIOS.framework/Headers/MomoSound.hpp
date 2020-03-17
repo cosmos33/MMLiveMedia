@@ -45,7 +45,7 @@ typedef struct
 {
     int     rate;       // 采样率
     int     nChannels;  // 声道数
-    int     type;       // 类型 0:原音 1:怪兽音 2:娃娃音 3:机器人（偏男音） 4:机器人（偏女音）
+    int     type;       // 类型 0:原音 1:怪兽音 2:娃娃音 3:机器人（偏男音） 4:机器人（偏女音） 5:女变男 6:男变女 7:娃娃音 10:小黄人 12:礼物机器人
     int     nReserved[4]; //保留字段
 } Ctrl_Params_AEFilter;
 
@@ -89,7 +89,7 @@ public:
     AEFilter();
     ~AEFilter();
 
-    bool ProcessSound(char* input_ptr, int input_len, Ctrl_Params_AEFilter &params, char* ret_ptr, int* ret_len);
+    bool ProcessSound(char* input_ptr, int input_len, Ctrl_Params_AEFilter &params, char* ret_ptr, int* ret_len);//hrs
     
 private:
     void *SoundPitchShift_ptr_;

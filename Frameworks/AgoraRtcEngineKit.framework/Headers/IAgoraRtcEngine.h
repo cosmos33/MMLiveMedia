@@ -370,6 +370,7 @@ struct RemoteVideoStats
 	int receivedBitrate;
 	int receivedFrameRate;
     int packetLossRate;
+    unsigned long long rxVideoBytes;
     REMOTE_VIDEO_STREAM_TYPE rxStreamType;
 };
 
@@ -390,6 +391,10 @@ struct RemoteAudioStats
     int numChannels;
     int receivedSampleRate;
     int receivedBitrate;
+    int freezeCnt;
+    int freezeCnt2;
+    int plcCnt;
+    long long totalReceivedBytes;
 };
 
 struct VideoCompositingLayout
