@@ -93,7 +93,7 @@
 
 @interface MMLiveRTC: NSObject
 
-- (instancetype) initWithUserConfig:(MMLiveUserConfig *)userConfig;
+- (instancetype)initWithUserConfig:(MMLiveUserConfig *)userConfig;
 /**
 设置代理
 */
@@ -105,7 +105,10 @@
 @property (nonatomic, readonly, strong) MMLiveMediaConfig *pusherConfig;
 
 @property (nonatomic, strong) MMLiveUserConfig *userConfig;
-
+/**
+* MMLiveSource的输出结点
+* 把MMLiveRTC 的sourceHandle 添加 到MMLiveSource，才可以进行预览和推流
+*/
 @property (nonatomic, strong) id sourceHandle;
 
 /**
@@ -130,7 +133,7 @@
 进房
 @param config 进房信息
 */
-- (int)enterRoom:(MMLiveMediaConfig *)config;
+- (int)enterRoom:(MMLiveMediaConfig *)config transcoding:(MMLiveTranscoding*)transcoding;
 
 /**
 退房
@@ -139,9 +142,9 @@
 
 /**
 设置SEI
-@param sei sei结构体
+@param transcoding 转推布局
 */
-- (int)setLinkSei:(MMLiveSei *)sei;
+- (int)setLiveTranscoding:(MMLiveTranscoding *)transcoding;
 
 /**
 是否发送本地音频
