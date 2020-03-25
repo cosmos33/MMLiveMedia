@@ -161,6 +161,12 @@
 */
 + (void)cleanConfig;
 
+/**
+判断appid和userid是否已配置
+*/
++ (BOOL)isConfigInitedWithAppId:(NSString *)appId
+                         userId:(NSString *)userId;
+
 #pragma mark - 设置
 @property (nonatomic, weak) id<MMLiveEnginePusherDelegate> pusherDelegate;
 @property (nonatomic, readonly, strong) MMLiveMediaConfig *pusherConfig;

@@ -60,6 +60,12 @@
 + (void)cleanConfig;
 
 /**
+判断appid和userid是否已配置
+*/
++ (BOOL)isConfigInitedWithAppId:(NSString *)appId
+                         userId:(NSString *)userId;
+
+/**
  获取配置
  */
 + (MMLiveUserContext *)getUserContextWithUserId:(NSString *)userId appId:(NSString *)appId;
