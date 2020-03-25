@@ -88,6 +88,54 @@
 连线错误
 */
 - (void)MMLiveRTC:(MMLiveRTC *)pusher didOccurError:(RTCErrorCode)errorCode type:(MMLivePushType)type;
+
+
+- (void)MMLiveRTC:(MMLiveRTC *)pusher onConferenceAudioPacket:(NSData *)data audioInfo:(NSDictionary *)audioInfo type:(MMLivePushType)type;
+
+/**
+音乐播放失败
+*/
+- (void)MMLiveRTCMusicPlayFailed:(MMLiveRTC*)pusher error:(NSError*)error;
+
+/**
+音乐播放完成
+*/
+- (void)MMLiveRTCMusicPlayCompleted:(MMLiveRTC*)pusher error:(NSError*)error;
+
+/**
+推流码率和分辨率变化
+*/
+- (BOOL)MMLiveRTCLevelChange:(MMLiveRTC*)pusher encodeSize:(CGSize)encodeSize videoBitrate:(int)videoBitrate;
+
+/**
+伴奏播放失败
+*/
+- (void)MMLiveRTCEffectPlayFailed:(MMLiveRTC*)pusher effectId:(int)effectId error:(NSError*)error;
+
+/**
+伴奏播放完成
+*/
+- (void)MMLiveRTCPushEffectPlayCompleted:(MMLiveRTC*)pusher effectId:(int)effectId error:(NSError*)error;
+
+/**
+推流地址变化
+*/
+- (void)MMLiveRTCDidChangeStreamUrl:(MMLiveRTC*)pusher;
+
+/**
+频道key过期需要更新key
+*/
+- (void)MMLiveRTCRequestChannelKey:(MMLiveRTC*)pusher;
+
+/**
+连线用户声波大小
+*/
+- (void)MMLiveRTC:(MMLiveRTC*)pusher reportAudioVolumeIndicationOfSpeakers:(NSDictionary *)volumes;
+
+/**
+udp下行观众的sei
+*/
+- (void)MMLiveRTC:(MMLiveRTC*)pusher didReceiveSEI:(NSString *)sei;
 @end
 
 
@@ -252,6 +300,13 @@
 @param url 推流地址
 */
 - (void)setRestartWithURL:(NSURL *)url;
+
+/**
+* 打开平滑切换功能，默认关闭
+*
+* @param enable YES 打开 NO 关闭
+*/
+- (void)enableStreamReplace:(BOOL)enable;
 @end
 
 #endif /* MMLiveRTC_h */

@@ -9,6 +9,7 @@
 #define MMLiveContext_h
 
 #import <Foundation/Foundation.h>
+#import "MLDomainAnalysis.h"
 
 @interface MMLiveContextConfig : NSObject
 @property (nonatomic, copy) NSDictionary *logConfig;
@@ -60,8 +61,25 @@
 + (void)cleanConfig;
 
 /**
+判断appid和userid是否已配置
+*/
++ (BOOL)isConfigInitedWithAppId:(NSString *)appId
+                         userId:(NSString *)userId;
+
+/**
  获取配置
  */
 + (MMLiveUserContext *)getUserContextWithUserId:(NSString *)userId appId:(NSString *)appId;
+
+/**
+开关域名解析功能
+*/
++ (void)enableDomainAnalysis:(BOOL)enable;
+
+/**
+ 设置自定义域名解析工具（不设置或置为nil时使用SDK内部域名解析方案）
+*/
++ (void)setDomainAnalysis:(id <MLDomainAnalysis>)domainAnalysis;
+
 @end
 #endif /* MMLiveContext_h */
