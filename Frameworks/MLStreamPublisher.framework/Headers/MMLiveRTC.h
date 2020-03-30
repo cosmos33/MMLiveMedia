@@ -67,7 +67,7 @@
 /**
 其他用户掉线
 */
-- (void)MMLiveRTC:(MMLiveRTC *)pusher didMemberOfflineWithUid:(NSString *)uid type:(MMLivePushType)type;
+- (void)MMLiveRTC:(MMLiveRTC *)pusher didMemberOfflineWithUid:(NSString *)uid type:(MMLivePushType)type reason:(MMLiveRTCUserOffline)reason;
 
 /**
 收到其他用户第一帧视频

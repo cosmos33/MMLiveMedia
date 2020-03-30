@@ -30,6 +30,12 @@ typedef enum {
 }MMLiveRTCClientRole;
 
 typedef enum {
+    MMLiveRTCUserOffline_Quit = 0, //远端用户主动退出了
+    MMLiveRTCUserOffline_Dropped = 1, //远端用户掉线了
+    MMLiveRTCUserOffline_BecomeAudience = 2,//远端用户变成了观众
+}MMLiveRTCUserOffline;
+
+typedef enum {
     MMLivePushTypeConfNONE = 0,
     MMLivePushTypeConfAG   = 1,//连线供应商 声网
     MMLivePushTypeConfTX   = 2,//连线供应商 腾讯
