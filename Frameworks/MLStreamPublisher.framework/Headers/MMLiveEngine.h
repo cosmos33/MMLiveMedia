@@ -10,6 +10,7 @@
 #import <Foundation/Foundation.h>
 #import <MLVideoProcessing/MLCameraSource.h>
 #import "MMCommonParam.h"
+#import "MLDomainAnalysis.h"
 
 #pragma mark - MMLiveEngineDelegate
 
@@ -91,6 +92,50 @@
 */
 - (void)MMLiveEnginePusher:(MMLiveEngine *)engine didOccurError:(RTCErrorCode)errorCode type:(MMLivePushType)type;
 
+/**
+音乐播放失败
+*/
+- (void)MMLiveEnginePusherMusicPlayFailed:(MMLiveEngine *)engine type:(MMLivePushType)type error:(NSError*)error;
+
+/**
+音乐播放完成
+*/
+- (void)MMLiveEnginePusherMusicPlayCompleted:(MMLiveEngine *)engine type:(MMLivePushType)type error:(NSError*)error;
+
+/**
+推流码率和分辨率变化
+*/
+- (BOOL)MMLiveEnginePusherLevelChange:(MMLiveEngine *)engine encodeSize:(CGSize)encodeSize videoBitrate:(int)videoBitrate type:(MMLivePushType)type;
+
+/**
+音效播放失败
+*/
+- (void)MMLiveEnginePusherEffectPlayFailed:(MMLiveEngine *)engine effectId:(int)effectId type:(MMLivePushType)type error:(NSError*)error;
+
+/**
+音效播放完成
+*/
+- (void)MMLiveEnginePusherEffectPlayCompleted:(MMLiveEngine *)engine effectId:(int)effectId type:(MMLivePushType)type error:(NSError*)error;
+
+/**
+推流地址变化
+*/
+- (void)MMLiveEnginePusherDidChangeStreamUrl:(MMLiveEngine *)engine type:(MMLivePushType)type;
+
+/**
+频道key过期需要更新key
+*/
+- (void)MMLiveEnginePusherRequestChannelKey:(MMLiveEngine *)engine type:(MMLivePushType)type;
+
+/**
+连线用户声波大小
+*/
+- (void)MMLiveEnginePusher:(MMLiveEngine *)engine reportAudioVolumeIndicationOfSpeakers:(NSDictionary *)volumes type:(MMLivePushType)type;
+
+/**
+udp下行观众的sei
+*/
+- (void)MMLiveEnginePusher:(MMLiveEngine *)engine didReceiveSEI:(NSString *)sei type:(MMLivePushType)type;
 @end
 
 @protocol MMLiveEnginePlayerDelegate <NSObject>
@@ -160,6 +205,16 @@
 清理配置信息
 */
 + (void)cleanConfig;
+
+/**
+开关域名解析功能
+*/
++ (void)enableDomainAnalysis:(BOOL)enable;
+
+/**
+ 设置自定义域名解析工具（不设置或置为nil时使用SDK内部域名解析方案）
+*/
++ (void)setDomainAnalysis:(id <MLDomainAnalysis>)domainAnalysis;
 
 /**
 判断appid和userid是否已配置
@@ -390,6 +445,19 @@
 *
 */
 - (void)stopPush;
+
+/**
+* 开始RTMP音频采集
+*
+*/
+- (void)startAudioCapture;
+
+
+/**
+* 停止RTMP音频采集
+*
+*/
+- (void)stopAudioCapture;
 
 #pragma mark - RTC
 

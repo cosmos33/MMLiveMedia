@@ -43,6 +43,35 @@
 */
 - (void)MMLiveRTMPPushReplaced:(MMLiveRTMPPush*)pusher error:(NSError*)error;
 
+/**
+音乐播放失败
+*/
+- (void)MMLiveRTMPPushMusicPlayFailed:(MMLiveRTMPPush*)pusher error:(NSError*)error;
+
+/**
+音乐播放完成
+*/
+- (void)MMLiveRTMPPushMusicPlayCompleted:(MMLiveRTMPPush*)pusher error:(NSError*)error;
+
+/**
+推流码率和分辨率变化
+*/
+- (BOOL)MMLiveRTMPPushLevelChange:(MMLiveRTMPPush*)pusher encodeSize:(CGSize)encodeSize videoBitrate:(int)videoBitrate;
+
+/**
+伴奏播放失败
+*/
+- (void)MMLiveRTMPPushEffectPlayFailed:(MMLiveRTMPPush*)pusher effectId:(int)effectId error:(NSError*)error;
+
+/**
+伴奏播放完成
+*/
+- (void)MMLiveRTMPPushEffectPlayCompleted:(MMLiveRTMPPush*)pusher effectId:(int)effectId error:(NSError*)error;
+
+/**
+推流地址变化
+*/
+- (void)MMLiveRTMPPushDidChangeStreamUrl:(MMLiveRTMPPush*)pusher;
 
 @end
 @interface MMLiveRTMPPush : NSObject
@@ -69,5 +98,19 @@
 *
 */
 - (void)stopPush;
+
+/**
+* 打开平滑切换功能，默认关闭
+*
+* @param enable YES 打开 NO 关闭
+*/
+- (void)enableStreamReplace:(BOOL)enable;
+
+/**
+* 平滑切换RTC 音频传到iIJK
+*
+* @param data 连线的音频数据
+*/
+- (void)pushConferenceAudioPacket:(NSData *)data audioInfo:(NSDictionary *)audioInfo;
 @end
 #endif /* MMLiveRTMPPush_h */
