@@ -108,6 +108,9 @@ typedef enum {
 @property (nonatomic, assign) NSInteger videoBitrate;//转推视频码率
 @property (nonatomic, strong) NSArray<MMLiveLinkMember*>* transcodingMembers;//转推cdn的布局
 @property (nonatomic, strong) NSArray<MMLiveLinkMember*>* infoMembers;//观众端有效流的布局
+@property (nonatomic) NSUInteger inv;//系统时间
+@property (nonatomic) NSUInteger mid;//对应主播userid
+@property (nonatomic) NSUInteger ctyp;//对应业务类型
 @property (nonatomic, copy) NSString *extString;//透传sei
 @end
 

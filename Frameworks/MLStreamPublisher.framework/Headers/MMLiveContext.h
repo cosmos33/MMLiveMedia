@@ -9,13 +9,11 @@
 #define MMLiveContext_h
 
 #import <Foundation/Foundation.h>
-#import "MLDomainAnalysis.h"
 
 @interface MMLiveContextConfig : NSObject
 @property (nonatomic, copy) NSDictionary *logConfig;
 @property (nonatomic, copy) NSDictionary *pushConfig;
 @property (nonatomic, copy) NSDictionary *pullConfig;
-@property (nonatomic, copy) NSDictionary *comm_config;
 
 @property (nonatomic, strong, readonly) NSArray *pull_delay;
 @property (nonatomic, strong, readonly) NSArray *pull_comm;
@@ -24,8 +22,6 @@
 @property (nonatomic, strong, readonly) NSArray *push_drop;
 @property (nonatomic, strong, readonly) NSArray *push_log;
 @property (nonatomic, strong, readonly) NSArray *comm;
-@property (nonatomic, assign, readonly) BOOL enable_medialog;
-@property (nonatomic, assign, readonly) BOOL enable_roomconfig;
 @end
 
 @interface MMLiveUserContext : NSObject
@@ -73,21 +69,5 @@
  获取配置
  */
 + (MMLiveUserContext *)getUserContextWithUserId:(NSString *)userId appId:(NSString *)appId;
-
-/**
-开关域名解析功能
-*/
-+ (void)enableDomainAnalysis:(BOOL)enable;
-
-/**
- 设置自定义域名解析工具（不设置或置为nil时使用SDK内部域名解析方案）
-*/
-+ (void)setDomainAnalysis:(id <MLDomainAnalysis>)domainAnalysis;
-
-/**
- 拉取直播间config
-*/
-+ (void)requestRoomContextWithUserContext:(MMLiveUserContext *)userContext roomId:(NSString *)roomId completeHandler:(void (^)(MMLiveUserContext *roomContext))completeHandler;
-
 @end
 #endif /* MMLiveContext_h */

@@ -109,12 +109,6 @@
 - (void)startAudioCapture:(NSInteger)audioSampleRate channels:(NSInteger)audioChannels;
 
 /**
-* 开始SDK音频采集
-*
-*/
-- (void)startAudioCapture;
-
-/**
 * 停止SDK音频采集
 *
 */
