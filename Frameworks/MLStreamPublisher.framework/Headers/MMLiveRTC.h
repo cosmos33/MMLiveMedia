@@ -136,6 +136,9 @@
 udp下行观众的sei
 */
 - (void)MMLiveRTC:(MMLiveRTC*)pusher didReceiveSEI:(NSString *)sei type:(MMLivePushType)type;
+
+// 获取源数据
+- (CVPixelBufferRef)MMLiveRTC:(MMLiveRTC *)publisher rawData:(CVPixelBufferRef)rawdata type:(MMLivePushType)type;
 @end
 
 

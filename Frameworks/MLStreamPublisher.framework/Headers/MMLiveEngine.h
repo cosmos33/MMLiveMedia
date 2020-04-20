@@ -136,6 +136,9 @@
 udp下行观众的sei
 */
 - (void)MMLiveEnginePusher:(MMLiveEngine *)engine didReceiveSEI:(NSString *)sei type:(MMLivePushType)type;
+
+// 获取源数据
+- (CVPixelBufferRef)MMLiveEnginePusher:(MMLiveEngine *)engine rawData:(CVPixelBufferRef)rawdata type:(MMLivePushType)type;
 @end
 
 @protocol MMLiveEnginePlayerDelegate <NSObject>

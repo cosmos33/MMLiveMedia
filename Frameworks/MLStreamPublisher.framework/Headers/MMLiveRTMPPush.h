@@ -73,6 +73,8 @@
 */
 - (void)MMLiveRTMPPushDidChangeStreamUrl:(MMLiveRTMPPush*)pusher;
 
+// 获取源数据
+- (CVPixelBufferRef)MMLiveRTMPPush:(MMLiveRTMPPush *)publisher rawData:(CVPixelBufferRef)rawdata;
 @end
 @interface MMLiveRTMPPush : NSObject
 @property (nonatomic, weak) id<MMLiveRTMPPushDelegate> delegate;
