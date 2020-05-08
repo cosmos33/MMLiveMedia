@@ -1,12 +1,12 @@
 //
-//  MomoMediaEngine.h
+//  MMLivePlayer.h
 //  Pods
 //
 //  Created by hrs on 2019/8/29.
 //
 
-#ifndef MomoMediaEngine_h
-#define MomoMediaEngine_h
+#ifndef MMLivePlayer_h
+#define MMLivePlayer_h
 #import <Foundation/Foundation.h>
 #import "MMCommonParam.h"
 
@@ -130,4 +130,4 @@
                     speedRate:(double)speedRate;
 @end
 
-#endif /* MomoMediaEngine_h */
+#endif /* MMLivePlayer_h */
