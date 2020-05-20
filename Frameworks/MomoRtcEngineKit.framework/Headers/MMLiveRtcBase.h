@@ -102,7 +102,6 @@ typedef struct _MMLiveRtcLocalVideoStats {
     uint32_t vEncodeCount = 0;
     
     uint64_t vSendSize = 0;
-    
     int64_t gopDuration = 0;
     
     int videoLost = 0;
@@ -117,7 +116,6 @@ typedef struct _MMLiveRtcLocalAudioStats{
     int64_t aCaptureSize = 0;
     uint64_t aEncodeSize = 0;
     int64_t aSendSize = 0;
-    
     bool audioMute = false;
     int audioLost = 0;
     int64_t rtt_ms = 0;
@@ -140,7 +138,7 @@ typedef struct _MMLiveChannelStats{
     std::string channelID = "";
 
     
-    MMLiveRtcLocalVideoStats loaclVideoStats;
+    MMLiveRtcLocalVideoStats localVideoStats;
     MMLiveRtcLocalAudioStats localAudioStats;
     
     std::vector<MMLiveRtcRemoteStats> remoteStats;

@@ -681,7 +681,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark audio processing
 - (int)setChannelNum:(int)num;
 - (int)setAudioAECEnable:(BOOL)enable;
-- (int)setAudioAECLevel:(int)level;
 - (int)setAudioAGCEnable:(BOOL)enable;
 - (int)setAudioANSEnable:(BOOL)enable;
 #pragma mark Stream publish
@@ -717,7 +716,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (int)registerVideoFrameObserver:(MMVideoFrameObserver*)observer;
 - (int)processVideoFrame:(CMSampleBufferRef)sampleBuffer;
 - (int)processAudioFrame:(MMAudioFrameObserver::AudioFrame *)frame;
-- (int)processMessage:(int64_t)pts;
 - (int)sendStreamMessage:(NSInteger)streamId msg:(NSString *)msg;
 @property(weak,nonatomic)id<MMLiveRtcEngineDelegate> delegate;
 @end

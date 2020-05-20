@@ -128,6 +128,11 @@
 - (void)MMLiveRTCRequestChannelKey:(MMLiveRTC*)pusher type:(MMLivePushType)type;
 
 /**
+频道key将要过期需要新key
+*/
+- (void)MMLiveRTCRequestChannelKeyWillExpire:(MMLiveRTC*)pusher type:(MMLivePushType)type;
+
+/**
 连线用户声波大小
 */
 - (void)MMLiveRTC:(MMLiveRTC*)pusher reportAudioVolumeIndicationOfSpeakers:(NSDictionary *)volumes type:(MMLivePushType)type;
@@ -307,6 +312,9 @@ udp下行观众的sei
 * @param enable YES 打开 NO 关闭
 */
 - (void)enableStreamReplace:(BOOL)enable;
+
+//是否开启音量大小回调
+- (void)setAudioVolumeIndication:(BOOL)enable interval:(int)interval;
 @end
 
 #endif /* MMLiveRTC_h */

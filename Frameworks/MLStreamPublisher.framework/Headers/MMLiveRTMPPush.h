@@ -112,5 +112,8 @@
 * @param data 连线的音频数据
 */
 - (void)pushConferenceAudioPacket:(NSData *)data audioInfo:(NSDictionary *)audioInfo;
+
+//是否开启音量大小回调
+- (void)setAudioVolumeIndication:(BOOL)enable interval:(int)interval;
 @end
 #endif /* MMLiveRTMPPush_h */

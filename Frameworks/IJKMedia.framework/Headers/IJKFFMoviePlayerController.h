@@ -131,6 +131,12 @@ typedef enum IJKLogLevel {
 
 - (void)setSpeedControl:(int) normaldur fastDur:(int) fasterdur fastRate:(float) fasterrate veryfastDur:(int) veryfasterdur veryfastRate:(float) veryfasterrate;
 
+- (void)mlSetThroughputSlot:(Boolean)enable
+                      times:(int)times
+                 start_slot:(int)start_slot
+                buffer_slot:(int)buffer_slot;
+
+- (void)mlSetVideoRenderThreshold:(int)render_threshold;
 // momo live modify
 - (void)mlSetLowerLatency:(Boolean)enable
                  withBase:(int)base
@@ -173,6 +179,10 @@ typedef enum IJKLogLevel {
 - (NSString*const)getServerIpAddr;
 - (NSString*const)getCDNIpAddr;
 - (NSString*const)getClientIpAddr;
+
+- (NSString*const)getStarCache;
+
+- (int64_t*const)getBufferCache;
 - (long)getStreamReceiveSize;
 
 - (long)getAudioReceiveSize;
