@@ -130,7 +130,7 @@
 /**
 频道key将要过期需要新key
 */
-- (void)MMLiveEnginePusherRequestChannelKeyWillExpire:(MMLiveEngine*)pusher type:(MMLivePushType)type;
+- (void)MMLiveEnginePusherRequestChannelKeyWillExpire:(MMLiveEngine*)engine type:(MMLivePushType)type;
 
 /**
 连线用户声波大小
@@ -141,6 +141,11 @@
 udp下行观众的sei
 */
 - (void)MMLiveEnginePusher:(MMLiveEngine *)engine didReceiveSEI:(NSString *)sei type:(MMLivePushType)type;
+
+/**
+获取采集大小
+*/
+- (CGSize)MMLiveEnginePusherGetCaptureSize:(MMLiveEngine *)engine type:(MMLivePushType)type;
 @end
 
 @protocol MMLiveEnginePlayerDelegate <NSObject>

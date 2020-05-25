@@ -73,6 +73,10 @@
 */
 - (void)MMLiveRTMPPushDidChangeStreamUrl:(MMLiveRTMPPush*)pusher;
 
+/**
+获取采集大小
+*/
+- (CGSize)MMLiveRTMPPushGetCaptureSize:(MMLiveRTMPPush*)pusher;
 @end
 @interface MMLiveRTMPPush : NSObject
 @property (nonatomic, weak) id<MMLiveRTMPPushDelegate> delegate;
@@ -105,6 +109,13 @@
 * @param enable YES 打开 NO 关闭
 */
 - (void)enableStreamReplace:(BOOL)enable;
+
+/**
+* 准备入会功能，默认关闭
+*
+* @param enable YES 打开 NO 关闭
+*/
+- (void)enableReadyConference:(BOOL)enable;
 
 /**
 * 平滑切换RTC 音频传到iIJK
