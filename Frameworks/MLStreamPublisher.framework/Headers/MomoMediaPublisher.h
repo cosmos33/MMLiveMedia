@@ -1,12 +1,12 @@
 //
-//  MomoMediaPublisher.h
+//  MomoMediaEngine.h
 //  Pods
 //
 //  Created by hrs on 2019/8/29.
 //
 
-#ifndef MomoMediaPublisher_h
-#define MomoMediaPublisher_h
+#ifndef MomoMediaEngine_h
+#define MomoMediaEngine_h
 #import <Foundation/Foundation.h>
 @class MomoMediaPublisher;
 @protocol MomoMediaPublisherDelegate <NSObject>
@@ -90,4 +90,4 @@
 
 - (void)updateLocalViewWithFrame:(CGRect)frame;
 @end
-#endif /* MomoMediaPublisher_h */
+#endif /* MomoMediaEngine_h */

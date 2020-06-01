@@ -5,8 +5,8 @@
 //  Created by hrs on 2019/8/29.
 //
 
-#ifndef MomoMediaPlayer_h
-#define MomoMediaPlayer_h
+#ifndef MomoMediaEngine_h
+#define MomoMediaEngine_h
 #import <Foundation/Foundation.h>
 @class MomoMediaPlayer;
 @protocol MomoMediaPlayerDelegate <NSObject>
@@ -72,4 +72,4 @@
 - (void)updatePlayerViewWithFrame:(CGRect)frame;
 @end
 
-#endif /* MomoMediaPlayer_h */
+#endif /* MomoMediaEngine_h */

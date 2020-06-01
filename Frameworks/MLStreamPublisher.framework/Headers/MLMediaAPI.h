@@ -92,15 +92,6 @@
                          err:(void (^)(NSError *error))errBlock;
 
 
-- (void)postRequestWithParam:(NSString *)requestUrl
-                  dynamicKey:(NSString *)dynamicKey
-                   channelID:(NSString *)channelID
-                       appID:(NSString*)appID
-                      target:(id)aTarget
-                          ok:(void (^)(NSDictionary *result))okBlock
-                        fail:(void (^)(NSDictionary *result))failBlock
-                         err:(void (^)(NSError *error))errBlock;
-
 - (void)postLiveLogWithType:(NSString *)type
                        body:(NSString *)body
               forRoomWithID:(NSString *)roomID
