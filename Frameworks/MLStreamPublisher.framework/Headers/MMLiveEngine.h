@@ -128,6 +128,11 @@
 - (void)MMLiveEnginePusherRequestChannelKey:(MMLiveEngine *)engine type:(MMLivePushType)type;
 
 /**
+频道key将要过期需要新key
+*/
+- (void)MMLiveEnginePusherRequestChannelKeyWillExpire:(MMLiveEngine*)engine type:(MMLivePushType)type;
+
+/**
 连线用户声波大小
 */
 - (void)MMLiveEnginePusher:(MMLiveEngine *)engine reportAudioVolumeIndicationOfSpeakers:(NSDictionary *)volumes type:(MMLivePushType)type;
@@ -136,6 +141,11 @@
 udp下行观众的sei
 */
 - (void)MMLiveEnginePusher:(MMLiveEngine *)engine didReceiveSEI:(NSString *)sei type:(MMLivePushType)type;
+
+/**
+获取采集大小
+*/
+- (CGSize)MMLiveEnginePusherGetCaptureSize:(MMLiveEngine *)engine type:(MMLivePushType)type;
 @end
 
 @protocol MMLiveEnginePlayerDelegate <NSObject>
@@ -561,6 +571,14 @@ udp下行观众的sei
 *
 */
 - (void)switchPusherType;
+
+/**
+* 是否开启音量大小回调
+*
+* @param enable YES 打开 NO 关闭
+* @param interval 指定音量提示的时间间隔,单位为毫秒。建议设置到大于 1000 毫秒。
+*/
+- (void)setAudioVolumeIndication:(BOOL)enable interval:(int)interval;
 
 #pragma mark - 播放器
 @property (nonatomic, weak) id<MMLiveEnginePlayerDelegate> playerDelegate;
