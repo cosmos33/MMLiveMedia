@@ -13,7 +13,6 @@
 #import "MLAudioSource.h"
 #import "MLDomainAnalysis.h"
 #import "MLMediaAPI.h"
-#import "MLPublisherCameraConfiguration.h"
 #import "MLStreamConfiguration.h"
 #import "MLStreamMediaSource.h"
 #import "MMLiveContext.h"
@@ -26,6 +25,8 @@
 #import "MomoMediaContext.h"
 #import "MomoMediaPlayer.h"
 #import "MomoMediaPublisher.h"
+#import "MLPublisherCameraConfiguration.h"
+
 
 FOUNDATION_EXPORT double MLStreamPublisherVersionNumber;
 FOUNDATION_EXPORT const unsigned char MLStreamPublisherVersionString[];
