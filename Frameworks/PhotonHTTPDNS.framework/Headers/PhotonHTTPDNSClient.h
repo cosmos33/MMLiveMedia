@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface PhotonHTTPDNSClient : NSObject
 
 /**
-设置HTTPDNS,在startAutoRequest之前调用
+设置HTTPDNS,在startAutoRequest之前调用，整个app声明周期内仅调用一次
 */
 + (void)initHTTPDNSWithConfig:(id<PhotonHTTPDNSConfigProtocol>)config;
 
@@ -23,14 +23,16 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)shouldConsolLog:(BOOL)en;
 
 /**
-那些请求走自动的httpdns接入,在startAutoRequest之前调用.
-@param domainList 设置支持走自动处理httpdns的请求
+那些请求走自动的httpdns接入,在initHTTPDNSWithConfig方法之后 startAutoRequest之前调用，整个app声明周期内仅调用一次
+@param domainList 设置支持走自动处理httpdns的请求，如果不设置，默认所有的api支持自动处理
 */
 + (void)setRequestDomainFilter:(nullable NSSet *)domainList;
 
+
+/// 是否支持WKWebview的处理，在startAutoRequest之前调用.整个app声明周期内仅调用一次
 + (void)supportWKWebview;
 
-/// 开启自动请求
+/// 开启自动请求。整个app声明周期内仅调用一次，开启后在整合app声明周期内不可停止
 + (void)startEnableAutoRequest;
 
 
@@ -68,29 +70,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)requestFailedForDomain:(nullable NSString *)mainDomain andFailedDomain:(nullable NSString *)failedDomain andFailedPort:(NSInteger)failedPort;
 
 
-/**
-服务端针对域名指定下发使用的连接ip和域名地址
-@parameter main_domain 主域名
-@parameter address 服务端下发的连接地址，格式 host:port
-*/
-
-+ (void)storeCustomIpByDomain:(nullable NSString *)mainDomain address:(nullable NSString *)address;
-/**
-服务端针对域名指定下发使用的连接ip和域名地址
-@parameter main_domain 主域名
-@parameter ip 服务端下发的连接地址
-@parameter port 服务端下发的连接地址
-*/
-
-+ (void)storeCustomIpByDomain:(nullable NSString *)mainDomain ip:(nullable NSString *)ip port:(NSInteger)port;
-
-/**
-服务端针对域名指定下发使用的连接ip和域名地址
-@parameter main_domain 主域名
-@parameter addressList 服务端下发的连接地址集合，格式[address,address,...],其中address格式为 host:port
-*/
-
-+ (void)storeCustomIpsByDomain:(nullable NSString *)mainDomain addressList:(nullable NSArray *)addressList;
 
 
 @end
