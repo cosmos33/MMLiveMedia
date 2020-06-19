@@ -70,6 +70,29 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)requestFailedForDomain:(nullable NSString *)mainDomain andFailedDomain:(nullable NSString *)failedDomain andFailedPort:(NSInteger)failedPort;
 
 
+/**
+服务端针对域名指定下发使用的连接ip和域名地址
+@parameter main_domain 主域名
+@parameter address 服务端下发的连接地址，格式 host:port
+*/
+
++ (void)storeCustomIpByDomain:(nullable NSString *)mainDomain address:(nullable NSString *)address;
+/**
+服务端针对域名指定下发使用的连接ip和域名地址
+@parameter main_domain 主域名
+@parameter ip 服务端下发的连接地址
+@parameter port 服务端下发的连接地址
+*/
+
++ (void)storeCustomIpByDomain:(nullable NSString *)mainDomain ip:(nullable NSString *)ip port:(NSInteger)port;
+
+/**
+服务端针对域名指定下发使用的连接ip和域名地址
+@parameter main_domain 主域名
+@parameter addressList 服务端下发的连接地址集合，格式[address,address,...],其中address格式为 host:port
+*/
+
++ (void)storeCustomIpsByDomain:(nullable NSString *)mainDomain addressList:(nullable NSArray *)addressList;
 
 
 @end
