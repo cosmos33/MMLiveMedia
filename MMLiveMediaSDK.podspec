@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'MMLiveMediaSDK'
-  s.version          = '1.2.3.2.20200617-dev'
+  s.version          = '1.3.0.0.20200623-dev'
   s.summary          = 'A short description of MMLiveMediaSDK.'
 
 # This description is used to generate tags and improve search results.
@@ -37,5 +37,5 @@ TODO: Add long description of the pod here.
   s.vendored_libraries =  'Frameworks/**/*.{a}'
   s.libraries = 'stdc++', 'c++', 'xml2'
   s.framework = 'VideoToolbox' , 'Accelerate'
-  
+  s.dependency 'PhotonHTTPDNS','1.0.0'
 end

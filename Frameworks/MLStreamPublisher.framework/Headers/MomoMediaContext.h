@@ -1,17 +1,15 @@
 //
 //  MomoMediaContext.h
-//  Pods
+//  MLStreamPublisher
 //
-//  Created by hrs on 2019/9/6.
+//  Created by Hao.Li on 2020/2/17.
 //
-
-#ifndef MomoMediaContext_h
-#define MomoMediaContext_h
 
 #import <Foundation/Foundation.h>
 
-@interface MomoMediaContext : NSObject
+NS_ASSUME_NONNULL_BEGIN
 
+@interface MomoMediaContext : NSObject
 #pragma mark - getter
 /**
  获取当前sdk版本号
@@ -77,6 +75,6 @@
                   secret:(NSString *)secret
                appVerNum:(NSString *)appVerNum
                   userId:(NSString *)userId;
-
 @end
-#endif /* MomoMediaContext_h */
+
+NS_ASSUME_NONNULL_END

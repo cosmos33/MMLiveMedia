@@ -9,6 +9,7 @@
 #define MMLiveRTC_h
 #import <Foundation/Foundation.h>
 #import "MMCommonParam.h"
+#import <CoreMedia/CoreMedia.h>
 
 @class MMLiveRTC;
 #pragma mark - MMLiveRTCDelegate
@@ -146,9 +147,12 @@ udp下行观众的sei
 获取采集大小
 */
 - (CGSize)MMLiveRTCGetCaptureSize:(MMLiveRTC*)pusher type:(MMLivePushType)type;
+
+// 获取源数据
+- (CVPixelBufferRef)MMLiveRTC:(MMLiveRTC *)publisher rawData:(CVPixelBufferRef)rawdata type:(MMLivePushType)type;
 @end
 
-
+@protocol MLStreamMediaSource;
 @interface MMLiveRTC: NSObject
 
 - (instancetype)initWithUserConfig:(MMLiveUserConfig *)userConfig;
@@ -168,6 +172,16 @@ udp下行观众的sei
 * 把MMLiveRTC 的sourceHandle 添加 到MMLiveSource，才可以进行预览和推流
 */
 @property (nonatomic, strong) id sourceHandle;
+
+/**
+* 用户传入自己图像
+*
+* @param sampleBuffer 传入的图像
+* @return YES 代表传入成功， NO 代表传入失败
+*/
+- (BOOL)pushExternalVideoSampleBuffer:(CMSampleBufferRef)sampleBuffer;
+
+- (void)mediaSource:(id<MLStreamMediaSource>)source didOutputVideoSampleBuffer:(CMSampleBufferRef)sampleBuffer;
 
 /**
 设置用户角色
@@ -320,6 +334,13 @@ udp下行观众的sei
 
 //是否开启音量大小回调
 - (void)setAudioVolumeIndication:(BOOL)enable interval:(int)interval;
+
+/**
+* 实时的获取推流的上行码率
+*
+* @return 上行码率,单位kbps (建议获取间隔不要小于2s)
+*/
+- (long) getRealTimePushBitRate;
 @end
 
 #endif /* MMLiveRTC_h */

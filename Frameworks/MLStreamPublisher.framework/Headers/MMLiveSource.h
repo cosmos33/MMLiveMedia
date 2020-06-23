@@ -9,7 +9,11 @@
 #define MMLiveSource_h
 #import <Foundation/Foundation.h>
 #import "MMCommonParam.h"
+#if CAMERA_ON
 #import <MLVideoProcessing/MLCameraSource.h>
+#else
+#import <CoreMedia/CoreMedia.h>
+#endif
 @interface MMLiveSource : NSObject
 
 #pragma mark - 音视频输出的对象
@@ -240,7 +244,9 @@
 * @param filter 滤镜的lookup图片
 * @param identifier 滤镜的唯一标示号
 */
+#if CAMERA_ON
 - (void)setFilter:(MLFilterDescriptor *)filter withIdentifier:(int)identifier;
+#endif
 
 /**
 * 设置指定素材滤镜特效的强度
@@ -255,7 +261,9 @@
 * @param decoration 贴纸的描述
 * @param identifier 贴纸的唯一标示号
 */
+#if CAMERA_ON
 - (void)setSticker:(FDKDecoration*)decoration withIdentifier:(NSString *)identifier;
+#endif
 
 /**
 * 去除贴纸
@@ -269,15 +277,18 @@
 *
 * @param decoration 手势资源描述
 */
+#if CAMERA_ON
 - (void)addGesture:(NSArray<MLObjectTriggeredDecoration *> *)decoration ;
+#endif
 
 /**
 * 去除手势
 *
 * @param decoration 手势资源描述
 */
+#if CAMERA_ON
 - (void)removeGesture:(MLObjectTriggeredDecoration*)decoration;
-
+#endif
 #pragma mark - 语音特效
 
 /**
