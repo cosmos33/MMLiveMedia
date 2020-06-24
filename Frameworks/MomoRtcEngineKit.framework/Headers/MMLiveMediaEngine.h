@@ -23,6 +23,7 @@ public:
         int samplesPerSec;  //sampling rate
         void* buffer;  //data buffer
         int64_t renderTimeMs;
+        int denoiseLevel;
     };
 public:
     virtual bool onRecordAudioFrame(AudioFrame& audioFrame) = 0;

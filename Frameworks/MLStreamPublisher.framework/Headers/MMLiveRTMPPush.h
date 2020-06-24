@@ -9,6 +9,7 @@
 #define MMLiveRTMPPush_h
 #import <Foundation/Foundation.h>
 #import "MMCommonParam.h"
+#import <CoreMedia/CoreMedia.h>
 @class MMLiveRTMPPush;
 #pragma mark - MMLiveRTCDelegate
 @protocol MMLiveRTMPPushDelegate <NSObject>
@@ -77,7 +78,11 @@
 获取采集大小
 */
 - (CGSize)MMLiveRTMPPushGetCaptureSize:(MMLiveRTMPPush*)pusher;
+
+// 获取源数据
+- (CVPixelBufferRef)MMLiveRTMPPush:(MMLiveRTMPPush *)publisher rawData:(CVPixelBufferRef)rawdata;
 @end
+@protocol MLStreamMediaSource;
 @interface MMLiveRTMPPush : NSObject
 @property (nonatomic, weak) id<MMLiveRTMPPushDelegate> delegate;
 @property (nonatomic, readonly, strong) MMLiveMediaConfig *pusherConfig;
@@ -90,6 +95,23 @@
 
 - (instancetype)initWithUserConfig:(MMLiveUserConfig *)userConfig;
 
+/**
+* 用户传入自己图像
+*
+* @param sampleBuffer 传入的图像
+* @return YES 代表传入成功， NO 代表传入失败
+*/
+- (BOOL)pushExternalVideoSampleBuffer:(CMSampleBufferRef)sampleBuffer;
+
+/**
+* 用户传入自己音频
+*
+* @param sampleBuffer 传入的音频
+* @return YES 代表传入成功， NO 代表传入失败
+*/
+- (BOOL)pushExternalAudioSampleBuffer:(CMSampleBufferRef)sampleBuffer;
+
+- (void)mediaSource:(id<MLStreamMediaSource>)source didOutputVideoSampleBuffer:(CMSampleBufferRef)sampleBuffer;
 /**
 * 开始推流
 *
@@ -126,5 +148,12 @@
 
 //是否开启音量大小回调
 - (void)setAudioVolumeIndication:(BOOL)enable interval:(int)interval;
+
+/**
+* 实时的获取推流的上行码率
+*
+* @return 上行码率,单位kbps (建议获取间隔不要小于2s)
+*/
+- (long) getRealTimePushBitRate;
 @end
 #endif /* MMLiveRTMPPush_h */

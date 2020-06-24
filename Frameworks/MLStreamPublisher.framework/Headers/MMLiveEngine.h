@@ -8,9 +8,12 @@
 #ifndef MMLiveEngine_h
 #define MMLiveEngine_h
 #import <Foundation/Foundation.h>
+#if CAMERA_ON
 #import <MLVideoProcessing/MLCameraSource.h>
+#endif
 #import "MMCommonParam.h"
 #import "MLDomainAnalysis.h"
+#import <CoreMedia/CoreMedia.h>
 
 #pragma mark - MMLiveEngineDelegate
 
@@ -146,6 +149,9 @@ udp下行观众的sei
 获取采集大小
 */
 - (CGSize)MMLiveEnginePusherGetCaptureSize:(MMLiveEngine *)engine type:(MMLivePushType)type;
+
+// 获取源数据
+- (CVPixelBufferRef)MMLiveEnginePusher:(MMLiveEngine *)engine rawData:(CVPixelBufferRef)rawdata type:(MMLivePushType)type;
 @end
 
 @protocol MMLiveEnginePlayerDelegate <NSObject>
@@ -250,6 +256,13 @@ udp下行观众的sei
 - (void)setEnableExternalCapture:(BOOL)enable;
 
 /**
+* 设置使能音频外部采集，仅支持RTMP推流外部采集
+*
+* @param enable YES 打开SDK外部采集， NO SDK自采集
+*/
+- (void)setEnableAudioExternalCapture:(BOOL)enable;
+
+/**
 * 设置预览大小
 *
 * @param width 预览宽
@@ -291,6 +304,21 @@ udp下行观众的sei
 */
 - (int)switchCamera;
 
+/**
+* 用户传入自己图像
+*
+* @param sampleBuffer 传入的图像
+* @return YES 代表传入成功， NO 代表传入失败
+*/
+- (BOOL)pushExternalVideoSampleBuffer:(CMSampleBufferRef)sampleBuffer;
+
+/**
+* 用户传入自己音频
+*
+* @param sampleBuffer 传入的音频
+* @return YES 代表传入成功， NO 代表传入失败
+*/
+- (BOOL)pushExternalAudioSampleBuffer:(CMSampleBufferRef)sampleBuffer;
 #pragma mark - 美颜特效
 
 /**
@@ -404,8 +432,9 @@ udp下行观众的sei
 * @param filter 滤镜的lookup图片
 * @param identifier 滤镜的唯一标示号
 */
+#if CAMERA_ON
 - (void)setFilter:(MLFilterDescriptor *)filter withIdentifier:(int)identifier;
-
+#endif
 /**
 * 设置指定素材滤镜特效的强度
 *
@@ -419,8 +448,9 @@ udp下行观众的sei
 * @param decoration 贴纸的描述
 * @param identifier 贴纸的唯一标示号
 */
+#if CAMERA_ON
 - (void)setSticker:(FDKDecoration*)decoration withIdentifier:(NSString *)identifier;
-
+#endif
 /**
 * 去除贴纸
 *
@@ -433,15 +463,17 @@ udp下行观众的sei
 *
 * @param decoration 手势资源描述
 */
+#if CAMERA_ON
 - (void)addGesture:(NSArray<MLObjectTriggeredDecoration *> *)decoration ;
-
+#endif
 /**
 * 去除手势
 *
 * @param decoration 手势资源描述
 */
+#if CAMERA_ON
 - (void)removeGesture:(MLObjectTriggeredDecoration*)decoration;
-
+#endif
 #pragma mark - RTMP
 /**
 * 开始推流
@@ -579,6 +611,15 @@ udp下行观众的sei
 * @param interval 指定音量提示的时间间隔,单位为毫秒。建议设置到大于 1000 毫秒。
 */
 - (void)setAudioVolumeIndication:(BOOL)enable interval:(int)interval;
+
+#pragma mark - 网络测速
+
+/**
+* 实时的获取推流的上行码率
+*
+* @return 上行码率,单位kbps (建议获取间隔不要小于2s)
+*/
+- (long) getRealTimePushBitRate;
 
 #pragma mark - 播放器
 @property (nonatomic, weak) id<MMLiveEnginePlayerDelegate> playerDelegate;

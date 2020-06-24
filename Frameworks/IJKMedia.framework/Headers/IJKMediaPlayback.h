@@ -112,6 +112,7 @@ IJK_EXTERN NSString *const IJKMoviePlayerPlaybackVideoRenderingNotification;
 // momo live modify
 IJK_EXTERN NSString *const IJKMoviePlayerPlaybackFastDropStartedNotification;
 IJK_EXTERN NSString *const IJKMoviePlayerPlaybackFastDropStoppedNotification;
+IJK_EXTERN NSString *const IJKMoviePlayerPlaybackFastDropPacketsNotification;
 // momo live modify end
 
 IJK_EXTERN NSString *const IJKMoviePlayerPlaybackUpdateH264SEI;

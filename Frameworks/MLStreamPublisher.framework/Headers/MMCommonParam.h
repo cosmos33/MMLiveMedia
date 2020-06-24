@@ -9,7 +9,9 @@
 #define MMCommonParam_h
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-
+#ifndef CAMERA_ON
+#define CAMERA_ON 1
+#endif
 typedef enum {
     MMLivePlayerStatusPlaying = 0, //播放中
     MMLivePlayerStatusBuffering = 1, //播放加载中
@@ -81,6 +83,7 @@ typedef enum {
 @property (nonatomic, copy) NSString *roomId;
 @property (nonatomic) NSInteger provider;
 @property (nonatomic) NSInteger businessType;
+- (NSString*) getConfigString;
 @end
 
 @interface MMLiveRoomParams : NSObject
@@ -91,6 +94,7 @@ typedef enum {
 @property (nonatomic, copy) NSString *userId;//连线用户ID
 @property (nonatomic, copy) NSString *channel;//连线房间ID
 @property (nonatomic, copy) NSString *channelKey;//连线进房的密钥
+- (NSString*) getConfigString;
 @end
 
 @interface MMLiveLinkMember : NSObject
@@ -99,6 +103,7 @@ typedef enum {
 @property (nonatomic) CGFloat volume;//该用户的音量状态
 @property (nonatomic) int muteFlag;//该用户的静音状态
 @property (nonatomic) int offLineFlag;//该用户的离线状态
+- (NSString*) getConfigString;
 @end
 
 @interface MMLiveTranscoding : NSObject
@@ -112,6 +117,7 @@ typedef enum {
 @property (nonatomic) NSUInteger mid;//对应主播userid
 @property (nonatomic) NSUInteger ctyp;//对应业务类型
 @property (nonatomic, copy) NSString *extString;//透传sei
+- (NSString*) getConfigString;
 @end
 
 @interface MMLiveMediaConfig : NSObject
@@ -122,6 +128,7 @@ typedef enum {
 @property (nonatomic) CGFloat audioSampleRate;//音频采样率
 @property (nonatomic) NSInteger audioChannels;//音频声道
 @property (nonatomic, copy) NSString *url;//推流地址
+- (NSString*) getConfigString;
 @end
 
 #endif /* MMCommonParam_h */

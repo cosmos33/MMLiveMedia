@@ -144,6 +144,10 @@ typedef enum IJKLogLevel {
           withDropTrigger:(int)drop_trigger
             withSpeedRate:(double)speed_rate;
 
+- (void)mlSetBufferDrop:(Boolean)enable;
+
+- (void)mlSetHopScale:(float)scale;
+
 - (void)mlSetHighWaterMark:(int)hwm_start
                withCurrent:(int)hwm_current
                   withNext:(int)hwm_next

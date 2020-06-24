@@ -21,7 +21,10 @@
 @property (nonatomic, strong, readonly) NSArray *pull_comm;
 @property (nonatomic, strong, readonly) NSArray *pull_log;
 @property (nonatomic, strong, readonly) NSString *focus_enable;
+@property (nonatomic, strong, readonly) NSString *enable_B_encode;
 @property (nonatomic, strong, readonly) NSArray *push_drop;
+@property (nonatomic, strong, readonly) NSString *comm_parms;
+@property (nonatomic, strong, readonly) NSString *disable_ans;
 @property (nonatomic, strong, readonly) NSArray *push_log;
 @property (nonatomic, strong, readonly) NSArray *comm;
 @property (nonatomic, assign, readonly) BOOL enable_medialog;
@@ -35,6 +38,7 @@
 @property (nonatomic, copy) NSString *appVer;
 @property (nonatomic, copy) NSString *sdkVer;
 @property (nonatomic, copy) NSString *userAgent;
+@property (nonatomic, assign) BOOL useMediaLog;
 @property (nonatomic, strong) MMLiveContextConfig *mediaConfig;
 @end
 
