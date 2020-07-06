@@ -3991,7 +3991,7 @@ public:
 
      The SDK triggers this callback after you successfully call the \ref agora::rtc::IRtcEngine::registerMediaMetadataObserver "registerMediaMetadataObserver" method. You need to specify the maximum size of the metadata in the return value of this callback.
 
-     @return The maximum size of the buffer of the metadata that you want to use. The highest value is 1024 bytes. Ensure that you set the return value.
+     @return The maximum size of the buffer of the metadata that you want to use. The highest value is 2048 bytes. Ensure that you set the return value.
      */
     virtual int getMaxMetadataSize() = 0;
 
