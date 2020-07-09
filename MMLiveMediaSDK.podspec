@@ -37,5 +37,5 @@ TODO: Add long description of the pod here.
   s.vendored_libraries =  'Frameworks/**/*.{a}'
   s.libraries = 'stdc++', 'c++', 'xml2'
   s.framework = 'VideoToolbox' , 'Accelerate'
-  s.dependency 'PhotonHTTPDNS','1.0.0'
+  s.dependency 'PhotonHTTPDNS','~>1.0.0'
 end
