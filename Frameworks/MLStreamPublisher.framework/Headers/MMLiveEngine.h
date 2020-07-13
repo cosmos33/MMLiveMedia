@@ -322,6 +322,20 @@ udp下行观众的sei
 #pragma mark - 美颜特效
 
 /**
+* 获取人脸检测的位置
+*
+* @param completion 返回人脸检测的位置。
+*/
+- (void)setFaceBoundsFeedback:(void (^)(CGRect faceBounds, CGSize bufferSize))completion;
+
+/**
+* 设置相机聚焦点
+*
+* @param focusPoint 输入的点。
+*/
+- (void)setFocusPoint:(CGPoint)focusPoint;
+
+/**
 * 使能水印功能
 *
 * @param enable YES 打开水印 NO关闭水印。

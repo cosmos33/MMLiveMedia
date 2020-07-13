@@ -133,6 +133,15 @@
 
 #pragma mark - 视频特效
 
+- (void)setFaceBoundsFeedback:(void (^)(CGRect faceBounds, CGSize bufferSize))completion;
+
+/**
+* 设置相机聚焦点
+*
+* @param focusPoint 输入的点。
+*/
+- (void)setFocusPoint:(CGPoint)focusPoint;
+
 /**
 * 使能水印功能
 *
