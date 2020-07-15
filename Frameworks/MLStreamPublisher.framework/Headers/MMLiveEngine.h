@@ -335,6 +335,10 @@ udp下行观众的sei
 */
 - (void)setFocusPoint:(CGPoint)focusPoint;
 
+- (void)setExposurePoint:(CGPoint)exposurePoint;
+
+- (void)updateISO:(float)iso;
+
 /**
 * 使能水印功能
 *
