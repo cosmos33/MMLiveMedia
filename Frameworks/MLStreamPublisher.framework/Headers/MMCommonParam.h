@@ -94,6 +94,7 @@ typedef enum {
 @property (nonatomic, copy) NSString *userId;//连线用户ID
 @property (nonatomic, copy) NSString *channel;//连线房间ID
 @property (nonatomic, copy) NSString *channelKey;//连线进房的密钥
+@property (nonatomic, copy) NSString *userSign;//腾讯进房签名
 - (NSString*) getConfigString;
 @end
 

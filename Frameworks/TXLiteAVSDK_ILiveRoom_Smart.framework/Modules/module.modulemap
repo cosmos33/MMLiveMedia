@@ -1,0 +1,4 @@
+module TXLiteAVSDK_ILiveRoom_Smart {
+    umbrella header "Headers/TXLiteAVSDK.h"
+    export *
+}
