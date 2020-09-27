@@ -632,6 +632,13 @@ udp下行观众的sei
 - (void)setVolume:(int)volume;
 
 /**
+* 设置循环播放次数
+*
+* @param loop 默认1，设为0表示无限循环
+*/
+- (void)setLoop:(int)loop;
+
+/**
 * 获取播放器的状态
 *
 * return MMLivePlayerStatus 枚举状态

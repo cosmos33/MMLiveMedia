@@ -115,6 +115,9 @@
 */
 - (void)setMute:(BOOL)enable;
 
+//设置循环播放次数，默认1，设为0表示无限循环
+- (void)setLoop:(int)loop;
+
 /**
  设置追帧延迟
  @param enable 是否开启追延迟
