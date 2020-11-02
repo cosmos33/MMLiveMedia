@@ -219,8 +219,22 @@ udp下行观众的sei
 - (int)setLiveTranscoding:(MMLiveTranscoding *)transcoding;
 
 /**
+视频推流开关
+
+@param enable YES 打开 NO 关闭
+*/
+- (void)setEnableVideo:(BOOL)enable;
+
+/**
+音频推流开关
+
+@param enable YES 打开 NO 关闭
+*/
+- (void)setEnableAudio:(BOOL)enable;
+
+/**
 是否发送本地音频
-@param audioMute 本地视频发送开关
+@param audioMute 本地音频发送开关
 */
 - (void)setLocalAudioMute:(BOOL)audioMute;
 

@@ -426,6 +426,14 @@
 *@param volume 音量大小
 */
 - (void)setEffectsVolume:(CGFloat)volume;
+
+#if CAMERA_ON
+/**
+* 获取视频采集器对象
+*
+*/
+- (MLCameraSource *)getCurrentCameraSource;
+#endif
 @end
 
 #endif /* MMLiveSource_h */

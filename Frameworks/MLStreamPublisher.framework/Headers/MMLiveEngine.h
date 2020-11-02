@@ -536,6 +536,20 @@ udp下行观众的sei
 - (void)updateChannelKey:(NSString*)channelKey;
 
 /**
+* 视频推流开关
+*
+ *@param enable YES 打开 NO 关闭
+*/
+- (void)setEnableVideo:(BOOL)enable;
+
+/**
+* 音频推流开关
+*
+*@param enable YES 打开 NO 关闭
+*/
+- (void)setEnableAudio:(BOOL)enable;
+
+/**
 * 禁用本地音频
 *
 *@param audioMute YES 禁用 NO 打开
