@@ -14,6 +14,7 @@
 
 @property (nonatomic) dispatch_queue_t encoderQueue;
 @property (nonatomic) BOOL addADTSHeader;
+- (NSData*)getAudioSpecificConfig;
 @end
 @interface FdkCacheBuf : NSObject
 

@@ -3,7 +3,11 @@
 
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
-
+typedef enum _RTMPAudioProfile{
+    RTMP_AAC_LC_Profile = 0,
+    RTMP_AAC_HE_Profile,
+    RTMP_AAC_HE_v2_Profile
+}RTMPAudioProfile;
 @protocol FFRtmpWriterDelegate <NSObject>
 - (void) writeFailedWithError:(NSError*)error;
 - (void) writeDropPacketsWithCache:(int32_t)lastDuration cache:(int32_t)curDuration audioDrop:(int32_t)aPackets videoDrop:(int32_t)vPackets;
@@ -29,6 +33,8 @@
 - (void) addVideoStreamWithWidth:(int)width height:(int)height bitrate:(int)vBitrate;
 - (void) addVideoStreamWithWidth:(int)width height:(int)height bitrate:(int)vBitrate useHevc:(BOOL)enable;
 - (void) addAudioStreamWithSampleRate:(int)sampleRate channels:(int)channelNum bitrate:(int)aBitrate;
+- (void) addAudioStreamWithSampleRate:(int)sampleRate channels:(int)channelNum bitrate:(int)aBitrate profile:(RTMPAudioProfile)profile;
+- (void) setAudioSpecificConfig:(NSData*)data;
 
 - (BOOL) prepareForWriting:(NSError**)error;
 
@@ -42,6 +48,7 @@
 
 - (BOOL) finishWriting:(NSError**)error;
 -(void)setVideoExtradata:(NSData *) extradata;
+- (void)setVideoOpenGop:(BOOL)videoOpenGop;
 -(int)videoStreamIdx;
 -(int)audioStreamIdx;
 - (NSString*)getIpAddr;
@@ -61,4 +68,7 @@
 - (uint64_t)getTotalSendOutBytes;
 - (uint64_t)getTotalVideoSendInBytes;
 - (uint64_t)getTotalAudioSendInBytes;
+
+- (int)getAudioSendDuration;
+- (int)getVideoSentPackets;
 @end

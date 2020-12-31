@@ -69,6 +69,15 @@ typedef enum IJKLogLevel {
     k_IJK_LOG_SILENT  = 8,
 } IJKLogLevel;
 
+typedef enum {
+    IJKAudioEffectClose = 0, //关闭音效
+    IJKAudioEffect3D = 1, //耳机3D音效
+    IJKAudioEffect3DEnhance = 2, //功放3D
+    IJKAudioEffectHIFI = 3, //HIFI音效
+    IJKAudioEffectHIFIEnhance = 4 //功放HIFI音效
+} IJKAudioEffect;
+
+
 @interface IJKFFMoviePlayerController : NSObject <IJKMediaPlayback>
 
 - (id)initWithContentURL:(NSURL *)aUrl
@@ -93,10 +102,14 @@ typedef enum IJKLogLevel {
 - (void)stop;
 - (BOOL)isPlaying;
 
+- (void)setAudioEffect:(IJKAudioEffect)type;// 1 耳机3D音效 2 功放3D 3 HIFI音效 4 功放HIFI音效 0 关闭
+
 - (void)unregisterApplicationObserverAll;
 
 - (void)setPauseInBackground:(BOOL)pause;
 - (BOOL)isVideoToolboxOpen;
+
+- (void)setViewContentMode:(UIViewContentMode)mode;
 
 + (void)setLogReport:(BOOL)preferLogReport;
 + (void)setLogLevel:(IJKLogLevel)logLevel;
@@ -159,6 +172,8 @@ typedef enum IJKLogLevel {
 
 //调用-prepareToPlay前设置是否用于非直播业务，默认NO，用于区分部分业务相关的处理
 - (void)setPlaybackOnly:(BOOL)playbackOnly;
+//设置音频渲染方式 NO-audio queue YES-audio unit  必须在prepareToPlay前设置
+- (void)setAudioRenderByUnit:(BOOL)audioUnit;
 //设置循环播放次数，默认1，设为0表示无限循环
 - (void)setLoop:(int)loop;
 //播放配置调试参数,defaultWater 首次buffer时长, nextWather 非首次buffer时长,checkTick 检测间隔
@@ -187,6 +202,8 @@ typedef enum IJKLogLevel {
 - (NSString*const)getStarCache;
 
 - (int64_t*const)getBufferCache;
+- (BOOL)mlGetVideoCodecHEVC;
+
 - (long)getStreamReceiveSize;
 
 - (long)getAudioReceiveSize;
@@ -217,6 +234,10 @@ typedef enum IJKLogLevel {
 - (uint32_t)getStreamCount;
 - (NSData *)getH264SEI;
 - (double)getVideoBufferDurationInSec;
+- (uint32_t)getAudioPacketDuration;
+- (uint32_t)getAudioPacketLength;
+- (uint64_t)getAudioReceivePacketCount;
+- (uint64_t)getAudioDecodeFrameCount;
 
 //call getVideoSize after observeMoviePlayerPlaybackVideoRendering
 - (CGSize)getVideoSize;
