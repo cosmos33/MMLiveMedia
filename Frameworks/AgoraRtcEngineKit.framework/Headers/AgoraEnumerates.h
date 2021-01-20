@@ -763,6 +763,14 @@ typedef NS_ENUM(NSInteger, AgoraVideoCodecType) {
     AgoraVideoCodecTypeE264 = 4,
 };
 
+/** Self-defined video codec type */
+typedef NS_ENUM(NSInteger, AgoraVideoCodecTranscodingType) {
+    /** 1: (Default value)H264 */
+    AgoraVideoCodecTranscodingTypeH264 = 1,
+    /** 2: H265 */
+    AgoraVideoCodecTranscodingTypeH265 = 2,
+};
+
 /** Video mirror mode. */
 typedef NS_ENUM(NSUInteger, AgoraVideoMirrorMode) {
     /** The SDK determines the default mirror mode. */
@@ -1003,7 +1011,9 @@ typedef NS_ENUM(NSInteger, AgoraAudioCodecProfileType) {
     /** (Default) LC-AAC, the low-complexity audio codec profile. */
   AgoraAudioCodecProfileLCAAC = 0,
   /** HE-AAC, the high-efficiency audio codec profile. */
-  AgoraAudioCodecProfileHEAAC = 1
+  AgoraAudioCodecProfileHEAAC = 1,
+  /** HE-AAC-V2, the more high-efficiency audio codec profile. */
+  AgoraAudioCodecProfileHEAACV2 = 2
 };
 
 /** The state of the remote audio. */

@@ -576,6 +576,29 @@ Note: If your setting is not 0, you may need a specialized player.
 @property (assign, nonatomic) NSInteger audioChannel;
 @end
 
+/* feature name, and you can choose from these values*/
+extern NSString* const LBHQ;
+extern NSString* const VEO;
+
+/** A class for providing user-specific CDN live audio/video advanced features
+ *  live streaming advanced features.
+ */
+__attribute__((visibility("default"))) @interface AgoraLiveStreamAdvancedFeature: NSObject
+
+/** Set feature name
+ * such as : 
+ * feature1: "lbhq" -- low bitrate high quality
+ * feature2: "veo" -- video encoder optimum
+*/
+@property (copy, nonatomic) NSString *_Nullable featureName;
+
+/** Sets whether or not the watermark image is visible in the local video preview: 
+ - YES: (Default) The feature will be open
+ - NO: The feature will be closed
+ */
+@property (assign, nonatomic) BOOL opened;
+@end
+
 /** Image properties.
 
  A class for setting the properties of the watermark and background images in live broadcasting.
@@ -655,6 +678,11 @@ If you set this parameter to other values, Agora adjusts it to the default value
  */
 @property (assign, nonatomic) AgoraVideoCodecProfileType videoCodecProfile;
 
+/** Video codec type
+Set it as 1(default), 2 , see AgoraVideoCodecTranscodingType.
+ */
+@property (assign, nonatomic) AgoraVideoCodecTranscodingType videoCodecType;
+
 /** An AgoraLiveTranscodingUser object managing the user layout configuration in the CDN live stream. Agora supports a maximum of 17 transcoding users in a CDN live stream channel. See AgoraLiveTranscodingUser.
  */
 @property (copy, nonatomic) NSArray<AgoraLiveTranscodingUser *> *_Nullable transcodingUsers;
@@ -715,6 +743,16 @@ COLOR_CLASS is a general name for the type:
 -(int)addUser:(AgoraLiveTranscodingUser * _Nonnull)user;
 
 -(int)removeUser:(NSUInteger)uid;
+
+/** 
+ * An advanced features: such as: 1. low bitrate high quality; 2. video encoder optimum;
+ * such as: 
+ *    "lbhq" -- low bitrate high quality
+ *    "veo" -- video encoder optimum
+*/
+-(void)setAdvancedFeatures:(NSString*) featureName opened:(BOOL) opened;
+
+-(NSArray<AgoraLiveStreamAdvancedFeature *> *)getAdvancedFeatures;
 @end
 
 /** Configuration of the imported live broadcast voice or video stream.

@@ -746,6 +746,13 @@ enum VIDEO_CODEC_TYPE {
     VIDEO_CODEC_E264 = 4,
 };
 
+/** Video Codec types. */
+enum VIDEO_CODEC_TRANSCODING_TYPE
+{
+    VIDEO_CODEC_H264_TRANSCODING = 1,
+    VIDEO_CODEC_H265_TRANSCODING = 2,
+};
+
 /** Audio equalization band frequencies. */
 enum AUDIO_EQUALIZATION_BAND_FREQUENCY
 {
@@ -845,6 +852,8 @@ enum AUDIO_CODEC_PROFILE_TYPE
   AUDIO_CODEC_PROFILE_LC_AAC = 0,
     /** 1: HE-AAC, which is the high-efficiency audio codec type. */
   AUDIO_CODEC_PROFILE_HE_AAC = 1,
+    /** 2: HE-AAC-V2, which is the  more high-efficiency audio codec type. */
+  AUDIO_CODEC_PROFILE_HE_AAC_V2 = 2
 };
 
 /** Remote audio states.
@@ -1897,6 +1906,32 @@ typedef struct RtcImage {
     int height;
 } RtcImage;
 
+
+/* feature name, and you can choose from these values*/
+static const char* LBHQ = "lbhq";
+static const char* VEO = "veo";
+
+typedef struct LiveStreamAdvancedFeature {
+    LiveStreamAdvancedFeature() : featureName(NULL) , opened(false) {
+    }
+
+    /** live streaming advanced features.
+     * feature1: "lbhq" -- low bitrate high quality
+     * feature2: "veo" -- video encoder optimum
+     *
+     * so, you can do like this:
+     *      LiveStreamAdvancedFeature feature;
+     *      feature.featureName = "lbhq";
+     *      feature.opened = true;
+    */
+    const char* featureName;
+
+    /**
+     * set a switch for above feature
+    */
+    bool opened;
+} LiveStreamAdvancedFeature;
+
 /** A struct for managing CDN live audio/video transcoding settings.
 */
 typedef struct LiveTranscoding {
@@ -1935,6 +1970,8 @@ typedef struct LiveTranscoding {
     /** The background color in RGB hex value. Value only, do not include a #. For example, 0xFFB6C1 (light pink). The default value is 0x000000 (black).
      */
     unsigned int backgroundColor;
+    /** video codec type */
+    VIDEO_CODEC_TRANSCODING_TYPE videoCodecType;
     /** The number of users in the live broadcast.
      */
     unsigned int userCount;
@@ -1980,6 +2017,11 @@ typedef struct LiveTranscoding {
 
     AUDIO_CODEC_PROFILE_TYPE audioCodecProfile;
 
+    /** live stream advanced features*/
+    LiveStreamAdvancedFeature* advancedFeatures;
+
+    /** count of advanced features*/
+    unsigned int advancedFeatureCount;
 
     LiveTranscoding()
         : width(360)
@@ -1990,6 +2032,7 @@ typedef struct LiveTranscoding {
         , videoGop(30)
         , videoCodecProfile(VIDEO_CODEC_PROFILE_HIGH)
         , backgroundColor(0x000000)
+        , videoCodecType(VIDEO_CODEC_H264_TRANSCODING)
         , userCount(0)
         , transcodingUsers(NULL)
         , transcodingExtraInfo(NULL)
@@ -2000,6 +2043,8 @@ typedef struct LiveTranscoding {
         , audioBitrate(48)
         , audioChannels(1)
         , audioCodecProfile(AUDIO_CODEC_PROFILE_LC_AAC)
+        , advancedFeatures(NULL)
+        , advancedFeatureCount(0)
     {}
 } LiveTranscoding;
 
