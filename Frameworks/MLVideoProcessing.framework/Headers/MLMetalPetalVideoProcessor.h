@@ -7,17 +7,21 @@
 
 #import <Foundation/Foundation.h>
 #import "MLVideoProcessor.h"
-@import MetalPetal;
-@import FaceDecorationKitMetalPetal;
-@import FaceDecorationKitMomoCV;
-@import NSTimerWeakTarget;
-@import MLMediaFoundation;
-@import MLFilterKitMetalPetal;
-@import CXBeautyKit;
+#import <MetalPetal/MetalPetal.h>
+#import <FaceDecorationKitMetalPetal/FaceDecorationKitMetalPetal.h>
+#import <FaceDecorationKitMomoCV/FaceDecorationKitMomoCV.h>
+#import <MLWeakTargetTimer/MLWeakTargetTimer.h>
+#import <MLMediaFoundation/MLMediaFoundation.h>
+#import <MLFilterKitMetalPetal/MLFilterKitMetalPetal.h>
+#import <CXBeautyKit/CXBeautyKit.h>
 
 @interface MLMetalPetalVideoProcessor : NSObject<MLVideoProcessor>
 @property (nonatomic, strong, readonly) MLAudioPrism <FDKAudioPrism>*audioPrism;
 @property (nonatomic, assign) BOOL useDeepBeauty;
 @property (nonatomic, copy) CXBeautyConfiguration *deepBeautyConfiguration;
 @property (nonatomic, copy) NSArray <MLMetalPetalNativeViewItem *>*viewItems;
+@property (nonatomic, assign) int warpType;
+
+- (void)setWebGLFilterConfig:(NSDictionary *)config;
+- (void)processingCVPixelBuffer:(CVPixelBufferRef)pixelBuffer atTime:(CMTime)frameTime options:(MLVideoProcessorOptions *)options completion:(void (^)(CVPixelBufferRef))completion;
 @end

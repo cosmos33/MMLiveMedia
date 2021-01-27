@@ -6,8 +6,8 @@
 //  Copyright © 2016 wemomo.com. All rights reserved.
 //
 
-@import GPUImage;
-@import FaceDecorationKitGPUImage;
+#import <GPUImage/GPUImage.h>
+#import <FaceDecorationKitGPUImage/FaceDecorationKitGPUImage.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

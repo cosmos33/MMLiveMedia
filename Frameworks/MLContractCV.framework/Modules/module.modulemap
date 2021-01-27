@@ -1,0 +1,6 @@
+framework module MLContractCV {
+  umbrella header "MLContractCV.h"
+
+  export *
+  module * { export * }
+}

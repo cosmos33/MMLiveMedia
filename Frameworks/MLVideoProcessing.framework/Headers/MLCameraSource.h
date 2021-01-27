@@ -7,11 +7,11 @@
 //
 
 @import Foundation;
-@import MLMediaFoundation;
-@import FaceDecorationKit;
+#import <MLMediaFoundation/MLMediaFoundation.h>
+#import <FaceDecorationKit/FaceDecorationKit.h>
 @import AVFoundation;
-@import MLFilterKitMetalPetal;
-@import MomoCV;
+#import <MLFilterKitMetalPetal/MLFilterKitMetalPetal.h>
+#import <MomoCV/MomoCV.h>
 #import "MLVideoProcessor.h"
 #import "MLBeautySettings.h"
 #import "MLMediaSource.h"
@@ -32,6 +32,14 @@ typedef NS_ENUM(NSUInteger, MLCameraSourceImageDetectOrientation) {
     MLCameraSourceImageDetectOrientationRight // 90 deg CW
 };
 
+typedef NS_ENUM(NSUInteger, MLCameraSourceBeautyType) {
+    MLCameraSourceBeautyTypeForOldMomoVersion = -1,
+    MLCameraSourceBeautyTypeOld = 0,
+    MLCameraSourceBeautyTypeDoki = 1,
+    MLCameraSourceBeautyTypeByteDance = 2 // 90 deg CW
+};
+
+
 typedef NS_OPTIONS(NSUInteger, MLCameraSourceDetectorOption){
     MLCameraSourceDetectorOptionNone = 0,
     MLCameraSourceDetectorOptionFace = 1 << 0,
@@ -40,8 +48,12 @@ typedef NS_OPTIONS(NSUInteger, MLCameraSourceDetectorOption){
     MLCameraSourceDetectorOptionObject = 1 << 3,
     MLCameraSourceDetectorOptionSegmetation = 1 << 4,
     MLCameraSourceDetectorOptionHandGesture = 1 << 5,
+    MLCameraSourceDetectorOptionAnimoji = 1 << 6,
+    MLCameraSourceDetectorOptionTPBeautyProcessor = 1 << 7, //第三方美颜识别器，一定不能移除
     MLCameraSourceDetectorOptionAll = NSUIntegerMax,
 };
+
+typedef MLCameraSourceDetectorOption MLCameraSourceCVFeatureJSONOutputOption;
 
 OBJC_EXTERN NSString *const kMLDecorationManagerDecorationFilterAddedNotification;
 @interface MLCameraSourceVideoFrameBenchmark : NSObject <NSCopying>
@@ -65,10 +77,12 @@ OBJC_EXTERN NSString *const kMLDecorationManagerDecorationFilterAddedNotificatio
 @property (atomic,readonly) CGPoint exposurePoint;
 @property (atomic,readonly) float ISO;
 @property (atomic, copy, readonly) NSString *lutName;
+@property (atomic, readonly) float lutIntensity;
+@property (nonatomic, copy, readonly) NSString *objectDetectInfo;
 
 @end
 
-@class MLCameraSource, CXBeautyConfiguration, MMFaceFeature,MMObjectFeature, MMBodyFeature, MMExpression,MMHandFeature;
+@class MLCameraSource, CXBeautyConfiguration, MMFaceFeature,MMObjectFeature, MMBodyFeature, MMExpression,MMHandFeature, MLContractBeautySourceItem;
 
 @protocol MLCameraSourceRawVideoSampleBufferOutputDelegate <NSObject>
 
@@ -84,6 +98,7 @@ OBJC_EXTERN NSString *const kMLDecorationManagerDecorationFilterAddedNotificatio
 @property (nonatomic, assign) int uploadFeatureVersion;
 @property (nonatomic, assign) int sampleSkipFrameCount;
 @property (nonatomic, copy) NSArray  *uploadFeatureEulerAngles;
+
 
 @end
 
@@ -124,6 +139,17 @@ OBJC_EXTERN NSString *const kMLDecorationManagerDecorationFilterAddedNotificatio
 - (void)cameraSource:(MLCameraSource *)cameraSource faceFeatureVideoInfo:(id)info timeStamp:(CMTime)time;
 @end
 
+
+@protocol MLCameraSourceFeatureDetectionJSONDelegate <NSObject>
+
+- (void)cameraSource:(MLCameraSource *)cameraSource featureJSON:(NSDictionary *)info;
+
+@end
+
+
+
+
+
 @interface MLCameraSource : NSObject <MLMediaSource>
 
 + (nullable MLCameraSource *)activeCameraSource;
@@ -147,6 +173,11 @@ OBJC_EXTERN NSString *const kMLDecorationManagerDecorationFilterAddedNotificatio
 
 @property (nonatomic, copy) MMFaceDetectOptions *faceDetectOptions;
 
+//webGL使用字段：1.enableWebGLFilter是否开启游戏滤镜；2.GetWebGameBuffer获取游戏buffer
+@property (nonatomic, assign) BOOL enableWebGLFilter;
+@property (nonatomic, copy) CVPixelBufferRef (^GetWebGameBuffer)(void);
+- (void)setCVFeatureJSONOutputDelegate:(id<MLCameraSourceFeatureDetectionJSONDelegate>)delegate outputOption:(MLCameraSourceCVFeatureJSONOutputOption)option andFrameSkipCount:(uint)skipCount;
+- (MLCameraSourceDetectorOption)currentAllowedDetectors;
 
 - (instancetype)init NS_UNAVAILABLE;
 
@@ -192,12 +223,18 @@ OBJC_EXTERN NSString *const kMLDecorationManagerDecorationFilterAddedNotificatio
 
 @property (nonatomic) BOOL watermarkEnabled;
 
+@property (nonatomic, assign) int dokiWarpType;
+
 @property (nonatomic) BOOL dokiBeautyEnable;
+
+@property (nonatomic) MLCameraSourceBeautyType beautyType; // 0 old, 1 new, 2 douyin . default -1. only if (> -1), 'dokiBeautyEnable' is available, 
+
 @property (nonatomic) NSUInteger dokiSkinSmoothingVersion; // default is 0;
 
 @property (nonatomic, copy)  CXBeautyConfiguration*dokiConfiguration;
 
 @property (nonatomic, strong) MLColorEnhancement *colorEnhancement;
+
 
 - (void)addDecoration:(FDKDecoration *)decoration duration:(NSTimeInterval)duration positionType:(NSInteger)positionType;
 
@@ -208,6 +245,8 @@ OBJC_EXTERN NSString *const kMLDecorationManagerDecorationFilterAddedNotificatio
 - (NSArray<NSString *> *)decorationIdentifiers;
 
 - (FDKDecoration *)decorationWithIdentifier:(NSString *)identifier;
+
+- (void)updateMergeConfiguration:(NSDictionary *)config;
 
 @property (nonatomic,copy) NSArray<MLObjectTriggeredDecoration *> *objectTriggeredDecorations;
 
@@ -225,6 +264,12 @@ OBJC_EXTERN NSString *const kMLDecorationManagerDecorationFilterAddedNotificatio
 - (void)updateISO:(float)iso;
 - (void)addRecordingRequest:(MLRecordingRequest *)request error:(NSError **)error  completion:(void(^)(NSURL  *_Nullable localURL, NSError   *_Nullable error))completionHandler;
 - (void)deleteRecordFileWithURL:(NSURL *)url error:(NSError **)error;
+
+
+
+- (void)addBeautyItems:(NSArray <MLContractBeautySourceItem *> *)items;
+- (void)removeBeautyItems:(NSArray <MLContractBeautySourceItem *> *)items;
+- (void)updateBeautyItem:(MLContractBeautySourceItem *)item key:(NSString*)key intensity:(float)intensity;
 @end
 
 @interface MLCameraSource (Analytics)

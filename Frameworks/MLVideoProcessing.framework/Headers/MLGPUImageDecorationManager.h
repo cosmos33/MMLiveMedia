@@ -6,11 +6,11 @@
 //  Copyright © 2016 wemomo.com. All rights reserved.
 //
 
-@import MomoCV;
-@import FaceDecorationKit;
-@import FaceDecorationKitGPUImage;
-@import GPUImage;
-@import MLMediaFoundation;
+#import <MomoCV/MomoCV.h>
+#import <FaceDecorationKit/FaceDecorationKit.h>
+#import <FaceDecorationKitGPUImage/FaceDecorationKitGPUImage.h>
+#import <GPUImage/GPUImage.h>
+#import <MLMediaFoundation/MLMediaFoundation.h>
 
 @class MLObjectTriggeredDecoration;
 

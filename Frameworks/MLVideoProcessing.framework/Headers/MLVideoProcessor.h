@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 #import "MLObjectTriggeredDecoration.h"
-@import MLMediaFoundation;
+#import <MLMediaFoundation/MLMediaFoundation.h>
 FOUNDATION_EXPORT BOOL MLSkinSmoothingNewVersionEnabled(void);
 FOUNDATION_EXPORT void MLSkinSmoothingSetNewVersionEnabled(BOOL enabled);
 
@@ -18,6 +18,7 @@ OBJC_EXTERN  NSString *const MLSkinSmoothingMethodDidChangeNotification;
 
 @class FDKDecoration,MLBeautySettings,MMFaceFeature,MMObjectFeature, MMBodyFeature,MLFilterDescriptor, MMFacialExpression, MMImageSegmentationResult, MLColorEnhancement;
 
+@protocol MLImageSegmentResult;
 @interface MLVideoProcessorOptions : NSObject
 
 @end
@@ -45,6 +46,8 @@ OBJC_EXTERN  NSString *const MLSkinSmoothingMethodDidChangeNotification;
 
 @property (nonatomic, assign) NSTimeInterval metalFrameProcessingTime;
 
+@property (nonatomic, assign) int beautyType;
+
 - (void)enableWaterMark:(BOOL)enable;
 
 - (nullable FDKDecoration *)decorationWithIdentifier:(NSString *)identifier;
@@ -61,6 +64,8 @@ OBJC_EXTERN  NSString *const MLSkinSmoothingMethodDidChangeNotification;
 
 - (void)processingCVPixelBuffer:(CVPixelBufferRef)pixelBuffer atTime:(CMTime)frameTime options:(MLVideoProcessorOptions *)options completion:(void (^)(CVPixelBufferRef resultPixelBuffer))completion;
 
-- (void)setFaceFeatures:(NSArray<MMFaceFeature *> *)faceFeatures objectFeatures:(NSArray<MMObjectFeature *> *)objectFeatures facialExpressions:(NSArray<MMFacialExpression *> *)facialExpressions imageSegmentationResult:(MMImageSegmentationResult *)imageSegmentationResult;
+- (void)processingInputPixelBuffer:(CVPixelBufferRef)inputPixelBuffer mergePixelBuffer:(CVPixelBufferRef)mergePixelBuffer atTime:(CMTime)frameTime options:(MLVideoProcessorOptions *)options mergeConfiguration:(NSDictionary *)mergeConfig needUpdateConfig:(BOOL)updateConfig previewCompletion:(void (^)(CVPixelBufferRef))previewCompletion mergedCompletion:(void (^)(CVPixelBufferRef))mergedCompletion;
+
+- (void)setFaceFeatures:(NSArray<MMFaceFeature *> *)faceFeatures objectFeatures:(NSArray<MMObjectFeature *> *)objectFeatures facialExpressions:(NSArray<MMFacialExpression *> *)facialExpressions imageSegmentationResult:(id<MLImageSegmentResult>)imageSegmentationResult;
 
 @end

@@ -1,5 +1,5 @@
 framework module MLVideoProcessing {
-  umbrella header "MLVideoProcessing-umbrella.h"
+  umbrella header "MLVideoProcessing.h"
 
   export *
   module * { export * }

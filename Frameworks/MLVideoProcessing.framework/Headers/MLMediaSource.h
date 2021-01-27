@@ -18,6 +18,9 @@
 - (void)mediaSource:(id<MLMediaSource>)source didOutputVideoSampleBuffer:(CMSampleBufferRef)sampleBuffer;
 - (void)mediaSource:(id<MLMediaSource>)source didOutputAudioSampleBuffer:(CMSampleBufferRef)sampleBuffer;
 
+- (void)mediaSource:(id<MLMediaSource>)source didOutputVideoPreviewSampleBuffer:(CMSampleBufferRef)sampleBuffer;
+- (void)mediaSource:(id<MLMediaSource>)source didOutputVideoCodecSampleBuffer:(CMSampleBufferRef)sampleBuffer;
+
 - (void)mediaSource:(id<MLMediaSource>)source didRenderAudioData:(NSData*)sampleBuffer;
 
 @end

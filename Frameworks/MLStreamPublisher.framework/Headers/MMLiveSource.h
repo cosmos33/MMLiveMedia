@@ -11,6 +11,7 @@
 #import "MMCommonParam.h"
 #if CAMERA_ON
 #import <MLVideoProcessing/MLCameraSource.h>
+#import <MLContractCV/MLContractCV.h>
 #else
 #import <CoreMedia/CoreMedia.h>
 #endif
@@ -302,6 +303,34 @@
 #if CAMERA_ON
 - (void)removeGesture:(MLObjectTriggeredDecoration*)decoration;
 #endif
+
+/**
+* 添加美颜
+*
+* @param items 资源描述
+*/
+#if CAMERA_ON
+- (void)addBeautyItems:(NSArray <MLContractBeautySourceItem *> *)items;
+#endif
+
+/**
+* 去除美颜
+*
+* @param items 资源描述
+*/
+#if CAMERA_ON
+- (void)removeBeautyItems:(NSArray <MLContractBeautySourceItem *> *)items;
+#endif
+
+/**
+* 更新美颜
+*
+* @param items 手势资源描述
+*/
+#if CAMERA_ON
+- (void)updateBeautyItem:(MLContractBeautySourceItem *)item key:(NSString*)key intensity:(float)intensity;
+#endif
+
 #pragma mark - 语音特效
 
 /**

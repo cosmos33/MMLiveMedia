@@ -14,7 +14,8 @@ typedef NS_OPTIONS(NSUInteger, MLColorEnhanceOption) {
     MLColorEnhanceOptionSaturation = 1 << 0,
     MLColorEnhanceOptionContrast = 1 << 1,
     MLColorEnhanceOptionUSMSharpening = 1 << 2,
-    MLColorEnhancementAll = MLColorEnhanceOptionSaturation|MLColorEnhanceOptionContrast|MLColorEnhanceOptionUSMSharpening
+    MLColorEnhanceOptionColorLookup = 1 << 3,
+    MLColorEnhancementAll = MLColorEnhanceOptionSaturation|MLColorEnhanceOptionContrast|MLColorEnhanceOptionUSMSharpening|MLColorEnhanceOptionColorLookup
 };
 
 
@@ -25,6 +26,8 @@ typedef NS_OPTIONS(NSUInteger, MLColorEnhanceOption) {
 @property (nonatomic, assign) float usmRadius;
 @property (nonatomic, assign) float usmScale;
 @property (nonatomic, assign) float usmThreshold;
+@property (nonatomic, copy) NSString *lookupTabelName;
+@property (nonatomic, copy, readonly) NSString *lookupTableLocalUrl;
 
 @end
 

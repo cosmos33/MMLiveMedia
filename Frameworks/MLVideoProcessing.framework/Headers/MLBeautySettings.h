@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) float skinWhitenAmount;
 
+@property (nonatomic) float skinRosyAmount;
 @end
 
 NS_ASSUME_NONNULL_END
