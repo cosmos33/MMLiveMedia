@@ -285,6 +285,12 @@ udp下行观众的sei
 - (void)setUseDokiBeautyEnable:(BOOL)enable;
 
 /**
+* 选择使用的美颜类型
+*
+* @param beautyType 0 old, 1 new, 2 douyin . default -1. only if (> -1), 'dokiBeautyEnable' is available
+*/
+- (void)setUseBeautyType:(MLCameraSourceBeautyType)beautyType;
+/**
 * 开始预览
 *
 * @param cameraId 0 代表前置摄像头 ，1 代表后置摄像头

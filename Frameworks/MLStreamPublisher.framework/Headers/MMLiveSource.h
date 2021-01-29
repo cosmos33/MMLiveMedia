@@ -62,6 +62,8 @@
 */
 - (void)setUseDokiBeautyEnable:(BOOL)enable;
 
+- (void)setUseBeautyType:(MLCameraSourceBeautyType)beautyType;
+
 /**
 * 开始预览
 *

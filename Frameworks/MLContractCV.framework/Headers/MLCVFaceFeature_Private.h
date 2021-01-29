@@ -70,11 +70,15 @@ struct MLFaceFeatureInternalRepresentation {
     
     CGSize imageSize;
 };
+
+extern MLFaceFeatureInternalRepresentation MLFaceFeatureInternalRepresentationMake(bef_ai_face_106 face, size_t imageWidth, size_t imageHeight);
+
 @interface MLCVFaceFeature (Private)
+
 
 @property (nonatomic,readonly) MLFaceFeatureInternalRepresentation internalRepresentation;
 
-- (instancetype)initWithFaceInfo:(bef_ai_face_106)faceInfo;
+- (instancetype)initWithInternelRepresentation:(MLFaceFeatureInternalRepresentation)internalRepresentation;
 
 - (void)updateRepresentationFacerigFeature:(std::vector<float>)facerigFeature;
 @end
