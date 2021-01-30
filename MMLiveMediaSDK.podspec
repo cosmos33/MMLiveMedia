@@ -32,7 +32,7 @@ TODO: Add long description of the pod here.
   s.requires_arc = true
   s.static_framework = true
 
-  s.resources = 'Resources/**/*.{nib}'
+  s.resources = 'Resources/**/*.{nib}','Resources/**/*.{bundle}'
   s.vendored_frameworks = 'Frameworks/**/*.{framework}'
   s.vendored_libraries =  'Frameworks/**/*.{a}'
   s.libraries = 'stdc++', 'c++', 'xml2'
