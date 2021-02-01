@@ -1,0 +1,6 @@
+framework module MLWeakTargetTimer {
+  umbrella header "MLWeakTargetTimer.h"
+
+  export *
+  module * { export * }
+}
