@@ -6,12 +6,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MLCVFaceFeature.h"
 #import "MLContractBeautySourceManager.h"
 
 
 NS_ASSUME_NONNULL_BEGIN
-
+@class MMFaceFeature;
 @interface MLContractBeautyProcessorOption : NSObject
 @property (nonatomic, assign) int orientation;
 @end
@@ -20,7 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MLContractBeautyProcessor : NSObject
 
 + (void)setLicenseURL:(NSURL *)url;
-+ (void)setResourceDirectory:(NSURL *)url;
 - (instancetype)init NS_UNAVAILABLE;
 - (nullable instancetype)initWithModelDirectory:(NSURL *)modelDir error:(NSError **)error;
 
@@ -30,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MLContractBeautyProcessor(Process)
 - (CVPixelBufferRef)processPixelBuffer:(CVPixelBufferRef)inputPixelBuffer;
 - (CVPixelBufferRef)processPixelBuffer:(CVPixelBufferRef)inputPixelBuffer option:(nullable MLContractBeautyProcessorOption *)option;
-- (NSArray <MLCVFaceFeature *>*)processedFaceFeature;
+- (NSArray <MMFaceFeature *>*)processedFaceFeature;
 @end
 
 

@@ -8,6 +8,7 @@
 
 #import <MomoCV/MomoCV.h>
 #import <MLContractCV/MLContractCV.h>
+
 NS_ASSUME_NONNULL_BEGIN
 @protocol MLBodyDetectoOption <NSObject>
 @property (nonatomic, assign) float landmarksScale;

@@ -8,12 +8,11 @@
 #import <Foundation/Foundation.h>
 #import <vector>
 #import <effect-sdk/bef_effect_ai_face_detect.h>
-#import "MLCVFaceFeature.h"
+#import <simd/simd.h>
+#import <MomoCV/MMFaceFeature.h>
 NS_ASSUME_NONNULL_BEGIN
 
-
-
-struct MLFaceFeatureInternalRepresentation {
+struct MLCVFaceFeatureInternalRepresentation {
     std::vector<float> bounds;//left top right bottom
     
     std::vector<float> landmarks96;
@@ -71,16 +70,12 @@ struct MLFaceFeatureInternalRepresentation {
     CGSize imageSize;
 };
 
-extern MLFaceFeatureInternalRepresentation MLFaceFeatureInternalRepresentationMake(bef_ai_face_106 face, size_t imageWidth, size_t imageHeight);
+typedef MLCVFaceFeatureInternalRepresentation MMFaceFeatureInternalRepresentation;
 
-@interface MLCVFaceFeature (Private)
+extern MMFaceFeatureInternalRepresentation MMFaceFeatureInternalRepresentationMakeByByteDance(bef_ai_face_106 face, size_t imageWidth, size_t imageHeight);
 
 
-@property (nonatomic,readonly) MLFaceFeatureInternalRepresentation internalRepresentation;
-
-- (instancetype)initWithInternelRepresentation:(MLFaceFeatureInternalRepresentation)internalRepresentation;
-
-- (void)updateRepresentationFacerigFeature:(std::vector<float>)facerigFeature;
+@interface MMFaceFeature (ByteDance)
+- (instancetype)initWithInternelRepresentation:(MMFaceFeatureInternalRepresentation)internalRepresentation;
 @end
-
 NS_ASSUME_NONNULL_END

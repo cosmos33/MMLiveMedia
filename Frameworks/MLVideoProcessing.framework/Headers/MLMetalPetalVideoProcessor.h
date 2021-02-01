@@ -17,7 +17,6 @@
 
 @interface MLMetalPetalVideoProcessor : NSObject<MLVideoProcessor>
 @property (nonatomic, strong, readonly) MLAudioPrism <FDKAudioPrism>*audioPrism;
-@property (nonatomic, assign) BOOL useDeepBeauty;
 @property (nonatomic, copy) CXBeautyConfiguration *deepBeautyConfiguration;
 @property (nonatomic, copy) NSArray <MLMetalPetalNativeViewItem *>*viewItems;
 @property (nonatomic, assign) int warpType;

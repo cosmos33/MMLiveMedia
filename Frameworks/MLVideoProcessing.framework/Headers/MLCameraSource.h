@@ -225,9 +225,9 @@ OBJC_EXTERN NSString *const kMLDecorationManagerDecorationFilterAddedNotificatio
 
 @property (nonatomic, assign) int dokiWarpType;
 
-@property (nonatomic) BOOL dokiBeautyEnable;
+@property (nonatomic, assign) BOOL dokiBeautyEnable;
 
-@property (nonatomic) MLCameraSourceBeautyType beautyType; // 0 old, 1 new, 2 douyin . default -1. only if (> -1), 'dokiBeautyEnable' is available, 
+@property (nonatomic) MLCameraSourceBeautyType beautyType; // 0 old, 1 new, 2 douyin
 
 @property (nonatomic) NSUInteger dokiSkinSmoothingVersion; // default is 0;
 
@@ -264,7 +264,6 @@ OBJC_EXTERN NSString *const kMLDecorationManagerDecorationFilterAddedNotificatio
 - (void)updateISO:(float)iso;
 - (void)addRecordingRequest:(MLRecordingRequest *)request error:(NSError **)error  completion:(void(^)(NSURL  *_Nullable localURL, NSError   *_Nullable error))completionHandler;
 - (void)deleteRecordFileWithURL:(NSURL *)url error:(NSError **)error;
-
 
 
 - (void)addBeautyItems:(NSArray <MLContractBeautySourceItem *> *)items;
