@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class MMFaceFeature;
 @interface MLContractBeautyProcessorOption : NSObject
 @property (nonatomic, assign) int orientation;
+@property (nonatomic, assign) float landmarkScale;
 @end
 
 

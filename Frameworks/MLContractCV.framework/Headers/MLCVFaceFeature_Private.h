@@ -7,7 +7,8 @@
 
 #import <Foundation/Foundation.h>
 #import <vector>
-#import <effect-sdk/bef_effect_ai_face_detect.h>
+//#import <effect-sdk/bef_effect_ai_face_detect.h>
+#import "bef_effect_ai_face_detect.h"
 #import <simd/simd.h>
 #import <MomoCV/MMFaceFeature.h>
 NS_ASSUME_NONNULL_BEGIN
@@ -72,7 +73,7 @@ struct MLCVFaceFeatureInternalRepresentation {
 
 typedef MLCVFaceFeatureInternalRepresentation MMFaceFeatureInternalRepresentation;
 
-extern MMFaceFeatureInternalRepresentation MMFaceFeatureInternalRepresentationMakeByByteDance(bef_ai_face_106 face, size_t imageWidth, size_t imageHeight);
+extern MMFaceFeatureInternalRepresentation MMFaceFeatureInternalRepresentationMakeByByteDance(bef_ai_face_106 face, size_t imageWidth, size_t imageHeight, float landmarkScale);
 
 
 @interface MMFaceFeature (ByteDance)
