@@ -10,7 +10,7 @@
 #import <MetalPetal/MetalPetal.h>
 #import <FaceDecorationKitMetalPetal/FaceDecorationKitMetalPetal.h>
 #import <FaceDecorationKitMomoCV/FaceDecorationKitMomoCV.h>
-#import <MLWeakTargetTimer/MLWeakTargetTimer.h>
+#import <NSTimerWeakTarget/NSTimer+WeakTarget.h>
 #import <MLMediaFoundation/MLMediaFoundation.h>
 #import <MLFilterKitMetalPetal/MLFilterKitMetalPetal.h>
 #import <CXBeautyKit/CXBeautyKit.h>
