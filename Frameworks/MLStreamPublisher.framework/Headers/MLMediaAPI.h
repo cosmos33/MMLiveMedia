@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @protocol MLMediaAPI <NSObject>
 
@@ -112,6 +113,7 @@
                  reportType:(NSInteger)reportType
                 serviceType:(NSString *)serviceType
               liveAPIDomain:(NSString *)domain
+                   location:(CGPoint)location
                      target:(id)aTarget
                          ok:(SEL)okSelector
                         err:(SEL)errSelector
@@ -126,7 +128,8 @@
                 sessionTime:(uint64_t)sessionTime
              playerIdentify:(NSInteger)playerIdentify
                  reportType:(NSInteger)reportType
-              liveAPIDomain:(NSString *)domain;
+              liveAPIDomain:(NSString *)domain
+                   location:(CGPoint)location;
 
 - (void)liveLogWihtType:(NSString*)type
                  roomId:(NSString*)roomid
