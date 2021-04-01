@@ -18,6 +18,8 @@
 - (_Nonnull instancetype) initWithBitrate:(NSUInteger)bitrate width:(int)width height:(int)height;
 - (_Nonnull instancetype) initWithBitrate:(NSUInteger)bitrate width:(int)width height:(int)height framerate:(int)framerate;
 - (_Nonnull instancetype) initWithBitrate:(NSUInteger)bitrate width:(int)width height:(int)height framerate:(int)framerate isHasBFrame:(BOOL)isHasBFrame;
+- (_Nonnull instancetype) initWithBitrate:(NSUInteger)bitrate width:(int)width height:(int)height framerate:(int)framerate isHasBFrame:(BOOL)isHasBFrame disableRasl:(BOOL)disableRasl;
+
 - (BOOL) encodePixelBuffer:(nonnull CVPixelBufferRef)pixerBuffer prestime:(CMTime)frameTime duration:(CMTime)duration;
 - (void) prepareForEncode;
 - (uint64_t) getTotalBytesProduct;

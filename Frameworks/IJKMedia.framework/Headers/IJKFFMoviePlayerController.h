@@ -77,6 +77,10 @@ typedef enum {
     IJKAudioEffectHIFIEnhance = 4 //功放HIFI音效
 } IJKAudioEffect;
 
+typedef NS_ENUM(NSUInteger, IJKFFMoviePlayerControllerRenderApi) {
+    IJKFFMoviePlayerControllerRenderApiOpenGL = 0,
+    IJKFFMoviePlayerControllerRenderApiMetal = 1,
+};
 
 @interface IJKFFMoviePlayerController : NSObject <IJKMediaPlayback>
 
@@ -139,6 +143,8 @@ typedef enum {
 - (void)setPlayerDisableAudio;
 - (void)setPlayerDisableVideo;
 
+//获取播放器渲染方式
+- (IJKFFMoviePlayerControllerRenderApi)getRenderApi;
 - (uint64_t)currentPlaybackPts;
 - (void)setPlayerSpeedRate: (float)rate;
 
@@ -148,6 +154,8 @@ typedef enum {
                       times:(int)times
                  start_slot:(int)start_slot
                 buffer_slot:(int)buffer_slot;
+
+- (void)mlSetCdnDropMs:(double)dropInMs;
 
 - (void)mlSetVideoRenderThreshold:(int)render_threshold;
 // momo live modify

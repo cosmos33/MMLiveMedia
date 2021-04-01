@@ -23,27 +23,9 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "IJKSDLView.h"
 
-//#include "ijksdl/ijksdl_vout.h"
-@class IJKSDLGLView;
-
-@protocol IJKSDLGLViewDelegate <NSObject>
-@optional
-- (CVPixelBufferRef)ijkSDLGLView:(IJKSDLGLView *)view beautyFilter:(CVPixelBufferRef)oldBuffer;
-
-@end;
-
-@interface IJKSDLGLView : UIView
-
-- (id) initWithFrame:(CGRect)frame;
-- (void) display: (void *) overlay;
-- (void) clearContent;
-
-- (UIImage*) snapshot;
-@property(nonatomic,weak) id<IJKSDLGLViewDelegate>  delegate;
-@property(nonatomic,strong) NSLock  *appActivityLock;
-@property(nonatomic)        CGFloat  fps;
-@property(nonatomic)        CGFloat  scaleFactor;
+@interface IJKSDLGLView : IJKSDLView
 
 @end
 
