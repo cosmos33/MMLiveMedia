@@ -1,4 +1,4 @@
-module TXLiteAVSDK_ILiveRoom_Smart {
+module TXLiteAVSDK_TRTC_Momo {
     umbrella header "Headers/TXLiteAVSDK.h"
     export *
 }

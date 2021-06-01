@@ -9,7 +9,7 @@
 #ifndef vadDetect_h
 #define vadDetect_h
 #import <Foundation/Foundation.h>
-@interface VadDetect: NSObject
+@interface MLVadDetect: NSObject
 /*
  * samplerate Valid values are 8000, 16000, 32000 and 48000.
  * channel Valid values are 1, 2. The default is 1.

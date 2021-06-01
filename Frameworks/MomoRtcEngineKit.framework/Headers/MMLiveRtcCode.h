@@ -20,6 +20,7 @@ typedef enum _MMLiveErrorCode{
     MMLiveErrorCodeGetServerInfo,
     MMLiveErrorCodePKReStartTimesOver,
     MMLiveErrorCodeVideoEncoderCreated,
+    MMLiveErrorCodeRtpPullTimeout,
 }MMLiveErrorCode;
 
 

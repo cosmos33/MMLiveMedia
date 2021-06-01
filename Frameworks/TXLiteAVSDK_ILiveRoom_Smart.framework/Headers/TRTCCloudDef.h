@@ -35,31 +35,30 @@ typedef NSEdgeInsets TXEdgeInsets;
  */
 typedef NS_ENUM(NSInteger, TRTCVideoResolution) {
     // 宽高比1:1
-    TRTCVideoResolution_120_120     = 1,    ///< [C] 建议码率80kbps
-    TRTCVideoResolution_160_160     = 3,    ///< [C] 建议码率100kbps
-    TRTCVideoResolution_270_270     = 5,    ///< [C] 建议码率200kbps
-    TRTCVideoResolution_480_480     = 7,    ///< [C] 建议码率350kbps
+    TRTCVideoResolution_120_120     = 1,    ///< [C] 建议码率 VideoCall:80kbps   LIVE:120kbps
+    TRTCVideoResolution_160_160     = 3,    ///< [C] 建议码率 VideoCall:100kbps  LIVE:150kbps
+    TRTCVideoResolution_270_270     = 5,    ///< [C] 建议码率 VideoCall:200kbps  LIVE:120kbps
+    TRTCVideoResolution_480_480     = 7,    ///< [C] 建议码率 VideoCall:350kbps  LIVE:120kbps
     
     // 宽高比4:3
-    TRTCVideoResolution_160_120     = 50,   ///< [C] 建议码率100kbps
-    TRTCVideoResolution_240_180     = 52,   ///< [C] 建议码率150kbps
-    TRTCVideoResolution_280_210     = 54,   ///< [C] 建议码率200kbps
-    TRTCVideoResolution_320_240     = 56,   ///< [C] 建议码率250kbps
-    TRTCVideoResolution_400_300     = 58,   ///< [C] 建议码率300kbps
-    TRTCVideoResolution_480_360     = 60,   ///< [C] 建议码率400kbps
-    TRTCVideoResolution_640_480     = 62,   ///< [C] 建议码率600kbps
-    TRTCVideoResolution_960_720     = 64,   ///< [C] 建议码率1000kbps
+    TRTCVideoResolution_160_120     = 50,   ///< [C] 建议码率 VideoCall:100kbps  LIVE:150kbps
+    TRTCVideoResolution_240_180     = 52,   ///< [C] 建议码率 VideoCall:150kbps  LIVE:225kbps
+    TRTCVideoResolution_280_210     = 54,   ///< [C] 建议码率 VideoCall:200kbps  LIVE:300kbps
+    TRTCVideoResolution_320_240     = 56,   ///< [C] 建议码率 VideoCall:250kbps  LIVE:375kbps
+    TRTCVideoResolution_400_300     = 58,   ///< [C] 建议码率 VideoCall:300kbps  LIVE:450kbps
+    TRTCVideoResolution_480_360     = 60,   ///< [C] 建议码率 VideoCall:400kbps  LIVE:600kbps
+    TRTCVideoResolution_640_480     = 62,   ///< [C] 建议码率 VideoCall:600kbps  LIVE:900kbps
+    TRTCVideoResolution_960_720     = 64,   ///< [C] 建议码率 VideoCall:1000kbps LIVE:1500kbps
     
     // 宽高比16:9
-    TRTCVideoResolution_160_90      = 100,  ///< [C] 建议码率100kbps
-    TRTCVideoResolution_256_144     = 102,  ///< [C] 建议码率150kbps
-    TRTCVideoResolution_320_180     = 104,  ///< [C] 建议码率250kbps
-    TRTCVideoResolution_480_270     = 106,  ///< [C] 建议码率350kbps
-    TRTCVideoResolution_640_360     = 108,  ///< [C] 建议码率550kbps
-    TRTCVideoResolution_960_540     = 110,  ///< [C] 建议码率850kbps
-    TRTCVideoResolution_1280_720    = 112,  ///< [C] 摄像头采集 - 建议码率1200kbps
-                                            ///< [S] 屏幕分享   - 建议码率：低清：400kbps 高清：600kbps
-    TRTCVideoResolution_1920_1080   = 114,  ///< [S] 屏幕分享   - 建议码率800kbps
+    TRTCVideoResolution_160_90      = 100,  ///< [C] 建议码率 VideoCall:150kbps  LIVE:250kbps
+    TRTCVideoResolution_256_144     = 102,  ///< [C] 建议码率 VideoCall:200kbps  LIVE:300kbps
+    TRTCVideoResolution_320_180     = 104,  ///< [C] 建议码率 VideoCall:250kbps  LIVE:400kbps
+    TRTCVideoResolution_480_270     = 106,  ///< [C] 建议码率 VideoCall:350kbps  LIVE:550kbps
+    TRTCVideoResolution_640_360     = 108,  ///< [C] 建议码率 VideoCall:550kbps  LIVE:900kbps
+    TRTCVideoResolution_960_540     = 110,  ///< [C] 建议码率 VideoCall:850kbps  LIVE:1300kbps
+    TRTCVideoResolution_1280_720    = 112,  ///< [C] 建议码率 VideoCall:1200kbps LIVE:1800kbps
+    TRTCVideoResolution_1920_1080   = 114,  ///< [S] 建议码率 VideoCall:2000kbps LIVE:3000kbps
 };
 
 /**
@@ -140,6 +139,7 @@ typedef NS_ENUM(NSInteger, TRTCVideoRotation) {
 typedef NS_ENUM(NSInteger, TRTCBeautyStyle) {
     TRTCBeautyStyleSmooth    = 0,  ///< 光滑，适用于美女秀场，效果比较明显。
     TRTCBeautyStyleNature    = 1,  ///< 自然，磨皮算法更多地保留了面部细节，主观感受上会更加自然。
+    TRTCBeautyStylePitu      = 2,  ///< 由上海优图实验室提供的美颜算法，磨皮效果介于光滑和自然之间，比光滑保留更多皮肤细节，比自然磨皮程度更高。
 };
 
 /**
@@ -190,16 +190,29 @@ typedef NS_ENUM(NSUInteger, TRTCLocalVideoMirrorType) {
  * 2.1 应用场景
  *
  * TRTC 可用于视频会议和在线直播等多种应用场景，针对不同的应用场景，TRTC SDK 的内部会进行不同的优化配置：
- * - VideoCall：视频通话，类似微信的视频通话，重点优化了低延时和视频流畅度，支持双人通话和多人通话。
- * - LIVE：在线直播场景，区分主播和观众，用户可以使用 switchRole 接口在主播和观众两种角色之间进行切换，主播之间可以相互连麦，观众只能观看。
- * - AudioCall：语音通话，类似微信的语音通话，重点优化了低延时和声音质量，支持双人通话和多人通话。
- * - VoiceChatRoom：语音聊天室，区分主播和观众，用户可以使用 switchRole 接口在主播和观众两种角色之间进行切换，主播之间可以相互连麦，观众只能观看。
+ * - TRTCAppSceneVideoCall    ：视频通话场景，适合[1对1视频通话]、[300人视频会议]、[在线问诊]、[视频聊天]、[远程面试]等。              
+ * - TRTCAppSceneLIVE         ：视频互动直播，适合[视频低延时直播]、[十万人互动课堂]、[视频直播 PK]、[视频相亲房]、[互动课堂]、[远程培训]、[超大型会议]等。
+ * - TRTCAppSceneAudioCall    ：语音通话场景，适合[1对1语音通话]、[300人语音会议]、[语音聊天]、[语音会议]、[在线狼人杀]等。
+ * - TRTCAppSceneVoiceChatRoom：语音互动直播，适合：[语音低延时直播]、[语音直播连麦]、[语聊房]、[K 歌房]、[FM 电台]等。
  */
 typedef NS_ENUM(NSInteger, TRTCAppScene) {
-    TRTCAppSceneVideoCall      = 0,  ///< 视频通话场景，适用于双人或多人视频通话，该场景项倾向于降低通话延迟和卡顿率，保障视频的流畅性
-    TRTCAppSceneLIVE           = 1,  ///< 在线直播场景，适用于清晰度要求较高的视频互动直播，该场景项倾向于优化推流端性能及播放端兼容性，保障视频的清晰度
-    TRTCAppSceneAudioCall      = 2,  ///< 语音通话场景，适用于双人或多人语音通话，该场景项倾向于提升语音音质和更低的语音延迟，保障语音通话质量
-    TRTCAppSceneVoiceChatRoom  = 3,  ///< 语音聊天室，适用于大规模语音互动直播，该场景项倾向于提供高品质的音频及更低的音频延迟，保障语音音频质量
+	/// 视频通话场景，支持720P、1080P高清画质，单个房间最多支持300人同时在线，最高支持50人同时发言。<br>
+	/// 适合：[1对1视频通话]、[300人视频会议]、[在线问诊]、[视频聊天]、[远程面试]等。
+    TRTCAppSceneVideoCall      = 0,  
+	
+	/// 视频互动直播，支持平滑上下麦，切换过程无需等待，主播延时小于300ms；支持十万级别观众同时播放，播放延时低至1000ms。<br>
+	/// 适合：[视频低延时直播]、[十万人互动课堂]、[视频直播 PK]、[视频相亲房]、[互动课堂]、[远程培训]、[超大型会议]等。<br>
+	/// 注意：此场景下，您必须通过 TRTCParams 中的 role 字段指定当前用户的角色。
+    TRTCAppSceneLIVE           = 1,  
+	
+	/// 语音通话场景，支持 48kHz，支持双声道。单个房间最多支持300人同时在线，最高支持50人同时发言。<br>
+	/// 适合：[1对1语音通话]、[300人语音会议]、[语音聊天]、[语音会议]、[在线狼人杀]等。
+    TRTCAppSceneAudioCall      = 2,  
+	
+	/// 语音互动直播，支持平滑上下麦，切换过程无需等待，主播延时小于300ms；支持十万级别观众同时播放，播放延时低至1000ms。<br>
+    /// 适合：[语音低延时直播]、[语音直播连麦]、[语聊房]、[K 歌房]、[FM 电台]等。<br>
+	/// 注意：此场景下，您必须通过 TRTCParams 中的 role 字段指定当前用户的角色。
+    TRTCAppSceneVoiceChatRoom  = 3,  
 };
 
 /**
@@ -207,7 +220,7 @@ typedef NS_ENUM(NSInteger, TRTCAppScene) {
  *
  * 在直播场景中，多数用户仅为观众，个别用户是主播，这种角色区分有利于 TRTC 进行更好的定向优化。
  *
- * - Anchor：主播，可以上行视频和音频，一个房间里最多支持20个主播同时上行音视频。
+ * - Anchor：主播，可以上行视频和音频，一个房间里最多支持50个主播同时上行音视频。
  * - Audience：观众，只能观看，不能上行视频和音频，一个房间里的观众人数没有上限。
  */
 typedef NS_ENUM(NSInteger, TRTCRoleType) {
@@ -234,15 +247,15 @@ typedef NS_ENUM(NSInteger, TRTCQosControlMode)
 /**
  * 2.4 画质偏好
  *
- * 指当 TRTC SDK 在遇到弱网络环境时，您期望“保清晰”或“保流畅”：
+ * 指当 TRTC SDK 在遇到弱网络环境时，您期望“保清晰”或“保流畅”，两种模式均会优先保障声音数据的传输。
  *
- * - Smooth：弱网下保流畅，即在遭遇弱网环境时首先确保声音的流畅和优先发送，画面会变得模糊且会有较多马赛克，但可以保持流畅不卡顿。
- * - Clear：弱网下保清晰，即在遭遇弱网环境时，画面会尽可能保持清晰，但可能会更容易出现卡顿。
+ * - Smooth：弱网下优先流畅性，当用户网络较差的时候画面也会比较模糊。
+ * - Clear：默认值，弱网下优先清晰度，当用户网络较差的时候会出现卡顿，但画面清晰度不会大幅缩水。
  */
 typedef NS_ENUM(NSInteger, TRTCVideoQosPreference)
 {
     TRTCVideoQosPreferenceSmooth = 1,      ///< 弱网下保流畅
-    TRTCVideoQosPreferenceClear  = 2,      ///< 弱网下保清晰
+    TRTCVideoQosPreferenceClear  = 2,      ///< 弱网下保清晰，默认值
 };
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -264,7 +277,21 @@ typedef NS_ENUM(NSInteger, TRTCAudioSampleRate) {
 };
 
 /**
- * 3.2 声音播放模式（音频路由）
+ * 3.2 声音音质
+ *
+ * 音频音质用来衡量声音的保真程度，TRTCAudioQualitySpeech 适用于通话场景，TRTCAudioQualityMusic 适用于高音质音乐场景。
+ */
+typedef NS_ENUM(NSInteger, TRTCAudioQuality) {
+    /// 流畅音质：采样率：16k；单声道；音频裸码率：16kbps；适合语音通话为主的场景，比如在线会议，语音通话。
+    TRTCAudioQualitySpeech = 1,
+    /// 默认音质：采样率：48k；单声道；音频裸码率：50kbps；SDK 默认的音频质量，如无特殊需求推荐选择之。
+    TRTCAudioQualityDefault = 2,
+    /// 高音质：采样率：48k；双声道 + 全频带；音频裸码率：128kbps；适合需要高保真传输音乐的场景，比如K歌、音乐直播等。
+    TRTCAudioQualityMusic = 3,
+};
+
+/**
+ * 3.3 声音播放模式（音频路由）
  *
  * 微信和手机 QQ 里的视频通话功能，都有一个免提模式，开启后就不用把手机贴在耳朵上，这个功能就是基于音频路由实现的。
  * 一般手机都有两个扬声器，设置音频路由的作用就是要决定声音从哪个扬声器播放出来：
@@ -277,7 +304,7 @@ typedef NS_ENUM(NSInteger, TRTCAudioRoute) {
 };
 
 /**
- * 3.3 声音混响模式
+ * 3.4 声音混响模式
  *
  * 该枚举值应用于直播场景中的混响模式，主要用于秀场直播中。
  */
@@ -293,7 +320,7 @@ typedef NS_ENUM(NSInteger, TRTCReverbType) {
 };
 
 /**
- * 3.4 变声模式
+ * 3.5 变声模式
  *
  * 该枚举值应用于直播场景中的变声模式，主要用于秀场直播中。
  */
@@ -313,37 +340,37 @@ typedef NS_ENUM(NSInteger, TRTCVoiceChangerType) {
 };
 
 /**
-* 3.5 系统音量类型
-*
-* 智能手机一般具备两种系统音量类型，即通话音量类型和媒体音量类型。
-* - 通话音量：手机专门为通话场景设计的音量类型，使用手机自带的回声抵消功能，音质相比媒体音量类型较差，
-*             无法通过音量按键将音量调成零，但是支持蓝牙耳机上的麦克风。
-*
-* - 媒体音量：手机专门为音乐场景设计的音量类型，音质相比于通话音量类型要好，通过通过音量按键可以将音量调成零。
-*             使用媒体音量类型时，如果要开启回声抵消（AEC）功能，SDK 会开启内置的声学处理算法对声音进行二次处理。
-*             在媒体音量模式下，蓝牙耳机无法使用自带的麦克风采集声音，只能使用手机上的麦克风进行声音采集。
-*
-* SDK 目前提供了三种系统音量类型的控制模式，分别为：
-* - Auto：“麦上通话，麦下媒体”，即主播上麦时使用通话音量，观众不上麦则使用媒体音量，适合在线直播场景。
-*         如果您在 enterRoom 时选择的场景为 TRTCAppSceneLIVE 或 TRTCAppSceneVoiceChatRoom，SDK 会自动选择该模式。
-*
-* - VOIP：全程使用通话音量，适合多人会议场景。
-*         如果您在 enterRoom 时选择的场景为 TRTCAppSceneVideoCall 或 TRTCAppSceneAudioCall，SDK 会自动选择该模式。
-*
-* - Media：通话全程使用媒体音量，不常用，适合个别有特殊需求（如主播外接声卡）的应用场景。
-*
-*/
+ * 3.6 系统音量类型
+ *
+ * 智能手机一般具备两种系统音量类型，即通话音量类型和媒体音量类型。
+ * - 通话音量：手机专门为通话场景设计的音量类型，使用手机自带的回声抵消功能，音质相比媒体音量类型较差，
+ *             无法通过音量按键将音量调成零，但是支持蓝牙耳机上的麦克风。
+ *   
+ * - 媒体音量：手机专门为音乐场景设计的音量类型，音质相比于通话音量类型要好，通过通过音量按键可以将音量调成零。
+ *             使用媒体音量类型时，如果要开启回声抵消（AEC）功能，SDK 会开启内置的声学处理算法对声音进行二次处理。
+ *             在媒体音量模式下，蓝牙耳机无法使用自带的麦克风采集声音，只能使用手机上的麦克风进行声音采集。
+ *
+ * SDK 目前提供了三种系统音量类型的控制模式，分别为：
+ * - Auto：“麦上通话，麦下媒体”，即主播上麦时使用通话音量，观众不上麦则使用媒体音量，适合在线直播场景。
+ *         如果您在 enterRoom 时选择的场景为 TRTCAppSceneLIVE 或 TRTCAppSceneVoiceChatRoom，SDK 会自动选择该模式。
+ *
+ * - VOIP：全程使用通话音量，适合多人会议场景。
+ *         如果您在 enterRoom 时选择的场景为 TRTCAppSceneVideoCall 或 TRTCAppSceneAudioCall，SDK 会自动选择该模式。
+ *
+ * - Media：通话全程使用媒体音量，不常用，适合个别有特殊需求（如主播外接声卡）的应用场景。
+ *
+ */
 typedef NS_ENUM(NSInteger, TRTCSystemVolumeType) {
-    /// “麦上通话，麦下媒体”，即主播上麦时使用通话音量，观众不上麦则使用媒体音量，适合在线直播场景。<br>
-    /// 如果您在 enterRoom 时选择的场景为 TRTCAppSceneLIVE 或 TRTCAppSceneVoiceChatRoom，SDK 会自动选择该模式。
-    TRTCSystemVolumeTypeAuto             = 0,
-    
-    /// 通话全程使用媒体音量，不常用，适合个别有特殊需求（如主播外接声卡）的应用场景。
-    TRTCSystemVolumeTypeMedia            = 1,
-    
-    /// 全程使用通话音量，适合多人会议场景。<br>
-    /// 如果您在 enterRoom 时选择的场景为 TRTCAppSceneVideoCall 或 TRTCAppSceneAudioCall 会自动选择该模式。
-    TRTCSystemVolumeTypeVOIP             = 2,
+	/// “麦上通话，麦下媒体”，即主播上麦时使用通话音量，观众不上麦则使用媒体音量，适合在线直播场景。<br>
+	/// 如果您在 enterRoom 时选择的场景为 TRTCAppSceneLIVE 或 TRTCAppSceneVoiceChatRoom，SDK 会自动选择该模式。
+    TRTCSystemVolumeTypeAuto             = 0,   
+	
+	/// 通话全程使用媒体音量，不常用，适合个别有特殊需求（如主播外接声卡）的应用场景。
+    TRTCSystemVolumeTypeMedia            = 1,    
+	
+	/// 全程使用通话音量，适合多人会议场景。<br>
+	/// 如果您在 enterRoom 时选择的场景为 TRTCAppSceneVideoCall 或 TRTCAppSceneAudioCall 会自动选择该模式。
+	TRTCSystemVolumeTypeVOIP             = 2,    
 };
 
 #pragma mark -
@@ -372,15 +399,15 @@ typedef NS_ENUM(NSInteger, TRTCLogLevel) {
 /**
  * 4.2 重力感应开关
  *
- * 此配置仅适用于 iOS 和 iPad 等移动设备，并且需要配合您当前 UI 的布局模式一起使用：
- * - Disable，表示视频画面不会跟随重力感应方向而调整。
- * - UIAutoLayout，表示 SDK 不会自动调整 LocalVideoView 的旋转方向，而是交给系统进行处理。适用于您的 App 界面已适配重力感应的场景。
- * - UIFixLayout，表示 SDK 自动调整 LocalVideoView 的旋转方向，适用于您的 App 界面暂未适配重力感应的场景。
+ * 此配置仅适用于 iOS 和 iPad 等移动设备：
+ * - Disable：Mac 平台的默认值，视频上行的画面（也就是房间里的其它用户看到的当前用户的画面）不会跟随重力感应方向而自动调整。
+ * - UIAutoLayout：iPhone 和 iPad 平台的默认值，视频上行的画面（也就是房间里的其它用户看到的当前用户的画面）会跟随当前界面的状态栏方向而自动调整。
+ * - UIFixLayout：待废弃，效果等同于 UIAutoLayout。
  */
 typedef NS_ENUM(NSInteger, TRTCGSensorMode) {
-    TRTCGSensorMode_Disable         = 0,  ///< 关闭重力感应
-    TRTCGSensorMode_UIAutoLayout    = 1,  ///< 开启重力感应，需要您的 App 界面已适配重力感应。
-	TRTCGSensorMode_UIFixLayout     = 2   ///< 开启重力感应，适用于您的 App 界面暂未适配重力感应的场景。
+    TRTCGSensorMode_Disable         = 0,  ///< 关闭重力感应，Mac 平台的默认值。
+    TRTCGSensorMode_UIAutoLayout    = 1,  ///< 开启重力感应，iPhone 和 iPad 平台的默认值。
+    TRTCGSensorMode_UIFixLayout     = 2   ///< 待废弃，效果等同于 UIAutoLayout。
 };
 
 #if TARGET_OS_MAC && !TARGET_OS_IPHONE
@@ -422,13 +449,74 @@ typedef NS_ENUM(NSInteger, TRTCScreenCaptureSourceType) {
 /**
  * 4.5 混流参数配置模式
  *
- * 目前暂仅支持手动配置这一种模式，即需要指定 TRTCTranscodingConfig 的全部参数。
  */
 typedef NS_ENUM(NSInteger, TRTCTranscodingConfigMode) {
-    TRTCTranscodingConfigMode_Unknown = 0,   ///< 未定义
-    TRTCTranscodingConfigMode_Manual  = 1,   ///< 手动配置混流参数
+    /// 非法值
+    TRTCTranscodingConfigMode_Unknown                = 0,
+
+    /// 全手动模式，灵活性最高，可以自由组合出各种混流方案，但易用性最差。
+    /// 此模式下，您需要填写 TRTCTranscodingConfig 中的所有参数，并需要监听 TRTCCloudDelegate 中的 onUserVideoAvailable() 和 onUserAudioAvailable() 回调，
+    /// 以便根据当前房间中各个上麦用户的音视频状态不断地调整 mixUsers 参数，否则会导致混流失败。
+    TRTCTranscodingConfigMode_Manual                 = 1,
+    
+    /// 纯音频模式，适用于语音通话（AudioCall）和语音聊天室（VoiceChatRoom）等纯音频场景。
+    /// 只需要在进房后通过 setMixTranscodingConfig() 接口设置一次，之后 SDK 就会自动把房间内所有上麦用户的声音混流到当前用户的直播流上。
+    /// 此模式下，您无需设置 TRTCTranscodingConfig 中的 mixUsers 参数，只需设置 audioSampleRate、audioBitrate 和 audioChannels 等参数。
+    TRTCTranscodingConfigMode_Template_PureAudio     = 2,
+
+    /// 预排版模式，通过占位符提前对各路画面进行排布
+    /// 此模式下，您依然需要设置 mixUsers 参数，但可以将 userId 设置为占位符，可选的占位符有：
+    /// - "$PLACE_HOLDER_REMOTE$"     :  指代远程用户的画面，可以设置多个。
+    /// - "$PLACE_HOLDER_LOCAL_MAIN$" ： 指代本地摄像头画面，只允许设置一个。
+    /// - "$PLACE_HOLDER_LOCAL_SUB$"  :  指代本地屏幕分享画面，只允许设置一个。
+    /// 但是您可以不需要监听 TRTCCloudDelegate 中的 onUserVideoAvailable() 和 onUserAudioAvailable() 回调进行实时调整，
+    /// 只需要在进房成功后调用一次 setMixTranscodingConfig() 即可，之后 SDK 会自动将真实的 userId 补位到您设置的占位符上。
+    TRTCTranscodingConfigMode_Template_PresetLayout  = 3,
+    
+    /// 屏幕分享模式，适用于在线教育场景等以屏幕分享为主的应用场景，仅支持 Windows 和 Mac 两个平台的 SDK。
+    /// SDK 会先根据您（通过 videoWidth 和 videoHeight 参数）设置的目标分辨率构建一张画布，
+    /// 当老师未开启屏幕分享时，SDK 会将摄像头画面等比例拉伸绘制到该画布上；当老师开启屏幕分享之后，SDK 会将屏幕分享画面绘制到同样的画布上。
+    /// 这样操作的目的是为了确保混流模块的输出分辨率一致，避免课程回放和网页观看的花屏问题（网页播放器不支持可变分辨率）。
+    /// 同时，连麦学生的声音会被默认混合到老师的音视频流中。
+    ///
+    /// 由于教学模式下的视频内容以屏幕分享为主，因此同时传输摄像头画面和屏幕分享画面是非常浪费带宽的。
+    /// 推荐的做法是直接将摄像头画面通过 setLocalVideoRenderCallback 接口自定义绘制到当前屏幕上。
+    /// 在该模式下，您无需设置 TRTCTranscodingConfig 中的 mixUsers 参数，SDK 不会混合学生的画面，以免干扰屏幕分享的效果。
+    ///
+    /// 您可以将 TRTCTranscodingConfig 中的 width × height 设为 0px × 0px，SDK 会自动根据用户当前屏幕的宽高比计算出一个合适的分辨率：
+    /// - 如果老师当前屏幕宽度 <= 1920px，SDK 会使用老师当前屏幕的实际分辨率。
+    /// - 如果老师当前屏幕宽度 > 1920px，SDK 会根据当前屏幕宽高比，选择 1920x1080(16:9)、1920x1200(16:10)、1920x1440(4:3) 三种分辨率中的一种。
+    TRTCTranscodingConfigMode_Template_ScreenSharing = 4,
 };
 
+
+/**
+ * 4.6 混流输入类型
+ *
+ */
+typedef NS_ENUM(NSUInteger, TrtcMixInputType) {
+    /// 不指定，根据 pureAudio 值决定混流输入类型
+    TrtcMixInputTypeUndefined     = 0,
+    /// 混入音视频
+    TrtcMixInputTypeAudioVideo    = 1,
+    /// 只混入视频
+    TrtcMixInputTypePureVideo     = 2,
+    /// 只混入音频
+    TrtcMixInputTypePureAudio     = 3,
+};
+
+/**
+ * 4.7 混流输出的视频编码格式
+ *
+ */
+typedef NS_ENUM(NSUInteger, TRTCMixVideoCodecType) {
+    /// 默认值：默认输出 H264
+    TRTCMixVideoCodecTypeDefault = 0,
+    /// H264
+    TRTCMixVideoCodecTypeH264    = 1,
+    /// H265
+    TRTCMixVideoCodecTypeH265    = 2
+};
 
 /////////////////////////////////////////////////////////////////////////////////
 //
@@ -440,7 +528,7 @@ typedef NS_ENUM(NSInteger, TRTCTranscodingConfigMode) {
 /** 
  * 5.1 进房相关参数
  *
- * 只有该参数填写正确，才能顺利调用 enterRoom 进入 roomId 所指定的音视频房间。
+ * 只有该参数填写正确，才能顺利调用 enterRoom 进入 roomId 或者 strRoomId 所指定的音视频房间。
  */
 @interface TRTCParams : NSObject
 
@@ -449,42 +537,62 @@ typedef NS_ENUM(NSInteger, TRTCTranscodingConfigMode) {
 @property (nonatomic, assign) UInt32   sdkAppId;
 
 ///【字段含义】用户标识 [必填]，当前用户的 userId，相当于登录用户名。
-///【推荐取值】如果一个用户在您的账号系统中的 ID 为“abc”，则 userId 即可设置为“abc”。
-@property (nonatomic, strong, nonnull) NSString* userId;
+///【推荐取值】限制长度为32字节，只允许包含大小写英文字母（a-zA-Z）、数字（0-9）及下划线和连词符。
+@property (nonatomic, copy, nonnull) NSString* userId;
 
 ///【字段含义】用户签名 [必填]，当前 userId 对应的验证签名，相当于登录密码。
 ///【推荐取值】具体计算方法请参见 [如何计算UserSig](https://cloud.tencent.com/document/product/647/17275)。
-@property (nonatomic, strong, nonnull) NSString* userSig;
+@property (nonatomic, copy, nonnull) NSString* userSig;
 
-///【字段含义】房间号码 [必填]，在同一个房间内的用户可以看到彼此并进行视频通话。
-///【推荐取值】可以自定义设置该参数值，但不可重复。如果您的用户帐号 ID （userId）为数字类型，可直接使用创建者的用户 ID 作为 roomId。
+///【字段含义】数字房间号码，在同一个房间里的用户（userId）可以彼此看到对方并进行视频通话
+///【推荐取值】取值范围：1 - 4294967294。
+///【特别说明】roomId 与 strRoomId 必填一个，若您选用 strRoomId，则 roomId 需要填写为0。若两者都填，将优先选用 roomId。
+///          请注意，同一个 sdkAppId 互通时，请务必选用同一种房间号码类型，避免影响互通。
 @property (nonatomic, assign) UInt32 roomId;
+
+///【字段含义】字符串房间号码，在同一个房间里的用户（userId）可以彼此看到对方并进行视频通话。
+///【推荐取值】限制长度为64字节。以下为支持的字符集范围（共 89 个字符）:
+///   -大小写英文字母（a-zA-Z）；
+///   -数字（0-9）；
+///   -空格、"!"、"#"、"$"、"%"、"&"、"("、")"、"+"、"-"、":"、";"、"<"、"="、"."、">"、"?"、"@"、"["、"]"、"^"、"_"、" {"、"}"、"|"、"~"、","。
+///【特别说明】roomId 与 strRoomId 必填一个，若您选用 strRoomId，则 roomId 需要填写为0。若两者都填，将优先选用 roomId。
+///          请注意，同一个 sdkAppId 互通时，请务必选用同一种房间号码类型，避免影响互通。
+@property (nonatomic, copy, nonnull) NSString* strRoomId;
 
 ///【字段含义】直播场景下的角色，仅适用于直播场景（TRTCAppSceneLIVE 和 TRTCAppSceneVoiceChatRoom），通话场景下指定无效。
 ///【推荐取值】默认值：主播（TRTCRoleAnchor）
 @property (nonatomic, assign) TRTCRoleType role;
 
-///【字段含义】房间签名 [非必填]，当您希望某个房间只能让特定的 userId 进入时，需要使用 privateMapKey 进行权限保护。
-///【推荐取值】仅建议有高级别安全需求的客户使用，更多详情请参见 [进房权限保护](https://cloud.tencent.com/document/product/647/32240)。
-@property (nonatomic, strong, nullable) NSString* privateMapKey;
-
-///【字段含义】设置云端录制出的文件名[非必填]。当房间里的最后一路音视频流推出后，腾讯云会结束录制过程并将文件转存到点播（VOD）系统，
-///            整个录制过程需要 30秒到 2 分钟时间。 
-///【推荐取值】限制长度为64字节，该文件名只允许包含英文字母（a-zA-Z）、数字（0-9）及 -_. 3个特殊字符。
-///            例如：room_178732_2019_1210_1906 就是个很好的文件名，但 room:123-2019;12;10 就是非法的文件名。
-///【特殊说明】要使用云端录制，您需要先在[控制台](https://console.cloud.tencent.com/trtc/app/globalsetting) 中的“全局云端录制配置”页面开启自动录制。
-///【参考文档】[云端录制](https://cloud.tencent.com/document/product/647/16823)。
-@property (nonatomic, strong, nullable) NSString* cloudRecordFileName;
-
 ///【字段含义】绑定腾讯云直播 CDN 流 ID[非必填]，设置之后，您就可以在腾讯云直播 CDN 上通过标准直播方案（FLV或HLS）播放该用户的音视频流。
 ///【推荐取值】限制长度为64字节，可以不填写，一种推荐的方案是使用 “sdkappid_roomid_userid_main” 作为 streamid，这样比较好辨认且不会在您的多个应用中发生冲突。
-///【特殊说明】要使用腾讯云直播 CDN，您需要先在[控制台](https://console.cloud.tencent.com/trtc/) 中的功能配置页开启“启动自动旁路直播”开关。
+///【特殊说明】要使用腾讯云直播 CDN，您需要先在[控制台](https://console.cloud.tencent.com/trtc/) 中的功能配置页开启“启用旁路推流”开关。
 ///【参考文档】[CDN 旁路直播](https://cloud.tencent.com/document/product/647/16826)。
-@property (nonatomic, strong, nullable) NSString* streamId;
+@property (nonatomic, copy, nullable) NSString* streamId;
+
+///【字段含义】云端录制开关，用于指定是否要在云端将该用户的音视频流录制成指定格式的文件。
+/// 方案一：手动录制
+///   - 需要在“[控制台](https://console.cloud.tencent.com/trtc) => 应用管理 => 云端录制配置”中开启云端录制。
+///   - 设置“录制形式”为“手动录制”。
+///   - 设置手动录制后，在一个 TRTC 房间中只有设置了 userDefineRecordId 参数的用户才会在云端录制出视频文件，不指定该参数的用户不会产生录制行为。
+///   - 文件会以 “userDefineRecordId_起始时间_结束时间” 的格式命名。
+///
+/// 方案二：自动录制
+///   - 需要在“[控制台](https://console.cloud.tencent.com/trtc) => 应用管理 => 云端录制配置”中开启云端录制。
+///   - 设置“录制形式”为“自动录制”。
+///   - 设置自动录制后，在一个 TRTC 房间中的任何一个有音视频上行的用户，均会在云端录制出视频文件。
+///   - 文件会以 “userDefineRecordId_起始时间_结束时间” 的格式命名，如果不指定 userDefineRecordId，则文件会以 streamid 命名。
+///
+///【推荐取值】限制长度为64字节，只允许包含大小写英文字母（a-zA-Z）、数字（0-9）及下划线和连词符。
+///【参考文档】[云端录制](https://cloud.tencent.com/document/product/647/16823)。
+@property (nonatomic, copy, nullable) NSString* userDefineRecordId;
+
+///【字段含义】房间签名 [非必填]，当您希望某个房间只能让特定的 userId 进入时，需要使用 privateMapKey 进行权限保护。
+///【推荐取值】仅建议有高级别安全需求的客户使用，更多详情请参见 [进房权限保护](https://cloud.tencent.com/document/product/647/32240)。
+@property (nonatomic, copy, nullable) NSString* privateMapKey;
 
 ///【字段含义】业务数据 [非必填]，部分高级特性才需要用到此字段。
 ///【推荐取值】不建议使用
-@property (nonatomic, strong, nullable) NSString* bussInfo;
+@property (nonatomic, copy, nullable) NSString* bussInfo;
 @end
 
 #pragma mark -
@@ -515,10 +623,25 @@ typedef NS_ENUM(NSInteger, TRTCTranscodingConfigMode) {
 ///【特别说明】很多 Android 手机的前置摄像头并不支持15fps以上的采集帧率，部分过于突出美颜功能的 Android 手机前置摄像头的采集帧率可能低于10fps。
 @property (nonatomic, assign) int videoFps;
 
-///【字段含义】视频上行码率
-///【推荐取值】推荐设置请参考本 TRTCVideoResolution 定义处的注释说明
-///【特别说明】码率太低会导致视频中出现大量马赛克
+///【字段含义】目标视频码率，SDK 会按照目标码率进行编码，只有在网络不佳的情况下才会主动降低视频码率。
+///【推荐取值】请参考本 TRTCVideoResolution 在各档位注释的最佳码率，也可以在此基础上适当调高。
+///            比如 TRTCVideoResolution_1280_720 对应 1200kbps 的目标码率，您也可以设置为 1500kbps 用来获得更好的清晰度观感。
+///【特别说明】SDK 会努力按照 videoBitrate 指定的码率进行编码，只有在网络不佳的情况下才会主动降低视频码率，最低会降至 minVideoBitrate 所设定的数值。
+///            如果您追求“允许卡顿但要保持清晰”的效果，可以设置 minVideoBitrate 为 videoBitrate 的 60%；
+///            如果您追求“允许模糊但要保持流畅”的效果，可以设置 minVideoBitrate 为 200kbps；
+///            如果您将 videoBitrate 和 minVideoBitrate 设置为同一个值，等价于关闭 SDK 的自适应调节能力。
 @property (nonatomic, assign) int videoBitrate;
+
+///【字段含义】最低视频码率，SDK 会在网络不佳的情况下主动降低视频码率，最低会降至 minVideoBitrate 所设定的数值。
+///【推荐取值】
+///     - 如果您追求“允许卡顿但要保持清晰”的效果，可以设置 minVideoBitrate 为 videoBitrate 的 60%；
+///     - 如果您追求“允许模糊但要保持流畅”的效果，可以设置 minVideoBitrate 为 200kbps；
+///     - 如果您将 videoBitrate 和 minVideoBitrate 设置为同一个值，等价于关闭 SDK 的自适应调节能力；
+///     - 默认值：0，此时最低码率由 SDK 根据分辨率情况，自动设置合适的数值。
+///【特别说明】
+///     - 当您把分辨率设置的比较高时，minVideoBitrate 不适合设置的太低，否则会出现画面模糊和大范围的马赛克宏块。
+///        比如把分辨率设置为 720p，把码率设置为 200kbps，那么编码出的画面将会出现大范围区域性马赛克。
+@property (nonatomic, assign) int minVideoBitrate;
 
 ///【字段含义】是否允许 SDK 动态调整分辨率，开启后会对云端录制产生影响。
 ///【推荐取值】 
@@ -729,6 +852,9 @@ typedef NS_ENUM(NSInteger, TRTCTranscodingConfigMode) {
 @property (nonatomic) TRTCVideoStreamType streamType;
 /// 该用户是不是只开启了音频
 @property (nonatomic, assign) BOOL pureAudio;
+/// 该用户的混流输入类型
+/// @note:  默认值0，此时不指定，以 pureAudio 为准，若 pureAudio 为 YES，则为纯音频混流，否则为音视频混流
+@property (nonatomic, assign) TrtcMixInputType inputType;
 
 @end
 
@@ -769,11 +895,27 @@ typedef NS_ENUM(NSInteger, TRTCTranscodingConfigMode) {
 
 ///【字段含义】最终转码后的视频分辨率的关键帧间隔（又称为 GOP）。
 ///【推荐取值】默认值：2，单位为秒，取值范围是 [1,8]。
-@property(nonatomic, assign) int videoGOP; 
+@property(nonatomic, assign) int videoGOP;
+
+///【字段含义】混流输出的视频编码格式
+///          支持转码输出 H264/H265
+///【推荐取值】默认值：H264。支持 TRTCMixVideoCodecTypeH264、TRTCMixVideoCodecTypeH265
+@property(nonatomic, assign) TRTCMixVideoCodecType videoCodecType;
+
+///【字段含义】混流输出是否打开B帧
+///【推荐取值】默认值：false, 关闭。
+@property(nonatomic, assign) bool enableBFrame;
 
 ///【字段含义】混合后画面的底色颜色，默认为黑色，格式为十六进制数字，比如：“0x61B9F1” 代表 RGB 分别为(97,158,241)。
 ///【推荐取值】默认值：0x000000，黑色
 @property(nonatomic, assign) int backgroundColor;
+
+///【字段含义】混合后画面的背景图。
+///【推荐取值】默认值：nil，即不设置背景图
+///【特别说明】背景图需要您事先在 “[控制台](https://console.cloud.tencent.com/trtc) => 应用管理 => 功能配置 => 素材管理” 中上传，
+///          上传成功后可以获得对应的“图片ID”，然后将“图片ID”转换成字符串类型并设置到 backgroundImage 里即可。
+///          例如：假设“图片ID” 为 63，可以设置 backgroundImage = @"63";
+@property(nonatomic, copy, nullable) NSString *backgroundImage;
 
 ///【字段含义】最终转码后的音频采样率。
 ///【推荐取值】默认值：48000Hz。支持12000HZ、16000HZ、22050HZ、24000HZ、32000HZ、44100HZ、48000HZ。
@@ -789,6 +931,13 @@ typedef NS_ENUM(NSInteger, TRTCTranscodingConfigMode) {
 
 ///【字段含义】每一路子画面的位置信息
 @property(nonatomic, copy, nonnull) NSArray<TRTCMixUser *> * mixUsers;
+
+///【字段含义】输出到 CDN 上的直播流 ID
+///          如不设置该参数，SDK 会执行默认逻辑，即房间里的多路流会混合到该接口调用者的视频流上，也就是 A+B =>A；
+///          如果设置该参数，SDK 会将房间里的多路流混合到您指定的直播流 ID 上，也就是 A+B =>C。
+///【推荐取值】默认值：nil，即房间里的多路流会混合到该接口调用者的视频流上。
+@property(nonatomic, copy, nullable) NSString *streamId;
+
 @end
 
 #pragma mark -
@@ -805,6 +954,9 @@ typedef NS_ENUM(NSInteger, TRTCTranscodingConfigMode) {
 
 /// 旁路转推的 URL
 @property (nonatomic, strong, nonnull) NSString * url;
+
+/// 需要转推的 streamId，如果不填写，则默认转推旁路流
+@property (nonatomic, copy, nullable) NSString * streamId;
 @end
 
 /**
@@ -834,7 +986,7 @@ typedef NS_ENUM(NSInteger, TRTCTranscodingConfigMode) {
 /// 【特别说明】SDK 允许播放多路音效，因此需要音效 ID 进行标记，用于控制音效的开始、停止、音量等
 @property(nonatomic, assign) int effectId;
 
-/// 【字段含义】音效文件路径
+/// 【字段含义】音效文件路径，支持的文件格式：aac, mp3, m4a。
 @property(nonatomic, copy, nonnull) NSString * path;
 
 /// 【字段含义】循环播放次数
@@ -850,5 +1002,31 @@ typedef NS_ENUM(NSInteger, TRTCTranscodingConfigMode) {
 @property(nonatomic, assign) int volume;
 
 - (_Nonnull instancetype)initWith:(int)effectId path:(NSString * _Nonnull)path;
+@end
+
+#pragma mark -
+/**
+ * 5.16 切换房间
+ */
+@interface TRTCSwitchRoomConfig : NSObject
+
+///【字段含义】数字房间号码 [选填]，在同一个房间内的用户可以看到彼此并进行视频通话。
+///【推荐取值】取值范围：1 - 4294967294。
+///【特别说明】roomId 和 strRoomId 必须并且只能填一个。若两者都填，则优先选择 roomId。
+@property (nonatomic, assign) UInt32 roomId;
+
+///【字段含义】字符串房间号码 [选填]，在同一个房间内的用户可以看到彼此并进行视频通话。
+///【特别说明】roomId 和 strRoomId 必须并且只能填一个。若两者都填，则优先选择 roomId。
+@property (nonatomic, copy, nullable) NSString *strRoomId;
+
+///【字段含义】用户签名 [选填]，当前 userId 对应的验证签名，相当于登录密码。不填时，SDK 会继续使用旧的 userSig，
+///          但用户必须保证旧的 userSig 仍在有效期内，否则会造成进房失败等后果。
+///【推荐取值】具体计算方法请参见 [如何计算UserSig](https://cloud.tencent.com/document/product/647/17275)。
+@property (nonatomic, copy, nullable) NSString *userSig;
+
+///【字段含义】房间签名 [选填]，当您希望某个房间只能让特定的 userId 进入时，需要使用 privateMapKey 进行权限保护。
+///【推荐取值】仅建议有高级别安全需求的客户使用，更多详情请参见 [进房权限保护](https://cloud.tencent.com/document/product/647/32240)。
+@property (nonatomic, copy, nullable) NSString *privateMapKey;
+
 @end
 /// @}

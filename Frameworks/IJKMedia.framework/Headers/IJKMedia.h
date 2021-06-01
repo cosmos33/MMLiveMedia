@@ -24,6 +24,8 @@
 #import "IJKMediaPlayback.h"
 #import "IJKMediaPlayer.h"
 #import "IJKSDLGLView.h"
+#import "IJKSDLMetalView.h"
+#import "IJKSDLView.h"
 #import "IJKVideoEncoder.h"
 #import "IJKVideoFrame.h"
 #import "IJKYUV420ToCVPixelBuffer.h"

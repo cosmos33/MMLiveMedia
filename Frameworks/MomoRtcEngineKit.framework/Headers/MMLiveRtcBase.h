@@ -45,6 +45,7 @@ typedef struct _MMLiveRtcRemoteVideoStats{
     uint32_t videoBitrate = 0;
     uint32_t videoFramerate = 0;
     uint64_t vReceiveSize = 0;
+    uint64_t videoRenderCount = 0;
     int videowidth = 0;
     int videoheight = 0;
     
@@ -71,11 +72,13 @@ typedef struct _MMLiveRtcRemoteAudioStats{
     int audioPlayLag = 0;
     // audio的缓冲
     int audioCache = 0;
-    // expand的总数
+    // expand的总数+empty的个数
     int expandCount = 0;
     //根据 连续N次DoExpand算法处理以后，每执行M次DoExpand算一次通道卡顿
     int expandCartonCount = 0;
-
+    
+    // 纯expand的总数
+    int expandRealCount = 0;
     
 } MMLiveRtcRemoteAudioStats;
 
@@ -262,6 +265,8 @@ typedef struct _MMLiveTranscodingUser{
     double height;
     int zOrder; //optional, [0, 100] //0 (default): bottom most, 100: top most
     double alpha;
+    int aMute;
+    int vMute;
 }MMLiveTranscodingUser;
 
 typedef struct _MMLiveTranscoding{

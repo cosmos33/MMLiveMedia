@@ -45,6 +45,7 @@ typedef enum TXLiteAVError
     //
     //       设备（摄像头、麦克风、扬声器）相关错误码
     //       NOTE: 通过回调函数 TRTCCloudDelegate##OnError() 通知
+    //             区段：-6000 ~ -6999
     //
     /////////////////////////////////////////////////////////////////////////////////
     ERR_CAMERA_START_FAIL                           = -1301,    ///< 打开摄像头失败，例如在 Windows 或 Mac 设备，摄像头的配置程序（驱动程序）异常，禁用后重新启用设备，或者重启机器，或者更新配置程序
@@ -60,7 +61,6 @@ typedef enum TXLiteAVError
     ERR_SPEAKER_SET_PARAM_FAIL                      = -1322,    ///< 扬声器设置参数失败
     ERR_SPEAKER_STOP_FAIL                           = -1323,    ///< 停止扬声器失败
 
-
     /////////////////////////////////////////////////////////////////////////////////
     //
     //       屏幕分享相关错误码
@@ -68,11 +68,11 @@ typedef enum TXLiteAVError
     //
     /////////////////////////////////////////////////////////////////////////////////
     ERR_SCREEN_CAPTURE_START_FAIL                   = -1308,    ///< 开始录屏失败，如果在移动设备出现，可能是权限被用户拒绝了，如果在 Windows 或 Mac 系统的设备出现，请检查录屏接口的参数是否符合要求
-    ERR_SCREEN_CAPTURE_UNSURPORT                    = -1309,    ///< 录屏失败，在 Android 平台，需要5.0以上的系统
+    ERR_SCREEN_CAPTURE_UNSURPORT                    = -1309,    ///< 录屏失败，在 Android 平台，需要5.0以上的系统，在 iOS 平台，需要11.0以上的系统
     ERR_SERVER_CENTER_NO_PRIVILEDGE_PUSH_SUB_VIDEO  = -102015,  ///< 没有权限上行辅路
     ERR_SERVER_CENTER_ANOTHER_USER_PUSH_SUB_VIDEO   = -102016,  ///< 其他用户正在上行辅路
+    ERR_SCREEN_CAPTURE_STOPPED                      = -7001,    ///< 录屏被系统中止
 
-    
     /////////////////////////////////////////////////////////////////////////////////
     //
     //       编解码相关错误码
@@ -83,7 +83,6 @@ typedef enum TXLiteAVError
     ERR_UNSUPPORTED_RESOLUTION                      = -1305,    ///< 不支持的视频分辨率
     ERR_AUDIO_ENCODE_FAIL                           = -1304,    ///< 音频帧编码失败，例如传入自定义音频数据，SDK 无法处理
     ERR_UNSUPPORTED_SAMPLERATE                      = -1306,    ///< 不支持的音频采样率
-    
 
     /////////////////////////////////////////////////////////////////////////////////
     //
@@ -242,11 +241,11 @@ typedef enum TXLiteAVError
     ERR_SERVER_CENTER_I_FRAME_RPS_INVALID_PARAMETER = -102028,  ///< 请求 I 帧参数错误
     ERR_SERVER_CENTER_INVALID_ROOM_ID               = -102029,  ///< 房间号非法
     ERR_SERVER_CENTER_ROOM_ID_TOO_LONG              = -102030,  ///< 房间号超过限制
-    ERR_SERVER_CENTER_ROOM_FULL                         = -102052,  ///< 房间满员
-    ERR_SERVER_CENTER_DECODE_JSON_FAIL                  = -102053,  ///< JSON 串解析失败
-    ERR_SERVER_CENTER_UNKNOWN_SUB_CMD                   = -102054,  ///< 未定义命令字
-    ERR_SERVER_CENTER_INVALID_ROLE                      = -102055,  ///< 未定义角色
-    ERR_SERVER_CENTER_REACH_PROXY_MAX                   = -102056,  ///< 代理机超出限制
+    ERR_SERVER_CENTER_ROOM_FULL                     = -102052,  ///< 房间满员
+    ERR_SERVER_CENTER_DECODE_JSON_FAIL              = -102053,  ///< JSON 串解析失败
+    ERR_SERVER_CENTER_UNKNOWN_SUB_CMD               = -102054,  ///< 未定义命令字
+    ERR_SERVER_CENTER_INVALID_ROLE                  = -102055,  ///< 未定义角色
+    ERR_SERVER_CENTER_REACH_PROXY_MAX               = -102056,  ///< 代理机超出限制
     ERR_SERVER_CENTER_RECORDID_STORE                = -102057,  ///< 无法保存用户自定义 recordId
     ERR_SERVER_CENTER_PB_SERIALIZE                  = -102058,  ///< Protobuf 序列化错误
     
@@ -274,6 +273,13 @@ typedef enum TXLiteAVError
     ERR_SERVER_SSO_TICKET_EXPIRED                   = -70347,   ///< 票据因过期原因校验失败
     ERR_SERVER_SSO_ACCOUNT_EXCEED_PURCHASES         = -70398,   ///< 创建账号数量超过已购买预付费数量限制
     ERR_SERVER_SSO_INTERNAL_ERROR                   = -70500,   ///< 服务器内部错误，请重试
+    
+    //秒级监控上报错误码
+    ERR_REQUEST_QUERY_CONFIG_TIMEOUT           = -4001,    ///< 请求通用配置超时
+    ERR_CUSTOM_STREAM_INVALID                  = -4002,    ///< 自定义流id错误
+    ERR_USER_DEFINE_RECORD_ID_INVALID          = -4003,    ///< userDefineRecordId错误
+    ERR_MIX_PARAM_INVALID                      = -4004,    ///< 混流参数校验失败
+    ERR_REQUEST_ACC_BY_HOST_IP                 = -4005,    ///< 通过域名进行0x1请求
     // - /Remove From Head
 } TXLiteAVError;
 
@@ -292,6 +298,13 @@ typedef enum TXLiteAVWarning
     WARNING_INSUFFICIENT_CAPTURE_FPS                = 1108,     ///<  摄像头采集帧率不足，部分自带美颜算法的 Android 手机上会出现
     WARNING_SW_ENCODER_START_FAIL                   = 1109,     ///<  软编码启动失败
     WARNING_REDUCE_CAPTURE_RESOLUTION               = 1110,     ///<  摄像头采集分辨率被降低，以满足当前帧率和性能最优解。
+    WARNING_CAMERA_DEVICE_EMPTY                     = 1111,     ///<  没有检测到可用的摄像头设备
+    WARNING_CAMERA_NOT_AUTHORIZED                   = 1112,     ///<  用户未授权当前应用使用摄像头
+    WARNING_MICROPHONE_DEVICE_EMPTY                 = 1201,     ///<  没有检测到可用的麦克风设备
+    WARNING_SPEAKER_DEVICE_EMPTY                    = 1202,     ///<  没有检测到可用的扬声器设备
+    WARNING_MICROPHONE_NOT_AUTHORIZED               = 1203,     ///<  用户未授权当前应用使用麦克风
+    WARNING_MICROPHONE_DEVICE_ABNORMAL              = 1204,     ///<  音频采集设备不可用（例如被占用或者PC判定无效设备）
+    WARNING_SPEAKER_DEVICE_ABNORMAL                 = 1205,     ///<  音频播放设备不可用（例如被占用或者PC判定无效设备）
     WARNING_VIDEO_FRAME_DECODE_FAIL                 = 2101,     ///<  当前视频帧解码失败
     WARNING_AUDIO_FRAME_DECODE_FAIL                 = 2102,     ///<  当前音频帧解码失败
     WARNING_VIDEO_PLAY_LAG                          = 2105,     ///<  当前视频播放出现卡顿
@@ -299,6 +312,7 @@ typedef enum TXLiteAVWarning
     WARNING_VIDEO_DECODER_HW_TO_SW                  = 2108,     ///<  当前流硬解第一个 I 帧失败，SDK 自动切软解
     WARNING_SW_DECODER_START_FAIL                   = 2109,     ///<  软解码器启动失败
     WARNING_VIDEO_RENDER_FAIL                       = 2110,     ///<  视频渲染失败
+    WARNING_START_CAPTURE_IGNORED                   = 4000,     ///<  已经在采集，启动采集被忽略
     WARNING_AUDIO_RECORDING_WRITE_FAIL              = 7001,     ///<  音频录制写入文件失败
     WARNING_ROOM_DISCONNECT                         = 5101,     ///<  网络断开连接
     WARNING_IGNORE_UPSTREAM_FOR_AUDIENCE            = 6001,     ///<  当前是观众角色，忽略上行音视频数据
@@ -379,11 +393,14 @@ typedef enum TXLiteAVEvent
     EVT_MIC_START_SUCC                              = 2027,     ///<  麦克风启动成功
     EVT_PLAY_GET_METADATA                           = 2028,     ///<  视频流MetaData事件
     EVT_MIC_RELEASE_SUCC                            = 2029,     ///<  释放麦克风占用
+    EVT_AUDIO_DEVICE_ROUTE_CHANGED                  = 2030,     ///<  音频设备的route发生改变，即当前的输入输出设备发生改变，比如耳机被拔出
+    EVT_PLAY_GET_FLVSESSIONKEY                      = 2031,     ///<  TXLivePlayer 接收到http响应头中的 flvSessionKey 信息
 
     EVT_ROOM_ENTER                                  = 1018,     ///<  进入房间成功
     EVT_ROOM_EXIT                                   = 1019,     ///<  退出房间
     EVT_ROOM_USERLIST                               = 1020,     ///<  下发房间成员列表（不包括自己）
     EVT_ROOM_NEED_REENTER                           = 1021,     ///<  WiFi 切换到4G 会触发断线重连，此时需要重新进入房间（拉取最优的服务器地址）
+    EVT_ROOM_ENTER_FAILED                           = 1022,     ///<  自己进入房间失败
     EVT_ROOM_USER_ENTER                             = 1031,     ///<  进房通知
     EVT_ROOM_USER_EXIT                              = 1032,     ///<  退房通知
     EVT_ROOM_USER_VIDEO_STATE                       = 1033,     ///<  视频状态位变化通知

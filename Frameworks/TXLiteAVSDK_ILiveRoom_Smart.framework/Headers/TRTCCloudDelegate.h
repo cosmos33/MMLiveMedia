@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @name 错误事件和警告事件
 /// @{
 /**
- * 1.1 错误回调：SDK 不可恢复的错误，一定要监听，并分情况给用户适当的界面提示。
+ * 1.1  错误回调，表示 SDK 不可恢复的错误，一定要监听并分情况给用户适当的界面提示。
  *
  * @param errCode 错误码
  * @param errMsg  错误信息
@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)onError:(TXLiteAVError)errCode errMsg:(nullable NSString *)errMsg extInfo:(nullable NSDictionary*)extInfo;
 
 /**
- * 1.2 警告回调：用于告知您一些非严重性问题，例如出现了卡顿或者可恢复的解码失败。
+ * 1.2 警告回调，用于告知您一些非严重性问题，例如出现了卡顿或者可恢复的解码失败。
  *
  * @param warningCode 警告码
  * @param warningMsg 警告信息
@@ -113,6 +113,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)onDisconnectOtherRoom:(TXLiteAVError)errCode errMsg:(nullable NSString *)errMsg;
 
+/**
+ * 2.6 切换房间 (switchRoom) 的结果回调
+ */
+- (void)onSwitchRoom:(TXLiteAVError)errCode errMsg:(nullable NSString *)errMsg;
+
 /// @}
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -150,7 +155,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)onRemoteUserLeaveRoom:(NSString *)userId reason:(NSInteger)reason;
 
 /**
- * 3.3 用户是否开启摄像头视频
+ * 3.3 远端用户是否存在可播放的主路画面（一般用于摄像头）
  *
  * 当您收到 onUserVideoAvailable(userid, YES) 通知时，表示该路画面已经有可用的视频数据帧到达。
  * 此时，您需要调用 startRemoteView(userid) 接口加载该用户的远程画面。
@@ -165,7 +170,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)onUserVideoAvailable:(NSString *)userId available:(BOOL)available;
 
 /**
- * 3.4 用户是否开启屏幕分享
+ * 3.4 远端用户是否存在可播放的辅路画面（一般用于屏幕分享）
  * 
  * @note 显示辅路画面使用的函数是 startRemoteSubStreamView() 而非 startRemoteView()。
  * @param userId 用户标识
@@ -174,7 +179,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)onUserSubStreamAvailable:(NSString *)userId available:(BOOL)available;
 
 /**
- * 3.5 用户是否开启音频上行
+ * 3.5 远端用户是否存在可播放的音频数据
  *
  * @param userId 用户标识
  * @param available 声音是否开启
@@ -233,9 +238,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)onUserEnter:(NSString *)userId DEPRECATED_ATTRIBUTE;
 
 /**
- * 3.11 废弃接口： 有主播离开当前房间
+ * 3.11 废弃接口：有主播离开当前房间
  *
- * 该回调接口可以被看作是 onRemoteUserLeaveRoom 的废弃版本，不推荐使用。请使用 onUserVideoAvailable 或 onRemoteUserEnterRoom 进行替代。
+ * 该回调接口可以被看作是 onRemoteUserLeaveRoom 的废弃版本，不推荐使用。请使用 onUserVideoAvailable 或 onRemoteUserLeaveRoom 进行替代。
  *
  * @note 该接口已被废弃，不推荐使用
  *
@@ -256,7 +261,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @{
 
 /**
- * 4.1 网络质量：该回调每2秒触发一次，统计当前网络的上行和下行质量
+ * 4.1 网络质量，该回调每2秒触发一次，统计当前网络的上行和下行质量
  *
  * @note userId == nil 代表自己当前的视频质量
  *
@@ -325,7 +330,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #if TARGET_OS_IPHONE
 /**
- * 6.3 音频路由发生变化（仅 iOS），音频路由即声音由哪里输出（扬声器、听筒）
+ * 6.3 音频路由发生变化（仅 iOS），音频路由即声音由哪里输出（扬声器或听筒）
  *
  * @param route     当前音频路由
  * @param fromRoute 变更前的音频路由
@@ -334,7 +339,7 @@ NS_ASSUME_NONNULL_BEGIN
 #endif
 
 /**
- * 6.4 用于提示音量大小的回调,包括每个 userId 的音量和远端总音量
+ * 6.4 用于提示音量大小的回调，包括每个 userId 的音量和远端总音量
  *
  * 您可以通过调用 TRTCCloud 中的 enableAudioVolumeEvaluation 接口来开关这个回调或者设置它的触发间隔。
  * 需要注意的是，调用 enableAudioVolumeEvaluation 开启音量回调后，无论频道内是否有人说话，都会按设置的时间间隔调用这个回调;
@@ -356,6 +361,27 @@ NS_ASSUME_NONNULL_BEGIN
  * @param state   0：设备断开；1：设备连接
  */
 - (void)onDevice:(NSString *)deviceId type:(TRTCMediaDeviceType)deviceType stateChanged:(NSInteger)state;
+
+
+/**
+ * 6.6 当前音频采集设备音量变化回调
+ *
+ * @note 使用 enableAudioVolumeEvaluation（interval>0）开启，（interval==0）关闭
+ *
+ * @param volume 音量 取值范围0-100
+ * @param muted 当前采集音频设备是否被静音：YES 被静音了，NO 未被静音
+ */
+- (void)onAudioDeviceCaptureVolumeChanged:(NSInteger)volume muted:(BOOL)muted;
+
+/**
+ * 6.7 当前音频播放设备音量变化回调
+ *
+ * @note 使用 enableAudioVolumeEvaluation（interval>0）开启，（interval==0）关闭
+ *
+ * @param volume 音量 取值范围0-100
+ * @param muted 当前音频播放设备是否被静音：YES 被静音了，NO 未被静音
+ */
+- (void)onAudioDevicePlayoutVolumeChanged:(NSInteger)volume muted:(BOOL)muted;
 
 #endif
 
@@ -472,8 +498,9 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @param effectId 音效 ID
  * @param code 0表示播放正常结束；其他表示异常结束
+ * @note 该接口已不再维护，推荐使用  TXAudioEffectManager.startPlayMusic 及相关回调
  */
-- (void)onAudioEffectFinished:(int) effectId code:(int) code;
+- (void)onAudioEffectFinished:(int) effectId code:(int) code DEPRECATED_ATTRIBUTE;
 /// @}
 /////////////////////////////////////////////////////////////////////////////////
 //
@@ -546,28 +573,38 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @protocol TRTCAudioFrameDelegate <NSObject>
 @optional
+
 /**
- * 本地麦克风采集到的音频数据回调
- * 
+ * 本地麦克风采集到的原始音频数据回调
+ *
  * @param frame      音频数据
  * @note - 请不要在此回调函数中做任何耗时操作，建议直接拷贝到另一线程进行处理，否则会导致各种声音问题。
+ * @note - 此接口回调出的音频数据 **不包含** 背景音、音效、混响等前处理效果，延迟极低。
+ *       - 此接口回调出的音频数据支持修改。
+ */
+- (void) onCapturedRawAudioFrame:(TRTCAudioFrame *)frame;
+
+/**
+ * 本地采集并经过音频模块前处理后的音频数据回调
+ *
+ * @param frame      音频数据
+ * @note - 请不要在此回调函数中做任何耗时操作，建议直接拷贝到另一线程进行处理，否则会导致各种声音问题。
+ * @note - 此接口回调出的音频数据包含背景音、音效、混响等前处理效果，延迟较高。
  * @note - 此接口回调出的音频数据支持修改。
  * @note - 此接口回调出的音频时间帧长固定为0.02s。
            由时间帧长转化为字节帧长的公式为【采样率 × 时间帧长 × 声道数 × 采样点位宽】。
            以SDK默认的音频录制格式48000采样率、单声道、16采样点位宽为例，字节帧长为【48000 × 0.02s × 1 × 16bit = 15360bit = 1920字节】。
- * @note - 此接口回调出的音频数据包含背景音、音效、混响等前处理效果。
  */
-- (void) onCapturedAudioFrame:(TRTCAudioFrame *)frame;
+- (void) onLocalProcessedAudioFrame:(TRTCAudioFrame *)frame;
 
 /**
- * 混音前的每一路远程用户的音频数据（例如您要对某一路的语音进行文字转换，必须要使用这里的原始数据，而不是混音之后的数据）
+ * 混音前的每一路远程用户的音频数据，即混音前的各路原始数据。例如，对某一路音频进行文字转换时，您必须使用该路音频的原始数据
  *
  * @param frame      音频数据
  * @param userId     用户标识
- * @note - 请不要在此回调函数中做任何耗时操作，建议直接拷贝到另一线程进行处理，否则会导致各种声音问题。
  * @note - 此接口回调出的音频数据是只读的，不支持修改。
  */
-- (void) onPlayAudioFrame:(TRTCAudioFrame *)frame userId:(NSString *)userId;
+- (void) onRemoteUserAudioFrame:(TRTCAudioFrame *)frame userId:(NSString *)userId;
 
 /**
  * 各路音频数据混合后的音频数据
@@ -592,7 +629,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * 日志相关回调
  *
- * 建议在一个比较早初始化的类中设置回调委托对象，例如 AppDelegate
+ * 建议在比较早初始化的类中设置回调委托对象，例如 AppDelegate
  */
 @protocol TRTCLogDelegate <NSObject>
 /**

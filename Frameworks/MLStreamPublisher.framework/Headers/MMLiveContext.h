@@ -29,6 +29,7 @@
 @property (nonatomic, strong, readonly) NSArray *comm;
 @property (nonatomic, assign, readonly) BOOL enable_medialog;
 @property (nonatomic, assign, readonly) BOOL enable_roomconfig;
+@property (nonatomic, assign, readonly) int previewRenderApi;
 @end
 
 @interface MMLiveUserContext : NSObject
@@ -39,6 +40,7 @@
 @property (nonatomic, copy) NSString *sdkVer;
 @property (nonatomic, copy) NSString *userAgent;
 @property (nonatomic, assign) BOOL useMediaLog;
+@property (nonatomic, assign) NSInteger reTryCount;
 @property (nonatomic, strong) MMLiveContextConfig *mediaConfig;
 @end
 

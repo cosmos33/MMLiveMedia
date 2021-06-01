@@ -21,6 +21,7 @@ FOUNDATION_EXPORT NSString * const MLAudioCpatureAdjustAudioTimestampNotificatio
 - (instancetype)init UNAVAILABLE_ATTRIBUTE;
 - (instancetype)initWithAudioSampleRate:(int)sampleRate audioChannels:(int)numberOfChannels;
 - (instancetype)initWithAudioSampleRate:(int)sampleRate audioChannels:(int)numberOfChannels useVpio:(BOOL)enable;
+- (instancetype)initWithAudioSampleRate:(int)sampleRate audioChannels:(int)numberOfChannels useVpio:(BOOL)enable mainQueue:(BOOL)mainQueue;
 - (void)applicationWillResignActive:(NSNotification *)notification;
 - (void)applicationDidBecomeActive:(NSNotification *)notification;
 @end

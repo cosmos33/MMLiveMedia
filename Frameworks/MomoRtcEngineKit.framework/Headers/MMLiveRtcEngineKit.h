@@ -333,12 +333,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)rtcEngine:(MMLiveRtcEngineKit *_Nonnull)engine didKickedOutWithSessionId:(NSString *_Nonnull)channel operUserId:(NSUInteger)operid  uid:(NSUInteger)uid reason:(NSInteger)reason;//signal
 
 - (void)rtcEngine:(MMLiveRtcEngineKit * _Nonnull)engine receiveStreamMessageFromUid:(NSUInteger)uid streamId:(NSInteger)streamId str:(NSString * _Nonnull)str;
+
+- (void)rtcEngine:(MMLiveRtcEngineKit * _Nonnull)engine onAudioCaptureModeWillChanged:(bool)isMedia;
+
+- (void)rtcEngine:(MMLiveRtcEngineKit * _Nonnull)engine didVideoSizeChanged:(NSUInteger)uid size:(CGSize)size;
 @end
 
 
 
 
 #pragma mark - MMLiveRtcEngineKit
+#if !TARGET_IPHONE_SIMULATOR
 @interface MMLiveRtcEngineKit : NSObject
 -(instancetype) init __attribute__((unavailable("init not available, call sharedEngineWithAppId instead")));
 /**
@@ -379,6 +384,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param channelId       Joining in the same channel indicates those clients have entered in one room.
  *  @param info              Optional, this argument can be whatever the programmer likes personally.
  *  @param uid               Optional, this argument is the unique ID for each member in one channel.
+ *  @param cdnUrl       cdnUrl used for UDP server pull from cdn
  If not specified, or set to 0, the SDK automatically allocates an ID, and the id could be gotten in onJoinChannelSuccess.
  *   the callback rtcEngine:didJoinChannel:withUid:elapsed: will works.
  *  @return 0 when executed successfully, and return negative value when failed.
@@ -386,7 +392,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (int)joinChannelByToken:(NSString * _Nullable)token
                 channelId:(NSString * _Nonnull)channelId
                      info:(NSString * _Nullable)info
-                      uid:(NSUInteger)uid;
+                      uid:(NSUInteger)uid
+        broadcasterUserId:(NSUInteger)broadcasterUserId
+               cdnPullUrl:(NSString*)cdnPullUrl;
 
 /**
  *  Create connect with the signal server that is designed by client.
@@ -488,6 +496,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (int)muteRemoteVideoStream:(NSUInteger)uid mute:(BOOL)mute;
 
 - (void)setSei:(NSString *)sei;
+
+- (int)setAudioBitrate:(int)bitRate;
 
 - (int)startChannelMediaRelay:(NSUInteger)uid channelid:(NSString*)channelid;
 - (int)stopChannelMediaRelay:(NSUInteger)uid channelid:(NSString*)channelid;
@@ -719,5 +729,5 @@ NS_ASSUME_NONNULL_BEGIN
 - (int)sendStreamMessage:(NSInteger)streamId msg:(NSString *)msg;
 @property(weak,nonatomic)id<MMLiveRtcEngineDelegate> delegate;
 @end
-
+#endif
 NS_ASSUME_NONNULL_END

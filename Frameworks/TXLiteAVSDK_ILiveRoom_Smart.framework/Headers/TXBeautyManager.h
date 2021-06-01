@@ -1,12 +1,19 @@
-//
-//  TXBeautyManager.h
-//  TXLiteAVSDK
-//
-//  Created by cui on 2019/10/24.
-//  Copyright © 2019 Tencent. All rights reserved.
-//
+/*
+ * Module:   美颜与图像处理参数设置类
+ *
+ * Function: 修改美颜、滤镜、绿幕等参数
+ *
+ */
 
 #import <Foundation/Foundation.h>
+#import <TargetConditionals.h>
+#if TARGET_OS_IPHONE
+#import <UIKit/UIKit.h>
+typedef UIImage TXImage;
+#else
+#import <AppKit/AppKit.h>
+typedef NSImage TXImage;
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -21,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef NS_ENUM(NSInteger, TXBeautyStyle) {
     TXBeautyStyleSmooth    = 0,  ///< 光滑，适用于美女秀场，效果比较明显。
     TXBeautyStyleNature    = 1,  ///< 自然，磨皮算法更多地保留了面部细节，主观感受上会更加自然。
-    TXBeautyStylePitu      = 2   ///< 企业版美颜算法（企业版有效，其它版本设置此参数无效）
+    TXBeautyStylePitu      = 2   ///< 由上海优图实验室提供的美颜算法，磨皮效果介于光滑和自然之间，比光滑保留更多皮肤细节，比自然磨皮程度更高。
 };
 
 /// 美颜及动效参数管理
@@ -51,144 +58,176 @@ typedef NS_ENUM(NSInteger, TXBeautyStyle) {
 - (void)setWhitenessLevel:(float)level;
 
 /**
+ * 开启清晰度增强
+ *
+ * @param enable YES：开启清晰度增强；NO：关闭清晰度增强。默认值：YES
+ */
+- (void)enableSharpnessEnhancement:(BOOL)enable;
+
+/**
  * 设置红润级别
  *
  * @param level 红润级别，取值范围0 - 9；0表示关闭，1 - 9值越大，效果越明显。
  */
 - (void)setRuddyLevel:(float)level;
 
+/**
+ * 设置指定素材滤镜特效
+ *
+ * @param image 指定素材，即颜色查找表图片。**必须使用 png 格式**
+ */
+- (void)setFilter:(nullable TXImage *)image;
+/**
+ * 设置滤镜浓度
+ *
+ * 在美女秀场等应用场景里，滤镜浓度的要求会比较高，以便更加突显主播的差异。
+ * 我们默认的滤镜浓度是0.5，如果您觉得滤镜效果不明显，可以使用下面的接口进行调节。
+ *
+ * @param strength 从0到1，越大滤镜效果越明显，默认值为0.5。
+ */
+- (void)setFilterStrength:(float)strength;
+
+/**
+ * 设置绿幕背景视频，该接口仅在 [企业版 SDK](https://cloud.tencent.com/document/product/647/32689#Enterprise) 中生效
+ *
+ * 此处的绿幕功能并非智能抠背，需要被拍摄者的背后有一块绿色的幕布来辅助产生特效
+ *
+ * @param file 视频文件路径。支持 MP4; nil 表示关闭特效。
+ */
+- (void)setGreenScreenFile:(nullable NSString *)file;
+
 #if TARGET_OS_IPHONE
 /**
- * 设置大眼级别（企业版有效，其它版本设置此参数无效）
+ * 设置大眼级别，该接口仅在 [企业版 SDK](https://cloud.tencent.com/document/product/647/32689#Enterprise) 中生效
  *
  * @param level 大眼级别，取值范围0 - 9；0表示关闭，1 - 9值越大，效果越明显。
  */
 - (void)setEyeScaleLevel:(float)level;
 
 /**
- * 设置瘦脸级别（企业版有效，其它版本设置此参数无效）
+ * 设置瘦脸级别，该接口仅在 [企业版 SDK](https://cloud.tencent.com/document/product/647/32689#Enterprise) 中生效
  *
  * @param level 瘦脸级别，取值范围0 - 9；0表示关闭，1 - 9值越大，效果越明显。
  */
 - (void)setFaceSlimLevel:(float)level;
 
 /**
- * 设置V脸级别（企业版有效，其它版本设置此参数无效）
+ *设置 V 脸级别，该接口仅在 [企业版 SDK](https://cloud.tencent.com/document/product/647/32689#Enterprise) 中生效
  *
  * @param level V脸级别，取值范围0 - 9；0表示关闭，1 - 9值越大，效果越明显。
  */
 - (void)setFaceVLevel:(float)level;
 
 /**
- * 设置下巴拉伸或收缩（企业版有效，其它版本设置此参数无效）
+ * 设置下巴拉伸或收缩，该接口仅在 [企业版 SDK](https://cloud.tencent.com/document/product/647/32689#Enterprise) 中生效
  *
  * @param level 下巴拉伸或收缩级别，取值范围-9 - 9；0 表示关闭，小于0表示收缩，大于0表示拉伸。
  */
 - (void)setChinLevel:(float)level;
 /**
- * 设置短脸级别（企业版有效，其它版本设置此参数无效）
+ * 设置短脸级别，该接口仅在 [企业版 SDK](https://cloud.tencent.com/document/product/647/32689#Enterprise) 中生效
  *
  * @param level 短脸级别，取值范围0 - 9；0表示关闭，1 - 9值越大，效果越明显。
  */
 - (void)setFaceShortLevel:(float)level;
 
 /**
- * 设置瘦鼻级别（企业版有效，其它版本设置此参数无效）
+ * 设置瘦鼻级别，该接口仅在 [企业版 SDK](https://cloud.tencent.com/document/product/647/32689#Enterprise) 中生效
  *
  * @param level 瘦鼻级别，取值范围0 - 9；0表示关闭，1 - 9值越大，效果越明显。
  */
 - (void)setNoseSlimLevel:(float)level;
 
 /**
- * 设置亮眼 （企业版有效，其它版本设置此参数无效）
+ * 设置亮眼 ，该接口仅在 [企业版 SDK](https://cloud.tencent.com/document/product/647/32689#Enterprise) 中生效
  *
  * @param level 亮眼级别，取值范围0 - 9；0表示关闭，1 - 9值越大，效果越明显。
  */
 - (void)setEyeLightenLevel:(float)level;
 
 /**
- * 设置白牙 （企业版有效，其它版本设置此参数无效）
+ * 设置白牙 ，该接口仅在 [企业版 SDK](https://cloud.tencent.com/document/product/647/32689#Enterprise) 中生效
  *
  * @param level 白牙级别，取值范围0 - 9；0表示关闭，1 - 9值越大，效果越明显。
  */
 - (void)setToothWhitenLevel:(float)level;
 
 /**
- * 设置祛皱 （企业版有效，其它版本设置此参数无效）
+ * 设置祛皱 ，该接口仅在 [企业版 SDK](https://cloud.tencent.com/document/product/647/32689#Enterprise) 中生效
  *
  * @param level 祛皱级别，取值范围0 - 9；0表示关闭，1 - 9值越大，效果越明显。
  */
 - (void)setWrinkleRemoveLevel:(float)level;
 
 /**
- * 设置祛眼袋 （企业版有效，其它版本设置此参数无效）
+ * 设置祛眼袋 ，该接口仅在 [企业版 SDK](https://cloud.tencent.com/document/product/647/32689#Enterprise) 中生效
  *
  * @param level 祛眼袋级别，取值范围0 - 9；0表示关闭，1 - 9值越大，效果越明显。
  */
 - (void)setPounchRemoveLevel:(float)level;
 
 /**
- * 设置法令纹 （企业版有效，其它版本设置此参数无效）
+ * 设置法令纹 ，该接口仅在 [企业版 SDK](https://cloud.tencent.com/document/product/647/32689#Enterprise) 中生效
  *
  * @param level 法令纹级别，取值范围0 - 9；0表示关闭，1 - 9值越大，效果越明显。
  */
 - (void)setSmileLinesRemoveLevel:(float)level;
 
 /**
- * 设置发际线 （企业版有效，其它版本设置此参数无效）
+ * 设置发际线 ，该接口仅在 [企业版 SDK](https://cloud.tencent.com/document/product/647/32689#Enterprise) 中生效
  *
  * @param level 发际线级别，取值范围-9 - 9；0表示关闭，小于0表示抬高，大于0表示降低。
  */
 - (void)setForeheadLevel:(float)level;
 
 /**
- * 设置眼距 （企业版有效，其它版本设置此参数无效）
+ * 设置眼距 ，该接口仅在 [企业版 SDK](https://cloud.tencent.com/document/product/647/32689#Enterprise) 中生效
  *
  * @param level 眼距级别，取值范围-9 - 9；0表示关闭，小于0表示拉伸，大于0表示收缩。
  */
 - (void)setEyeDistanceLevel:(float)level;
 
 /**
- * 设置眼角 （企业版有效，其它版本设置此参数无效）
+ * 设置眼角 ，该接口仅在 [企业版 SDK](https://cloud.tencent.com/document/product/647/32689#Enterprise) 中生效
  *
  * @param level 眼角级别，取值范围-9 - 9；0表示关闭，小于0表示降低，大于0表示抬高。
  */
 - (void)setEyeAngleLevel:(float)level;
 
 /**
- * 设置嘴型 （企业版有效，其它版本设置此参数无效）
+ * 设置嘴型 ，该接口仅在 [企业版 SDK](https://cloud.tencent.com/document/product/647/32689#Enterprise) 中生效
  *
  * @param level 嘴型级别，取值范围-9 - 9；0表示关闭，小于0表示拉伸，大于0表示收缩。
  */
 - (void)setMouthShapeLevel:(float)level;
 
 /**
- * 设置鼻翼 （企业版有效，其它版本设置此参数无效）
+ * 设置鼻翼 ，该接口仅在 [企业版 SDK](https://cloud.tencent.com/document/product/647/32689#Enterprise) 中生效
  *
  * @param level 鼻翼级别，取值范围-9 - 9；0表示关闭，小于0表示拉伸，大于0表示收缩。
  */
 - (void)setNoseWingLevel:(float)level;
 
 /**
- * 设置鼻子位置 （企业版有效，其它版本设置此参数无效）
+ * 设置鼻子位置 ，该接口仅在 [企业版 SDK](https://cloud.tencent.com/document/product/647/32689#Enterprise) 中生效
  * @param level 鼻子位置级别，取值范围-9 - 9；0表示关闭，小于0表示抬高，大于0表示降低。
  */
 - (void)setNosePositionLevel:(float)level;
 
 /**
- * 设置嘴唇厚度 （企业版有效，其它版本设置此参数无效）
+ * 设置嘴唇厚度 ，该接口仅在 [企业版 SDK](https://cloud.tencent.com/document/product/647/32689#Enterprise) 中生效
  * @param level 嘴唇厚度级别，取值范围-9 - 9；0表示关闭，小于0表示拉伸，大于0表示收缩。
  */
 - (void)setLipsThicknessLevel:(float)level;
 
 /**
- * 设置脸型（企业版有效，其它版本设置此参数无效）
+ * 设置脸型，该接口仅在 [企业版 SDK](https://cloud.tencent.com/document/product/647/32689#Enterprise) 中生效
  * @param   level 美型级别，取值范围0 - 9；0表示关闭，1 - 9值越大，效果越明显。
  */
 - (void)setFaceBeautyLevel:(float)level;
 
 /**
- * 选择 AI 动效挂件（企业版有效，其它版本设置此参数无效）
+ * 选择 AI 动效挂件，该接口仅在 [企业版 SDK](https://cloud.tencent.com/document/product/647/32689#Enterprise) 中生效
  *
  * @param tmplName 动效名称
  * @param tmplDir 动效所在目录
@@ -196,7 +235,7 @@ typedef NS_ENUM(NSInteger, TXBeautyStyle) {
 - (void)setMotionTmpl:(nullable NSString *)tmplName inDir:(nullable NSString *)tmplDir;
 
 /**
- * 设置动效静音（企业版有效，其它版本设置此参数无效）
+ * 设置动效静音，该接口仅在 [企业版 SDK](https://cloud.tencent.com/document/product/647/32689#Enterprise) 中生效
  *
  * 有些挂件本身会有声音特效，通过此 API 可以关闭这些特效播放时所带的声音效果。
  *

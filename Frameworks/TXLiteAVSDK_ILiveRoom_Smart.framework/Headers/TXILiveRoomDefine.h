@@ -209,9 +209,9 @@ typedef NS_ENUM(NSInteger, TXILiveRoomAudioSampleRate) {
  * 音频编码质量
  */
 typedef NS_ENUM(NSInteger, TXILiveRoomAudioEncQuality) {
-    TXILiveRoomAudioEncQualitySpeechStandard           =   1,   ///< 16khz,mono,32kbps
-    TXILiveRoomAudioEncQualityMusicStandard            =   2,   ///< 48khz,mono,64kbps
-    TXILiveRoomAudioEncQualityMusicHigh                =   3,   ///< 48khz,mono,96kbps
+    TXILiveRoomAudioEncQualitySpeechStandard           =   1,   ///< 未开放使用。设定后与 TXILiveRoomAudioEncQualityMusicStandard 相同
+    TXILiveRoomAudioEncQualityMusicStandard            =   2,   ///< 采样率 48khz、单声道、编码码率 50 kbps
+    TXILiveRoomAudioEncQualityMusicHigh                =   3,   ///< 采样率 48khz、双声道、编码码率 128 kbps
 };
 
 /**
@@ -292,6 +292,17 @@ typedef NS_ENUM(NSInteger, TXILiveRoomStreamType) {
 typedef NS_ENUM(NSInteger, TXILiveRoomAudioVolumeType) {
     TXILiveRoomAudioVolumeTypeCommunication = 0,    //通话音量
     TXILiveRoomAudioVolumeTypeMedia         = 1,    //媒体音量
+    TXILiveRoomAudioVolumeTypeAuto          = 2,    //自动切换，麦上通话，麦下媒体
+};
+
+
+/**
+ * 混流输出视频编码格式
+ */
+typedef NS_ENUM(NSInteger, TXILiveRoomMixVideoCodecType) {
+    TXILiveRoomMixOutputVideoCodecTypeDefault = 0,    // 默认，264
+    TXILiveRoomMixOutputVideoCodecTypeH264    = 1,    // 264
+    TXILiveRoomMixOutputVideoCodecTypeH265    = 2,    // 265
 };
 
 /**
@@ -355,6 +366,8 @@ typedef NS_ENUM(NSInteger, TXILiveRoomAudioVolumeType) {
 // App切后台后的推流图片，图片最大尺寸不能超过1280*720
 @property (nonatomic, strong) UIImage *pauseImg;
 
+// 转推 codectype
+@property (nonatomic, assign) TXILiveRoomMixVideoCodecType cdnVideoCodecType;
 @end
 
 @interface TXILiveRoomAudioFrame : NSObject
@@ -372,10 +385,18 @@ typedef NS_ENUM(NSInteger, TXILiveRoomAudioVolumeType) {
 @property(nonatomic, copy) NSString * roomId;
 /// 参与混流的userId
 @property(nonatomic, assign) long userId;
-/// 图层位置坐标以及大小，左上角为坐标原点(0,0) （绝对像素值）
-@property(nonatomic, assign) CGRect rect;
+/// 图层位置x坐标（绝对像素值）
+@property(nonatomic, assign) int x;
+/// 图层位置y坐标（绝对像素值）
+@property(nonatomic, assign) int y;
+/// 图层位置宽度（绝对像素值）
+@property(nonatomic, assign) int width;
+/// 图层位置高度（绝对像素值）
+@property(nonatomic, assign) int height;
 /// 图层层次 （1-15） 不可重复
 @property(nonatomic, assign) int zOrder;
+/// 是否静音音频
+@property(nonatomic, assign) bool isMuteAudio;
 @end
 
 
@@ -385,6 +406,8 @@ typedef NS_ENUM(NSInteger, TXILiveRoomAudioVolumeType) {
 @property(nonatomic, assign) int videoBitrate;     ///< 视频码率
 @property(nonatomic, assign) int videoFramerate;   ///< 视频帧率
 @property(nonatomic, assign) int videoGOP;         ///< 视频GOP，单位秒
+@property(nonatomic, assign) TXILiveRoomMixVideoCodecType videoCodecType;   ///< 视频转码codec
+@property(nonatomic, assign) bool enableBFrame;     ///< 视频输出是否加B帧，false 关闭 true 打开
 
 @property(nonatomic, assign) int audioSampleRate;  ///< 音频采样率 48000
 @property(nonatomic, assign) int audioBitrate;     ///< 音频码率   64K
