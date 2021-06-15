@@ -77,6 +77,12 @@ typedef enum {
     MMLiveRenderModeMetalPetal = 1,//特效处理使用metal
 }MMLiveRenderMode;
 
+typedef enum {
+    MMLiveVideoCodecTypeVTB = 0,//h264硬编
+    MMLiveVideoCodecTypeX264 = 1,//h264软编
+    MMLiveVideoCodecTypeVTB265 = 2,//h265硬编
+}MMLiveVideoCodecType;
+
 @interface MMLiveUserConfig : NSObject
 @property (nonatomic, copy) NSString *appId;
 @property (nonatomic, copy) NSString *userId;
@@ -128,6 +134,7 @@ typedef enum {
 @property (nonatomic) CGFloat audioBitRate;//音频编码码率
 @property (nonatomic) CGFloat audioSampleRate;//音频采样率
 @property (nonatomic) NSInteger audioChannels;//音频声道
+@property (nonatomic) MMLiveVideoCodecType videoCodecType;//视频编码类型
 @property (nonatomic, copy) NSString *url;//推流地址
 - (NSString*) getConfigString;
 @end
