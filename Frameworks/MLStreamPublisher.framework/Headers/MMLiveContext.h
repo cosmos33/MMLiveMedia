@@ -27,6 +27,8 @@
 @property (nonatomic, strong, readonly) NSString *disable_ans;
 @property (nonatomic, strong, readonly) NSArray *push_log;
 @property (nonatomic, strong, readonly) NSArray *comm;
+@property (nonatomic, strong, readonly) NSString *enable_agora_headset;
+@property (nonatomic, strong, readonly) NSString *enable_tx_headset;
 @property (nonatomic, assign, readonly) BOOL enable_medialog;
 @property (nonatomic, assign, readonly) BOOL enable_roomconfig;
 @property (nonatomic, assign, readonly) int previewRenderApi;
