@@ -110,6 +110,7 @@ typedef enum {
 @property (nonatomic) CGFloat volume;//该用户的音量状态
 @property (nonatomic) int muteFlag;//该用户的静音状态
 @property (nonatomic) int offLineFlag;//该用户的离线状态
+@property (nonatomic) BOOL isMuteAudio;//是否把改用户静音，YES静音，NO 不静音
 - (NSString*) getConfigString;
 @end
 
