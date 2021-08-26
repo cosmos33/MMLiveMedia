@@ -152,6 +152,15 @@ udp下行观众的sei
 
 // 获取源数据
 - (CVPixelBufferRef)MMLiveEnginePusher:(MMLiveEngine *)engine rawData:(CVPixelBufferRef)rawdata type:(MMLivePushType)type;
+
+/**
+* 获取RTC主播自己的声音
+*
+* @param data 音频pcm数据
+* @param channel 声道数
+* @param sampleRate 采样率
+*/
+- (void)MMLiveEnginePusher:(MMLiveEngine *)engine onConferenceRecordAudioPacket:(NSData *)data channel:(int)channel sampleRate:(int)sampleRate;
 @end
 
 @protocol MMLiveEnginePlayerDelegate <NSObject>
@@ -654,6 +663,12 @@ udp下行观众的sei
 *@param transcoding 转推布局
 */
 - (void)setLiveTranscoding:(MMLiveTranscoding*)transcoding;
+
+/**
+是否获取连线主播声音
+@param enable  YES 上报主播的音频 ,NO 不上报主播的音频
+*/
+- (void)setGetConferenceRecordAudio:(BOOL)enable;
 
 #pragma mark - 切换推流器
 

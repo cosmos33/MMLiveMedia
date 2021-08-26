@@ -150,6 +150,15 @@ udp下行观众的sei
 
 // 获取源数据
 - (CVPixelBufferRef)MMLiveRTC:(MMLiveRTC *)publisher rawData:(CVPixelBufferRef)rawdata type:(MMLivePushType)type;
+
+/**
+* 获取RTC主播自己的声音
+*
+* @param data 音频pcm数据
+* @param channel 声道数
+* @param sampleRate 采样率
+*/
+- (void)MMLiveRTC:(MMLiveRTC*)pusher onConferenceRecordAudioPacket:(NSData *)data channel:(int)channel sampleRate:(int)sampleRate;
 @end
 
 @protocol MLStreamMediaSource;
@@ -307,6 +316,12 @@ udp下行观众的sei
 @param enable 外放开关
 */
 - (void)setConferencePlaybackSpeakerphone:(BOOL)enable;
+
+/**
+是否获取连线主播声音
+@param enable  YES 上报主播的音频 ,NO 不上报主播的音频
+*/
+- (void)setGetConferenceRecordAudio:(BOOL)enable;
 
 /**
 调整远端用户的音量
