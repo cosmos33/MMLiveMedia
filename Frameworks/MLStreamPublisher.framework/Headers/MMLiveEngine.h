@@ -670,6 +670,12 @@ udp下行观众的sei
 */
 - (void)setGetConferenceRecordAudio:(BOOL)enable;
 
+/**
+设置视频混流背景图
+@param imgUrl 图片网络地址
+*/
+- (void)setVideoMixerBackgroundImgUrl:(NSURL *)imgUrl;
+
 #pragma mark - 切换推流器
 
 /**
