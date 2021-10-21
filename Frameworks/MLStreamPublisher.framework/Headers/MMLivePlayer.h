@@ -12,6 +12,8 @@
 
 @class MMLivePlayer;
 @protocol MMLivePlayerDelegate <NSObject>
+
+@optional
 /**
 开始渲染
 */

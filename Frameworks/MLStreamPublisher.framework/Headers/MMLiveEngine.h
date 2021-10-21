@@ -20,6 +20,7 @@
 @class MMLiveEngine;
 @protocol MMLiveEnginePusherDelegate <NSObject>
 
+@optional
 /**
 推流器开始推流
 */
@@ -165,6 +166,7 @@ udp下行观众的sei
 
 @protocol MMLiveEnginePlayerDelegate <NSObject>
 
+@optional
 /**
 播放器开始渲染
 */

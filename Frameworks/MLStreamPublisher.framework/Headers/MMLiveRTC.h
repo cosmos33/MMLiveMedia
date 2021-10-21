@@ -15,6 +15,7 @@
 #pragma mark - MMLiveRTCDelegate
 @protocol MMLiveRTCDelegate <NSObject>
 
+@optional
 /**
 推流器开始推流
 */
