@@ -20,6 +20,7 @@
 @class MMLiveEngine;
 @protocol MMLiveEnginePusherDelegate <NSObject>
 
+@optional
 /**
 推流器开始推流
 */
@@ -165,6 +166,7 @@ udp下行观众的sei
 
 @protocol MMLiveEnginePlayerDelegate <NSObject>
 
+@optional
 /**
 播放器开始渲染
 */
@@ -458,6 +460,69 @@ udp下行观众的sei
 * @param level 眼影级别，level 0.0 ~ 1.0。
 */
 - (void)setMakeUpEyeShadow:(CGFloat)level;
+
+/**
+* 设置下巴宽度
+*
+* @param level 下巴宽度级别，level 0.0 ~ 1.0。
+*/
+- (void)setJawWidthLevel:(CGFloat)level;
+
+/**
+* 设置鼻子宽度
+*
+* @param level 鼻子宽带级别，level 0.0 ~ 1.0。
+*/
+- (void)setNoseWidthLevel:(CGFloat)level;
+
+/**
+* 设置眼睛倾斜度
+*
+* @param level 眼睛倾斜度级别，level 0.0 ~ 1.0。
+*/
+- (void)setEyeTiltLevel:(CGFloat)level;
+
+/**
+* 设置下巴形状
+*
+* @param level 下巴形状级别，level 0.0 ~ 1.0。
+*/
+- (void)setJawShapLevel:(CGFloat)level;
+
+/**
+* 设置鼻梁宽度
+*
+* @param level 鼻梁宽度级别，level 0.0 ~ 1.0。
+*/
+- (void)setNoseRidgeWidthLevel:(CGFloat)level;
+
+/**
+* 设置鼻尖大小
+*
+* @param level 鼻尖大小级别，level 0.0 ~ 1.0。
+*/
+- (void)setNoseTipSizeLevel:(CGFloat)level;
+
+/**
+* 设置眼间距
+*
+* @param level 眼间距级别，level 0.0 ~ 1.0。
+*/
+- (void)setEyeDistanceLevel:(CGFloat)level;
+
+/**
+* 设置眼高
+*
+* @param level 眼高级别，level 0.0 ~ 1.0。
+*/
+- (void)setEyeHeightLevel:(CGFloat)level;
+
+/**
+* 设置短脸
+*
+* @param level 短脸级别，level 0.0 ~ 1.0。
+*/
+- (void)setFaceShortenLevel:(CGFloat)level;
 
 /**
 * 设置指定素材滤镜特效
@@ -773,6 +838,32 @@ udp下行观众的sei
 * @param volume 音量大小，取值范围0~1
 */
 - (void)setVolume:(int)volume;
+
+/**
+*  设置暂停播放
+*
+*/
+- (void)pausePlay;
+
+/**
+*  恢复播放(暂停以后恢复使用)
+*
+*/
+- (void)resumePlay;
+
+/**
+*  设置退后台是否停止渲染，在退后台之前设置
+*
+* @param shouldStopGLInBackground  YES 退后台停止播放;NO 退后台不停止播放
+*/
+- (void)setShouldStopGLInBackground:(BOOL)shouldStopGLInBackground ;
+
+/**
+*  设置是否停止渲染
+*
+* @param paused  YES 停止播放;NO 恢复渲染
+*/
+- (void)toggleGLPaused:(BOOL)paused;
 
 /**
 * 获取播放器的状态

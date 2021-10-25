@@ -255,6 +255,69 @@
 - (void)setMakeUpEyeShadow:(CGFloat)level;
 
 /**
+* 设置下巴宽度
+*
+* @param level 下巴宽度级别，level 0.0 ~ 1.0。
+*/
+- (void)setJawWidthLevel:(CGFloat)level;
+
+/**
+* 设置鼻子宽度
+*
+* @param level 鼻子宽带级别，level 0.0 ~ 1.0。
+*/
+- (void)setNoseWidthLevel:(CGFloat)level;
+
+/**
+* 设置眼睛倾斜度
+*
+* @param level 眼睛倾斜度级别，level 0.0 ~ 1.0。
+*/
+- (void)setEyeTiltLevel:(CGFloat)level;
+
+/**
+* 设置下巴形状
+*
+* @param level 下巴形状级别，level 0.0 ~ 1.0。
+*/
+- (void)setJawShapLevel:(CGFloat)level;
+
+/**
+* 设置鼻梁宽度
+*
+* @param level 鼻梁宽度级别，level 0.0 ~ 1.0。
+*/
+- (void)setNoseRidgeWidthLevel:(CGFloat)level;
+
+/**
+* 设置鼻尖大小
+*
+* @param level 鼻尖大小级别，level 0.0 ~ 1.0。
+*/
+- (void)setNoseTipSizeLevel:(CGFloat)level;
+
+/**
+* 设置眼间距
+*
+* @param level 眼间距级别，level 0.0 ~ 1.0。
+*/
+- (void)setEyeDistanceLevel:(CGFloat)level;
+
+/**
+* 设置眼高
+*
+* @param level 眼高级别，level 0.0 ~ 1.0。
+*/
+- (void)setEyeHeightLevel:(CGFloat)level;
+
+/**
+* 设置短脸
+*
+* @param level 短脸级别，level 0.0 ~ 1.0。
+*/
+- (void)setFaceShortenLevel:(CGFloat)level;
+
+/**
 * 设置指定素材滤镜特效
 *
 * @param filter 滤镜的lookup图片

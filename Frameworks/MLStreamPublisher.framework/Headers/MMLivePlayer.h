@@ -12,6 +12,8 @@
 
 @class MMLivePlayer;
 @protocol MMLivePlayerDelegate <NSObject>
+
+@optional
 /**
 开始渲染
 */
@@ -128,6 +130,32 @@
                  speedTrigger:(int)speedTrigger
                   dropTrigger:(int)dropTrigger
                     speedRate:(double)speedRate;
+
+/**
+*  设置暂停播放
+*
+*/
+- (void)pausePlay;
+
+/**
+*  恢复播放(暂停以后恢复使用)
+*
+*/
+- (void)resumePlay;
+
+/**
+*  设置退后台是否停止渲染，在退后台之前设置
+*
+* @param shouldStopGLInBackground  YES 退后台停止播放;NO 退后台不停止播放
+*/
+- (void)setShouldStopGLInBackground:(BOOL)shouldStopGLInBackground ;
+
+/**
+*  设置是否停止渲染
+*
+* @param paused  YES 停止播放;NO 恢复渲染
+*/
+- (void)toggleGLPaused:(BOOL)paused;
 @end
 
 #endif /* MMLivePlayer_h */

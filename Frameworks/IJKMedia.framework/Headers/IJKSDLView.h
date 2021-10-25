@@ -25,9 +25,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) clearContent;
 
 - (UIImage*) snapshot;
+- (void)toggleGLPaused:(BOOL)paused;
+
 @property(nonatomic,weak) id<IJKSDLGLViewDelegate>  delegate;
 @property(nonatomic)        CGFloat  fps;
 @property(nonatomic)        CGFloat  scaleFactor;
+@property(nonatomic, assign) BOOL shouldStopGLInBackground;
 
 @end
 
