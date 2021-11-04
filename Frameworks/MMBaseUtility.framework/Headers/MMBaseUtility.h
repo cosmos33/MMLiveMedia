@@ -32,6 +32,7 @@
 
 // MultipleThread
 #if __has_include(<MMBaseUtility/MDLockDefinitions.h>)
+#import <MMBaseUtility/NSObject+SemaphoreLock.h>
 #import <MMBaseUtility/MDLockDefinitions.h>
 #import <MMBaseUtility/MDSynchronizedSet.h>
 #import <MMBaseUtility/MDThreadSafeDictionary.h>

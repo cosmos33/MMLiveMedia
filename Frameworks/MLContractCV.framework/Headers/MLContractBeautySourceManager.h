@@ -10,6 +10,15 @@ typedef enum {
     MLContractBeautySourceFilter = 1
 } MLContractBeautySourceItemType;
 
+typedef enum {
+    MLContractBeautyProcessingTypeNull = 0,
+    MLContractBeautyProcessingTypeBeauty = 1,
+    MLContractBeautyProcessingTypeReshape = 2,
+    MLContractBeautyProcessingTypeMakeup = 3,
+    MLContractBeautyProcessingTypeMakeupStyle = 4,
+    MLContractBeautyProcessingTypeFilter = 5
+} MLContractBeautyProcessingType; //美颜的处理类型 1：美颜 2：微整形 3：美妆 4：风格装 5:滤镜
+
 @class MLContractBeautySourceItem;
 @class MLContractBeautySourceGroupItem;
 
@@ -39,6 +48,7 @@ typedef enum {
 @property (nonatomic, strong, readonly) NSString *keyForMakeup;
 @property (nonatomic, strong, readonly) NSString *keyForFilter;
 @property (nonatomic, assign, readonly) MLContractBeautySourceItemType type;
+@property (nonatomic, assign, readonly) MLContractBeautyProcessingType processingType;
 
 @end
 
@@ -49,5 +59,6 @@ typedef enum {
 + (NSString *)sourcePathForIdentifier:(NSString *)identifier;
 + (MLContractBeautySourceRootModel *)beautySourceTotalInfos;
 + (MLContractBeautySourceItem *)beautySourceItemByIdentifier:(NSString *)identifier keyForMakeup:(NSString *)keyForMakeup keyForFilter:(NSString *)keyForFilter;
++ (NSDictionary *)dicWithTransformJson;
 
 @end
