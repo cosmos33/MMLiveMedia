@@ -10,7 +10,11 @@
 #import <MetalPetal/MetalPetal.h>
 #import <FaceDecorationKitMetalPetal/FaceDecorationKitMetalPetal.h>
 #import <FaceDecorationKitMomoCV/FaceDecorationKitMomoCV.h>
+#if __has_include(<NSTimerWeakTarget/NSTimer+WeakTarget.h>)
 #import <NSTimerWeakTarget/NSTimer+WeakTarget.h>
+#else
+#import <NSTimer+WeakTarget/NSTimer+WeakTarget.h>
+#endif
 #import <MLMediaFoundation/MLMediaFoundation.h>
 #import <MLFilterKitMetalPetal/MLFilterKitMetalPetal.h>
 #import <CXBeautyKit/CXBeautyKit.h>
@@ -20,6 +24,7 @@
 @property (nonatomic, copy) CXBeautyConfiguration *deepBeautyConfiguration;
 @property (nonatomic, copy) NSArray <MLMetalPetalNativeViewItem *>*viewItems;
 @property (nonatomic, assign) int warpType;
+@property (nonatomic, assign) BOOL lightingRenderOn;
 
 - (void)setWebGLFilterConfig:(NSDictionary *)config;
 - (void)processingCVPixelBuffer:(CVPixelBufferRef)pixelBuffer atTime:(CMTime)frameTime options:(MLVideoProcessorOptions *)options completion:(void (^)(CVPixelBufferRef))completion;

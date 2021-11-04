@@ -14,6 +14,8 @@
 @property (nonatomic, assign) float  saturation;
 
 @property (nonatomic, assign) float  sharpening;
+@property (nonatomic, assign) float  sharpScale;
+@property (nonatomic, assign) float  sharpThreshold;
 
  
 // kCVPixelFormatType_1Monochrome    = 0x00000001, /* 1 bit indexed */

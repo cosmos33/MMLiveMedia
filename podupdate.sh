@@ -10,15 +10,16 @@ fi
 
 WORKDIR=`pwd`
 
+echo " POD ======= UPDATE "
+# 新增Pod的Git库标签，与修改podspec文件的版本号
+./podup.sh $NEWVERSION MMLiveMediaSDK.podspec
+
 # 提交新的库文件
 echo " POD-GIT ======= COMMIT "
 git add -A
 git commit -m "pod update $NEWVERSION"
 git push
 
-echo " POD ======= UPDATE "
-# 新增Pod的Git库标签，与修改podspec文件的版本号
-./podup.sh $NEWVERSION MMLiveMediaSDK.podspec
 echo " POD-GIT ======= NEW-TAG "
 # 打新标签
 git tag "$NEWVERSION"

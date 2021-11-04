@@ -65,13 +65,13 @@ BEF_SDK_API bef_effect_result_t bef_effect_available_features(char (*features)[B
  */
 BEF_SDK_API bef_effect_result_t bef_effect_ai_set_camera_device_position(bef_effect_handle_t handle,  bef_ai_camera_position position);
 
- /**
- * @brief Set frame size.
- * @param handle     Effect handle
- * @param width      Texture width
- * @param height     Texture height
- * @return           If succeed return BEF_EFFECT_RESULT_SUC,  other value please see bef_effect_ai_public_define.h
- */
+/**
+* @brief Set frame size.
+* @param handle     Effect handle
+* @param width      Texture width
+* @param height     Texture height
+* @return           If succeed return BEF_EFFECT_RESULT_SUC,  other value please see bef_effect_ai_public_define.h
+*/
 BEF_SDK_API bef_effect_result_t bef_effect_ai_set_width_height(bef_effect_handle_t handle, int width, int height);
 
 
@@ -168,7 +168,12 @@ BEF_SDK_API bef_effect_result_t bef_effect_ai_set_composer(bef_effect_handle_t h
  */
 BEF_SDK_API bef_effect_result_t bef_effect_ai_composer_set_nodes(bef_effect_handle_t handle, const char *nodePaths[], int nodeNum);
 
-//BEF_SDK_API bef_effect_result_t bef_effect_ai_set_render_cache_string_value(bef_effect_handle_t handle, const char* key, const char* value);
+/// 设置资源包路径数组，可通过额外的 ndoeTags 设置附加信息
+/// @param handle 创建的 handle
+/// @param nodePaths 特效资源路径数组
+/// @param nodeTags 特效资源附加信息，与nodePaths 一一对应
+/// @param nodeNum 特效资源数组的长度
+BEF_SDK_API bef_effect_result_t bef_effect_ai_composer_set_nodes_with_tags(bef_effect_handle_t handle, const char *nodePaths[], const char *nodeTags[], int nodeNum);
 
 /**
  * @brief set composer node intensity
@@ -229,14 +234,14 @@ BEF_SDK_API bef_effect_result_t bef_effect_ai_algorithm_texture_with_buffer(bef_
  */
 BEF_SDK_API bef_effect_result_t
 bef_effect_ai_algorithm_buffer(
-                              bef_effect_handle_t handle,
-                              const unsigned char *img_in,
-                              bef_ai_pixel_format fmt_in,
-                              int image_width,
-                              int image_height,
-                              int image_stride,
-                              double timestamp
-                              );
+        bef_effect_handle_t handle,
+        const unsigned char *img_in,
+        bef_ai_pixel_format fmt_in,
+        int image_width,
+        int image_height,
+        int image_stride,
+        double timestamp
+);
 
 /**
  * @breif            Draw srcTexture with effects to dstTexture.
@@ -266,15 +271,15 @@ BEF_SDK_API bef_effect_result_t bef_effect_ai_process_texture(bef_effect_handle_
  */
 BEF_SDK_API bef_effect_result_t
 bef_effect_ai_process_buffer(bef_effect_handle_t handle,
-                            const unsigned char *img_in,
-                            bef_ai_pixel_format fmt_in,
-                            int image_width,
-                            int image_height,
-                            int image_stride,
-                            unsigned char *img_out,
-                            bef_ai_pixel_format fmt_out,
-                            double timestamp
-                            );
+                             const unsigned char *img_in,
+                             bef_ai_pixel_format fmt_in,
+                             int image_width,
+                             int image_height,
+                             int image_stride,
+                             unsigned char *img_out,
+                             bef_ai_pixel_format fmt_out,
+                             double timestamp
+);
 
 /**
  * @param handle      Effect handle that will be created
@@ -350,7 +355,7 @@ BEF_SDK_API bef_effect_result_t bef_effect_ai_get_skeleton_detect_result(bef_eff
  * @return If succeed return BEF_RESULT_SUC, other value please refer bef_effect_ai_public_define.h
  *         成功返回 BEF_RESULT_SUC, 授权码非法返回BEF_RESULT_INVALID_LICENSE，其它失败返回相应错误码, 具体请参考 bef_effect_ai_public_define.h
  */
-BEF_SDK_API bef_effect_result_t bef_effect_ai_get_expression_detect_result(bef_effect_handle_t handle, bef_ai_face_attribute_result *result);
+BEF_SDK_API bef_effect_result_t bef_effect_ai_get_face_attr_detect_result(bef_effect_handle_t handle, bef_ai_face_attribute_result *result);
 
 
 
@@ -392,11 +397,11 @@ BEF_SDK_API bef_effect_result_t bef_effect_ai_process_touch_event(bef_effect_han
 #ifdef __ANDROID__
 BEF_SDK_API bef_effect_result_t
 bef_effect_ai_check_license(
-                           JNIEnv* env,
-                           jobject context,
-                           bef_effect_handle_t handle,
-                           const char *licensePath
-                           );
+        JNIEnv* env,
+        jobject context,
+        bef_effect_handle_t handle,
+        const char *licensePath
+);
 #else
 BEF_SDK_API bef_effect_result_t
 bef_effect_ai_check_license(

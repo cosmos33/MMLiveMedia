@@ -6,7 +6,7 @@
 //  Copyright © 2016 wemomo.com. All rights reserved.
 //
 
-#import <GPUImage/GPUImage.h>
+@import GPUImage;
 #import "MLVideoProcessor.h"
 #import "MLGPUImageDecorationManager.h"
 

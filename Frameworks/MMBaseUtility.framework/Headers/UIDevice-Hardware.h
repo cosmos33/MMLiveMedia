@@ -38,6 +38,13 @@
 #define IPHONE_12_NAMESTRING            @"iPhone 12"
 #define IPHONE_12PRO_NAMESTRING         @"iPhone 12 Pro"
 #define IPHONE_12PROMAX_NAMESTRING      @"iPhone 12 Pro Max"
+
+#define IPHONE_13MINI_NAMESTRING        @"iPhone 13 mini"
+#define IPHONE_13_NAMESTRING            @"iPhone 13"
+#define IPHONE_13PRO_NAMESTRING         @"iPhone 13 Pro"
+#define IPHONE_13PROMAX_NAMESTRING      @"iPhone 13 Pro Max"
+
+
 #define IPHONE_UNKNOWN_NAMESTRING       @"Unknown iPhone"
 
 #define IPOD_1G_NAMESTRING              @"iPod touch 1G"
@@ -125,6 +132,11 @@ typedef NS_ENUM(NSInteger, UIDevicePlatform) {
     UIDevice12iPhone,
     UIDevice12ProiPhone,
     UIDevice12ProMaxiPhone,
+
+    UIDevice13miniiPhone,
+    UIDevice13iPhone,
+    UIDevice13ProiPhone,
+    UIDevice13ProMaxiPhone,
     
     UIDevice1GiPod,
     UIDevice2GiPod,

@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MLContractBeautyProcessor : NSObject
 
++ (void)enhanceByteDacneMakeUp:(BOOL)enhance;
 + (void)setLicenseURL:(NSURL *)url;
 - (instancetype)init NS_UNAVAILABLE;
 - (nullable instancetype)initWithModelDirectory:(NSURL *)modelDir error:(NSError **)error;
@@ -50,5 +51,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addLutFilterNode:(NSString *)nodePath;
 - (void)removeLutFilterNode:(NSString *)nodePath;
 - (void)updateFilter:(NSString *)nodePath intensity:(float)intensity;
+
+
 @end
+
+@interface MLContractBeautyProcessor (Debug)
+
+- (void)setupComposeNode:(NSString*)path key:(NSString*)key;
+- (void)updateComposeNode:(NSString*)path key:(NSString*)key intensity:(float)intensity;
+
+@end
+
 NS_ASSUME_NONNULL_END

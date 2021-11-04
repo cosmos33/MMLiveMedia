@@ -8,6 +8,8 @@
 
 #import <MomoCV/MomoCV.h>
 #import <MLContractCV/MLContractCV.h>
+#import <LightningRender/LightningRender.h>
+#import "MLSelfDevelopBeautyProcessor.h"
 
 NS_ASSUME_NONNULL_BEGIN
 @protocol MLBodyDetectoOption <NSObject>
@@ -53,6 +55,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (nullable MMFaceDetector *)makeFaceDetector;
 
++ (nullable MMFaceDetector *)makeFace222Detector;
+
 + (nullable MMObjectDetector *)makeObjectDetector;
 
 + (nullable id<MLBodyDetector>)makeBodyDetector NS_AVAILABLE(10_13, 11_0);
@@ -67,11 +71,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (nullable MLContractBeautyProcessor *)makeContractFaceProcessor;
 
++ (nullable MLSelfDevelopBeautyProcessor *)makeSelfDevelopProcessor;
+
++ (nullable XEngineRender *)makeLightingRender;
+
++ (BOOL)canCreateLightingRender;
+
 + (BOOL)canCreateContractFaceProcessor;
 
 + (BOOL)canCreateAnimojiDetector;
 
 + (BOOL)canCreateFaceDetector;
+
++ (BOOL)canCreateFace222Detector;
 
 + (BOOL)canCreateObjectDetector;
 
@@ -82,6 +94,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)canCreateImageSegmenter;
 
 + (BOOL)canCreateHandGestureDetector;
+
++ (BOOL)canCreateSelfDevelopBeautyProcessor;
 #if DEBUG
 + (BOOL)updateObjectDetectorModelWithURL:(NSURL *)url shouldValidate:(BOOL)shouldValidate; //file url
 #endif
@@ -106,6 +120,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)installFaceDetector:(MMFaceDetector *)faceDetector;
 + (void)uninstallFaceDetector;
 
++ (void)installFace222Detector:(MMFaceDetector *)faceDetector;
++ (void)uninstallFace222Detector;
+
 + (void)installObjectDetector:(MMObjectDetector *)objectDetector;
 + (void)uninstallObjectDetector;
 
@@ -128,6 +145,14 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)installContractFaceProcessor:(MLContractBeautyProcessor *)faceProcessor;
 + (void)uninstallContratFaceProcessor;
 
+// 自研美颜
++ (void)installSelfDevelopBeautyProcessor:(MLSelfDevelopBeautyProcessor *)selfBeautyProcessor;
++ (void)uninstallSelfDevelopBeautyProcessor;
+
+
+// process buffer
++ (void)installLightingRender:(XEngineRender *)lightingRender;
++ (void)uninstallLightingRender;
 
 
 + (void)uninstallAllDetectors;
