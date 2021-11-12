@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface MLWUNSTimerProxyTarget : NSObject
+@interface WUNSTimerProxyTarget : NSObject
 
 @property (nonatomic, weak) NSTimer *timer;
 

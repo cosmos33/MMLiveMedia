@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSTimer (MLWeakTarget)
+@interface NSTimer (WeakTarget)
 
 - (id)initWithFireDate:(NSDate *)date
               interval:(NSTimeInterval)timeInterval

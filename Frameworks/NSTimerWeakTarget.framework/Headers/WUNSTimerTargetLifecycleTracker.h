@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@class MLWUNSTimerProxyTarget;
+@class WUNSTimerProxyTarget;
 
-@interface MLWUNSTimerTargetLifecycleTracker : NSObject
+@interface WUNSTimerTargetLifecycleTracker : NSObject
 
-- (id)initWithTimerProxyTarget:(MLWUNSTimerProxyTarget *)proxyTarget;
+- (id)initWithTimerProxyTarget:(WUNSTimerProxyTarget *)proxyTarget;
 
 @end

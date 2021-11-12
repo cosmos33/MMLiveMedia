@@ -36,7 +36,8 @@ typedef NS_ENUM(NSUInteger, MLCameraSourceBeautyType) {
     MLCameraSourceBeautyTypeForOldMomoVersion = -1,
     MLCameraSourceBeautyTypeOld = 0,
     MLCameraSourceBeautyTypeDoki = 1,
-    MLCameraSourceBeautyTypeByteDance = 2 // 90 deg CW
+    MLCameraSourceBeautyTypeByteDance = 2, // 90 deg CW
+    MLCameraSourceBeautyTypeSelfDevelop = 3 // 自研美颜，用来替换抖音
 };
 
 
@@ -73,6 +74,7 @@ OBJC_EXTERN NSString *const kMLDecorationManagerDecorationFilterAddedNotificatio
 @property (atomic,readonly) float skinSmoothAmount;
 @property (atomic,readonly) NSUInteger faceCount;
 @property (atomic,readonly) CGRect faceRect;
+@property (atomic, copy, readonly) NSArray *eulerAngles;//[0]roll, [1]yaw, [2]pitch
 @property (atomic,readonly) CGPoint focusPoint;
 @property (atomic,readonly) CGPoint exposurePoint;
 @property (atomic,readonly) float ISO;
@@ -227,7 +229,7 @@ OBJC_EXTERN NSString *const kMLDecorationManagerDecorationFilterAddedNotificatio
 
 @property (nonatomic, assign) BOOL dokiBeautyEnable;
 
-@property (nonatomic) MLCameraSourceBeautyType beautyType; // 0 old, 1 new, 2 douyin
+@property (nonatomic) MLCameraSourceBeautyType beautyType; // 0 old, 1 new, 2 douyin, 3 自研（对标抖音）
 
 @property (nonatomic) NSUInteger dokiSkinSmoothingVersion; // default is 0;
 
@@ -261,7 +263,11 @@ OBJC_EXTERN NSString *const kMLDecorationManagerDecorationFilterAddedNotificatio
 
 @property (nonatomic, assign) CGPoint exposurePoint;
 @property (nonatomic, assign) CGPoint focusPoint;
-- (void)updateISO:(float)iso;
+
+- (void)updateISO:(float)iso; // [20 ~ 1000]
+- (void)updateWhiteBalanceTemperature:(float)temper andTint:(float)tint;// temper [3300~4300], tint [-15, 15]
+- (void)updateBiasOffset:(float)biasOffset; // [-2, 2]
+
 - (void)addRecordingRequest:(MLRecordingRequest *)request error:(NSError **)error  completion:(void(^)(NSURL  *_Nullable localURL, NSError   *_Nullable error))completionHandler;
 - (void)deleteRecordFileWithURL:(NSURL *)url error:(NSError **)error;
 
@@ -269,6 +275,15 @@ OBJC_EXTERN NSString *const kMLDecorationManagerDecorationFilterAddedNotificatio
 - (void)addBeautyItems:(NSArray <MLContractBeautySourceItem *> *)items;
 - (void)removeBeautyItems:(NSArray <MLContractBeautySourceItem *> *)items;
 - (void)updateBeautyItem:(MLContractBeautySourceItem *)item key:(NSString*)key intensity:(float)intensity;
+- (void)enableEnhanceByteDanceMakeUp:(BOOL)enable;
+
+- (void)setLipsSegmentEnable:(BOOL)lipsSegmentEnable;
+- (void)setBigModelEnable:(BOOL)bigModelEnable;
+
+- (void)lightingRenderOn:(BOOL)onOrOff;
+@property (nonatomic,readonly) BOOL isLightningRenderOn;
+
+- (NSString *)cameraParams;
 @end
 
 @interface MLCameraSource (Analytics)

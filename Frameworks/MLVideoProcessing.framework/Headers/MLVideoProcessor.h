@@ -16,7 +16,7 @@ FOUNDATION_EXPORT void MLSkinSmoothingSetNewVersionEnabled(BOOL enabled);
 OBJC_EXTERN  NSString *const MLSkinSmoothingMethodNewVersionEnabledKey;
 OBJC_EXTERN  NSString *const MLSkinSmoothingMethodDidChangeNotification;
 
-@class FDKDecoration,MLBeautySettings,MMFaceFeature,MMObjectFeature, MMBodyFeature,MLFilterDescriptor, MMFacialExpression, MMImageSegmentationResult, MLColorEnhancement;
+@class FDKDecoration,MLBeautySettings,MMFaceFeature,MMObjectFeature, MMBodyFeature,MLFilterDescriptor, MMFacialExpression, MMImageSegmentationResult, MLColorEnhancement, MMHandFeature;
 
 @protocol MLImageSegmentResult;
 @interface MLVideoProcessorOptions : NSObject
@@ -66,6 +66,6 @@ OBJC_EXTERN  NSString *const MLSkinSmoothingMethodDidChangeNotification;
 
 - (void)processingInputPixelBuffer:(CVPixelBufferRef)inputPixelBuffer mergePixelBuffer:(CVPixelBufferRef)mergePixelBuffer atTime:(CMTime)frameTime options:(MLVideoProcessorOptions *)options mergeConfiguration:(NSDictionary *)mergeConfig needUpdateConfig:(BOOL)updateConfig previewCompletion:(void (^)(CVPixelBufferRef))previewCompletion mergedCompletion:(void (^)(CVPixelBufferRef))mergedCompletion;
 
-- (void)setFaceFeatures:(NSArray<MMFaceFeature *> *)faceFeatures objectFeatures:(NSArray<MMObjectFeature *> *)objectFeatures facialExpressions:(NSArray<MMFacialExpression *> *)facialExpressions imageSegmentationResult:(id<MLImageSegmentResult>)imageSegmentationResult;
+- (void)setFaceFeatures:(NSArray<MMFaceFeature *> *)faceFeatures objectFeatures:(NSArray<MMObjectFeature *> *)objectFeatures facialExpressions:(NSArray<MMFacialExpression *> *)facialExpressions imageSegmentationResult:(id<MLImageSegmentResult>)imageSegmentationResult bodyFeatures:(NSArray<MMBodyFeature *> *)bodyFeatures handFeatures:(NSArray <MMHandFeature *>*) handFeatures;
 
 @end

@@ -8,7 +8,9 @@
 #import <Foundation/Foundation.h>
 #import <vector>
 //#import <effect-sdk/bef_effect_ai_face_detect.h>
+#if !TARGET_IPHONE_SIMULATOR
 #import "bef_effect_ai_face_detect.h"
+#endif
 #import <simd/simd.h>
 #import <MomoCV/MMFaceFeature.h>
 NS_ASSUME_NONNULL_BEGIN
@@ -20,13 +22,19 @@ struct MLCVFaceFeatureInternalRepresentation {
     std::vector<float> landmarks68;
     std::vector<float> landmarks87;
     std::vector<float> landmarks104;
+    std::vector<float> landmarks106;
     std::vector<float> landmarks137;
+    std::vector<float> landmarks222;
+    std::vector<float> landmarks240;
     
     std::vector<float> origin_landmarks96;
     std::vector<float> origin_landmarks68;
     std::vector<float> origin_landmarks87;
     std::vector<float> origin_landmarks104;
+    std::vector<float> origin_landmarks106;
     std::vector<float> origin_landmarks137;
+    std::vector<float> origin_landmarks222;
+    std::vector<float> origin_landmarks240;
     
     std::vector<float> euler_angles;
     
@@ -64,6 +72,14 @@ struct MLCVFaceFeatureInternalRepresentation {
     
     std::vector<uint8_t> feature;
     
+    CGSize mouth_mask_size;
+    
+    std::vector<uint8_t> mouth_mask;
+    
+    std::vector<float> mouth_warp_mat;
+    
+    float mouth_covered_rate;
+    
     int quality;
     
     CGSize imageSize;
@@ -71,9 +87,11 @@ struct MLCVFaceFeatureInternalRepresentation {
 
 typedef MLCVFaceFeatureInternalRepresentation MMFaceFeatureInternalRepresentation;
 
-extern MMFaceFeatureInternalRepresentation MMFaceFeatureInternalRepresentationMakeByByteDance(bef_ai_face_106 face, size_t imageWidth, size_t imageHeight, float landmarkScale);
+#if !TARGET_IPHONE_SIMULATOR
+extern MMFaceFeatureInternalRepresentation MMFaceFeatureInternalRepresentationMakeByByteDance(bef_ai_face_106 face, bef_ai_face_ext_info face_ext, size_t imageWidth, size_t imageHeight, float landmarkScale);
 
 
+#endif
 @interface MMFaceFeature (ByteDance)
 - (instancetype)initWithInternelRepresentation:(MMFaceFeatureInternalRepresentation)internalRepresentation;
 @end
