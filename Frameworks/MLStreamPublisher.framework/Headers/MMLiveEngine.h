@@ -658,6 +658,13 @@ udp下行观众的sei
 - (void)setEnableAudio:(BOOL)enable;
 
 /**
+本地音频功能开关
+
+@param enable YES 打开 NO 关闭
+*/
+- (void)setEnableLocalAudio:(BOOL)enable;
+
+/**
 * 禁用本地音频
 *
 *@param audioMute YES 禁用 NO 打开
