@@ -64,6 +64,8 @@
 
 - (void)setUseBeautyType:(MLCameraSourceBeautyType)beautyType;
 
+@property (nonatomic) BOOL isLightningRenderOn;
+
 /**
 * 开始预览
 *
