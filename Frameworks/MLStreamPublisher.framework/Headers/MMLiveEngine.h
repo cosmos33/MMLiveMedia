@@ -303,6 +303,14 @@ udp下行观众的sei
 - (void)setUseBeautyType:(MLCameraSourceBeautyType)beautyType;
 
 @property (nonatomic) BOOL isLightningRenderOn;
+
+/**
+* 控制Animoji的的开关
+*
+* @param enable 0 关闭Animoji，1 打开Animoji
+*/
+- (void)enableAnimoji:(BOOL)enable;
+
 /**
 * 开始预览
 *
@@ -601,6 +609,14 @@ udp下行观众的sei
 #if CAMERA_ON
 - (void)updateBeautyItem:(MLContractBeautySourceItem *)item key:(NSString*)key intensity:(float)intensity;
 #endif
+
+/**
+* 关闭美颜
+*/
+#if CAMERA_ON
+- (void)setBeautyDisable:(BOOL)beautyDisable;
+#endif
+
 
 #pragma mark - RTMP
 /**
