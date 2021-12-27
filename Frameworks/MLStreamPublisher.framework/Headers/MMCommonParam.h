@@ -137,6 +137,7 @@ typedef enum {
 @property (nonatomic) NSInteger audioChannels;//音频声道
 @property (nonatomic) MMLiveVideoCodecType videoCodecType;//视频编码类型
 @property (nonatomic, copy) NSString *url;//推流地址
+@property (nonatomic) BOOL isAudioMainQueue; //音频采集是否在主线程,YES 在主线程，NO 非主线程,默认是走主线程
 - (NSString*) getConfigString;
 @end
 

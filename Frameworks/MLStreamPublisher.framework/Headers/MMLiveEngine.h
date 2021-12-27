@@ -961,6 +961,10 @@ udp下行观众的sei
 */
 - (void)setMusicPitch:(NSInteger)value;
 
+- (void)setMusicVolume:(float)value;
+
+- (void)setMicVolume:(float)value;
+
 #pragma mark - 音效
 
 /**

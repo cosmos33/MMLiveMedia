@@ -116,7 +116,7 @@
 * @param audioSampleRate 采样率
 * @param audioChannels 声道数
 */
-- (void)startAudioCapture:(NSInteger)audioSampleRate channels:(NSInteger)audioChannels;
+- (void)startAudioCapture:(NSInteger)audioSampleRate channels:(NSInteger)audioChannels mainQueue:(BOOL)mainQueue;
 
 /**
 * 开始SDK音频采集
@@ -490,6 +490,10 @@
 * @param value 设置音频pitch
 */
 - (void)setMusicPitch:(NSInteger)value;
+
+- (void)setMusicVolume:(float)value;
+
+- (void)setMicVolume:(float)value;
 
 #pragma mark - 音效
 
