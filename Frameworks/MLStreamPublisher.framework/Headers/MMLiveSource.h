@@ -491,9 +491,19 @@
 */
 - (void)setMusicPitch:(NSInteger)value;
 
+/**
+* 设置音乐音量
+*
+* @param value 设置音量系数 0.0～1.0
+*/
 - (void)setMusicVolume:(float)value;
 
-- (void)setMicVolume:(float)value;
+/**
+* 设置采集音量
+*
+* @param value 设置音量系数 0.0～1.0
+*/
+- (void)setRecordVolume:(float)value;
 
 #pragma mark - 音效
 
