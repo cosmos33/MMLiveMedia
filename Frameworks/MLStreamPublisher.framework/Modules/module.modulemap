@@ -1,6 +1,0 @@
-framework module MLStreamPublisher {
-  umbrella header "MLStreamPublisher.h"
-
-  export *
-  module * { export * }
-}
