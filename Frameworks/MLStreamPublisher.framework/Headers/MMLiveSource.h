@@ -552,6 +552,11 @@
 */
 - (MLCameraSource *)getCurrentCameraSource;
 #endif
+
+#pragma mark - Encoder
+
+- (void)setVideoBitrate:(int)videoBitrate;
+
 @end
 
 #endif /* MMLiveSource_h */

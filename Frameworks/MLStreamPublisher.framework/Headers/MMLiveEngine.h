@@ -617,6 +617,10 @@ udp下行观众的sei
 - (void)setBeautyDisable:(BOOL)beautyDisable;
 #endif
 
+#pragma mark - Encoder
+
+- (void)setVideoBitrate:(int)videoBitrate;
+
 
 #pragma mark - RTMP
 /**
