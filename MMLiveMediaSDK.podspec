@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'MMLiveMediaSDK'
-  s.version          = '1.4.29.1.20211227'
+  s.version          = '1.4.30.0.20220211'
   s.summary          = 'A short description of MMLiveMediaSDK.'
 
 # This description is used to generate tags and improve search results.
