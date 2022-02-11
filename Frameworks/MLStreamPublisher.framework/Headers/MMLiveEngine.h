@@ -619,6 +619,11 @@ udp下行观众的sei
 
 #pragma mark - Encoder
 
+/**
+* 设置编码码率
+*
+* @param videoBitrate 单位b/s
+*/
 - (void)setVideoBitrate:(int)videoBitrate;
 
 
