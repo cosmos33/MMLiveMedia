@@ -553,15 +553,6 @@
 - (MLCameraSource *)getCurrentCameraSource;
 #endif
 
-#pragma mark - Encoder
-
-/**
-* 设置RTC编码码率
-*
-* @param videoBitrate 单位b/s
-*/
-- (void)setVideoBitrate:(int)videoBitrate;
-
 @end
 
 #endif /* MMLiveSource_h */
