@@ -125,6 +125,7 @@ typedef enum {
 @property (nonatomic) NSUInteger mid;//对应主播userid
 @property (nonatomic) NSUInteger ctyp;//对应业务类型
 @property (nonatomic, copy) NSString *extString;//透传sei
+@property (nonatomic, assign) int shortSei;
 - (NSString*) getConfigString;
 @end
 
