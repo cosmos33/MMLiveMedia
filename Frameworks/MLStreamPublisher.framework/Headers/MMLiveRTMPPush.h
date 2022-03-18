@@ -156,5 +156,8 @@
 * @return 上行码率,单位kbps (建议获取间隔不要小于2s)
 */
 - (long) getRealTimePushBitRate;
+
+- (NSDictionary *) getPushWatchInfo;
+
 @end
 #endif /* MMLiveRTMPPush_h */

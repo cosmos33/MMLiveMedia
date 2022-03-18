@@ -97,5 +97,6 @@
 */
 + (void)requestRoomContextWithUserContext:(MMLiveUserContext *)userContext roomId:(NSString *)roomId completeHandler:(void (^)(MMLiveUserContext *roomContext))completeHandler;
 
++ (NSString*) getSDKVersion;
 @end
 #endif /* MMLiveContext_h */

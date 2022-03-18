@@ -386,6 +386,8 @@ udp下行观众的sei
 */
 - (void)setVideoBitrate:(int)videoBitrate;
 
+- (NSDictionary *) getPushWatchInfo;
+
 @end
 
 #endif /* MMLiveRTC_h */

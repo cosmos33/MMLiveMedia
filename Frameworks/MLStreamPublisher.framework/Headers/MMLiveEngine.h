@@ -215,6 +215,11 @@ udp下行观众的sei
 @interface MMLiveEngine : NSObject <MLStreamMediaDataConsumer>
 
 /**
+获取SDK版本号
+*/
++ (NSDictionary *)getSDKVersion;
+
+/**
 设置配置信息
 @param appId 业务id
 @param secret 秘钥
@@ -331,6 +336,7 @@ udp下行观众的sei
 */
 - (int)switchCamera;
 
+- (MLCameraSource *)getCurrentCameraSource;
 /**
 * 用户传入自己图像
 *
@@ -805,6 +811,31 @@ udp下行观众的sei
 */
 - (long) getRealTimePushBitRate;
 
+#pragma mark - 引擎信息
+/**
+*  获取播放器的基本信息
+*
+*  返回的是信息的字典，组成信息，可以参考：
+* NSDictionary *dict = [ getPlayerWatchInfo];
+* NSMutableString *mutaStr = [NSMutableString string];
+* for (NSString *key in dict.allKeys) {
+*     [mutaStr appendFormat:@"%@:%@\n\n", key, [dict objectForKey:key]];
+*  }
+*/
+- (NSDictionary *) getPlayerWatchInfo;
+
+/**
+*  获取推流的基本信息
+*
+*  返回的是信息的字典，组成信息，可以参考：
+* NSDictionary *dict = [ getPushWatchInfo];
+* NSMutableString *mutaStr = [NSMutableString string];
+* for (NSString *key in dict.allKeys) {
+*     [mutaStr appendFormat:@"%@:%@\n\n", key, [dict objectForKey:key]];
+*  }
+*/
+- (NSDictionary *) getPushWatchInfo;
+
 #pragma mark - 播放器
 @property (nonatomic, weak) id<MMLiveEnginePlayerDelegate> playerDelegate;
 
@@ -858,6 +889,7 @@ udp下行观众的sei
 *
 */
 - (void)stopPlay;
+
 
 /**
 * 设置静音

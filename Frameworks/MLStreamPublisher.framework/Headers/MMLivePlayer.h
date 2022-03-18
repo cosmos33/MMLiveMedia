@@ -156,6 +156,18 @@
 * @param paused  YES 停止播放;NO 恢复渲染
 */
 - (void)toggleGLPaused:(BOOL)paused;
+
+/**
+*  获取播放器的基本信息
+*
+*  返回的是信息的字典，组成信息，可以参考：
+* NSDictionary *dict = [getPlayerWatchInfo];
+* NSMutableString *mutaStr = [NSMutableString string];
+* for (NSString *key in dict.allKeys) {
+*     [mutaStr appendFormat:@"%@:%@\n\n", key, [dict objectForKey:key]];
+*  }
+*/
+- (NSDictionary *) getPlayerWatchInfo;
 @end
 
 #endif /* MMLivePlayer_h */
