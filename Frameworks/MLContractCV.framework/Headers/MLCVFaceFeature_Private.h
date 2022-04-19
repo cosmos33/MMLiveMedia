@@ -15,8 +15,16 @@
 #import <MomoCV/MMFaceFeature.h>
 NS_ASSUME_NONNULL_BEGIN
 
-struct MLCVFaceFeatureInternalRepresentation {
-    std::vector<float> bounds;//left top right bottom
+struct MLFaceInternalMask {
+    std::vector<uint8_t> mask;
+    std::vector<float>   warp_mat;
+    
+    CGSize mask_size;
+    float covered_rate;
+};
+
+struct MLCVFaceFeatureInternalRepresentation {        
+     std::vector<float> bounds;//left top right bottom
     
     std::vector<float> landmarks96;
     std::vector<float> landmarks68;
@@ -25,7 +33,6 @@ struct MLCVFaceFeatureInternalRepresentation {
     std::vector<float> landmarks106;
     std::vector<float> landmarks137;
     std::vector<float> landmarks222;
-    std::vector<float> landmarks240;
     
     std::vector<float> origin_landmarks96;
     std::vector<float> origin_landmarks68;
@@ -34,7 +41,6 @@ struct MLCVFaceFeatureInternalRepresentation {
     std::vector<float> origin_landmarks106;
     std::vector<float> origin_landmarks137;
     std::vector<float> origin_landmarks222;
-    std::vector<float> origin_landmarks240;
     
     std::vector<float> euler_angles;
     
@@ -72,15 +78,10 @@ struct MLCVFaceFeatureInternalRepresentation {
     
     std::vector<uint8_t> feature;
     
-    CGSize mouth_mask_size;
-    
-    std::vector<uint8_t> mouth_mask;
-    
-    std::vector<float> mouth_warp_mat;
-    
-    float mouth_covered_rate;
-    
     int quality;
+    
+    MLFaceInternalMask face_mask;
+    MLFaceInternalMask mouth_mask;
     
     CGSize imageSize;
 };
