@@ -162,6 +162,9 @@ udp下行观众的sei
 * @param sampleRate 采样率
 */
 - (void)MMLiveEnginePusher:(MMLiveEngine *)engine onConferenceRecordAudioPacket:(NSData *)data channel:(int)channel sampleRate:(int)sampleRate;
+
+- (void)MMLiveEnginePusher:(MMLiveEngine *)engine recvStreamMessage:(NSString *)msg fromUID:(NSInteger)uid streamID:(NSInteger)sid;
+
 @end
 
 @protocol MMLiveEnginePlayerDelegate <NSObject>
@@ -1013,6 +1016,10 @@ udp下行观众的sei
 * @param value 设置音量系数 0.0～1.0
 */
 - (void)setRecordVolume:(float)value;
+
+- (int)createDataStream:(NSInteger*)streamId reliable:(BOOL)reliable ordered:(BOOL)ordered;
+
+- (int)sendStreamMessage:(NSInteger)streamId msg:(NSString *)msg;
 
 #pragma mark - 音效
 

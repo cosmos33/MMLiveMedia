@@ -505,6 +505,10 @@
 */
 - (void)setRecordVolume:(float)value;
 
+- (int)createDataStream:(NSInteger*)streamId reliable:(BOOL)reliable ordered:(BOOL)ordered;
+
+- (int)sendStreamMessage:(NSInteger)streamId msg:(NSString *)msg;
+
 #pragma mark - 音效
 
 /**

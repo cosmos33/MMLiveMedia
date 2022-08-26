@@ -160,6 +160,9 @@ udp下行观众的sei
 * @param sampleRate 采样率
 */
 - (void)MMLiveRTC:(MMLiveRTC*)pusher onConferenceRecordAudioPacket:(NSData *)data channel:(int)channel sampleRate:(int)sampleRate;
+
+- (void)MMLiveRTC:(MMLiveRTC*)pusher recvStreamMessage:(NSString *)msg fromUID:(NSInteger)uid streamID:(NSInteger)sid;
+
 @end
 
 @protocol MLStreamMediaSource;
