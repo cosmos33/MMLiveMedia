@@ -1011,14 +1011,37 @@ udp下行观众的sei
 - (void)setMusicVolume:(float)value;
 
 /**
+* 获取音乐音量
+*/
+- (float)getMusicVolume;
+
+/**
 * 设置采集音量
 *
 * @param value 设置音量系数 0.0～1.0
 */
 - (void)setRecordVolume:(float)value;
 
+/**
+* 获取mic采集音量
+*/
+- (float)getRecordVolume;
+
+/**
+* 创建数据流
+*
+* @param streamId 流id
+* @param reliable 是否可靠传输
+* @param ordered 是否数据有序
+*/
 - (int)createDataStream:(NSInteger*)streamId reliable:(BOOL)reliable ordered:(BOOL)ordered;
 
+/**
+* 数据流发送消息
+*
+* @param streamId 流id
+* @param msg 消息内容
+*/
 - (int)sendStreamMessage:(NSInteger)streamId msg:(NSString *)msg;
 
 #pragma mark - 音效

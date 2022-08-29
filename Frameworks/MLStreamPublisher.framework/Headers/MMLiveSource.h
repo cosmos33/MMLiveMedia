@@ -498,12 +498,16 @@
 */
 - (void)setMusicVolume:(float)value;
 
+- (float)getMusicVolume;
+
 /**
 * 设置采集音量
 *
 * @param value 设置音量系数 0.0～1.0
 */
 - (void)setRecordVolume:(float)value;
+
+- (float)getRecordVolume;
 
 - (int)createDataStream:(NSInteger*)streamId reliable:(BOOL)reliable ordered:(BOOL)ordered;
 
