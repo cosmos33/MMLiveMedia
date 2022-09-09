@@ -32,6 +32,7 @@
 @property (nonatomic, assign, readonly) BOOL enable_medialog;
 @property (nonatomic, assign, readonly) BOOL enable_roomconfig;
 @property (nonatomic, assign, readonly) int previewRenderApi;
+@property (nonatomic, assign, readonly) NSString *enableFdkAAC;
 @end
 
 @interface MMLiveUserContext : NSObject
