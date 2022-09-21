@@ -9,8 +9,9 @@
 #ifndef MLAgoraVideoFrameObserver_hpp
 #define MLAgoraVideoFrameObserver_hpp
 
-#import <AgoraRtcEngineKit/IAgoraMediaEngine.h>
-#import <AgoraRtcEngineKit/IAgoraRtcEngine.h>
+#import <AgoraRtcKit/IAgoraMediaEngine.h>
+#import <AgoraRtcKit/IAgoraRtcEngine.h>
+using namespace agora;
 
 class MLAgoraVideoFrameObserver : public agora::media::IVideoFrameObserver
 {
@@ -18,7 +19,17 @@ public:
     MLAgoraVideoFrameObserver(id data, bool isHost = false);
     ~MLAgoraVideoFrameObserver();
     virtual bool onCaptureVideoFrame(VideoFrame& videoFrame);
-    virtual bool onRenderVideoFrame(unsigned int uid, VideoFrame& videoFrame);
+    virtual bool onPreEncodeVideoFrame(VideoFrame& videoFrame);
+    virtual bool onSecondaryCameraCaptureVideoFrame(VideoFrame& videoFrame);
+    virtual bool onSecondaryPreEncodeCameraVideoFrame(VideoFrame& videoFrame);
+    virtual bool onScreenCaptureVideoFrame(VideoFrame& videoFrame);
+    virtual bool onPreEncodeScreenVideoFrame(VideoFrame& videoFrame);
+    virtual bool onMediaPlayerVideoFrame(VideoFrame& videoFrame, int mediaPlayerId);
+    virtual bool onSecondaryScreenCaptureVideoFrame(VideoFrame& videoFrame);
+    virtual bool onSecondaryPreEncodeScreenVideoFrame(VideoFrame& videoFrame);
+    virtual bool onRenderVideoFrame(const char* channelId, rtc::uid_t remoteUid, VideoFrame& videoFrame);
+    virtual bool onTranscodedVideoFrame(VideoFrame& videoFrame);
+    
 private:
     bool isHost_;
     __weak id data_;

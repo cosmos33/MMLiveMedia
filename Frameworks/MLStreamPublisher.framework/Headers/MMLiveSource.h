@@ -454,6 +454,18 @@
 - (void)stopMusic;
 
 /**
+* 获取音频track数量
+*
+*/
+- (int)getAudioTrackCount;
+
+/**
+* 选择音频track
+*
+*/
+- (int)selectAudioTrack:(NSInteger)index;
+
+/**
 * 暂停音乐播放
 *
 */

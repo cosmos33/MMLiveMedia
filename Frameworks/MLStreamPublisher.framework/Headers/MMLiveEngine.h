@@ -959,6 +959,25 @@ udp下行观众的sei
 */
 - (void)playMusicWithUrl:(NSString*)url loopback:(BOOL)loopback repeatCount:(int)repeatCount;
 
+/** Get audio track count of the music file.
+  Call this method when you are in a channel.
+
+  @return
+  - &ge; 0: Audio track count of the music file, if the method call is successful.
+  - < 0: Failure.
+  */
+- (int)getAudioTrackCount;
+
+/** Select audio track for the music file.
+
+  Call this method when you are in a channel.
+
+  @return
+  - 0: Success.
+  - < 0: Failure.
+  */
+- (int)selectAudioTrack:(NSInteger)index;
+
 /**
 * 停止音乐播放
 *

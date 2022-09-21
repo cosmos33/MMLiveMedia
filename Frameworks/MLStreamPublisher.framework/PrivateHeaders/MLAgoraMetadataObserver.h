@@ -8,8 +8,10 @@
 #ifndef MLAgoraMetadataObserver_h
 #define MLAgoraMetadataObserver_h
 
-#import <AgoraRtcEngineKit/IAgoraMediaEngine.h>
-#import <AgoraRtcEngineKit/IAgoraRtcEngine.h>
+#import <AgoraRtcKit/IAgoraMediaEngine.h>
+#import <AgoraRtcKit/IAgoraRtcEngine.h>
+
+using namespace agora::rtc;
 
 class MLAgoraMetadataObserver : public agora::rtc::IMetadataObserver
 {
@@ -19,6 +21,9 @@ public:
     virtual int getMaxMetadataSize();
     virtual bool onReadyToSendMetadata(Metadata &metadata);
     virtual void onMetadataReceived(const Metadata &metadata);
+    
+    virtual bool onReadyToSendMetadata(Metadata &metadata, VIDEO_SOURCE_TYPE source_type);
+//    virtual void onMetadataReceived(const Metadata &metadata);
     
 private:
      __weak id _data;

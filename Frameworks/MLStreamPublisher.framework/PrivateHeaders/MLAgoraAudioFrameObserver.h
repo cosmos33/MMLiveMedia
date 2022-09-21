@@ -9,10 +9,13 @@
 #ifndef MLAgoraAudioFrameObserver_hpp
 #define MLAgoraAudioFrameObserver_hpp
 
-#import <AgoraRtcEngineKit/IAgoraMediaEngine.h>
-#import <AgoraRtcEngineKit/IAgoraRtcEngine.h>
+#import <AgoraRtcKit/IAgoraMediaEngine.h>
+#import <AgoraRtcKit/IAgoraRtcEngine.h>
+#import <AgoraRtcKit/AgoraMediaBase.h>
 #import <pthread.h>
 
+using namespace agora;
+using namespace agora::media;
 @class MLAudioProcess;
 @class MLSabineAudioEffect;
 @class MLAudioProcessCacher;
@@ -24,10 +27,15 @@ class MLAgoraAudioFrameObserver : public agora::media::IAudioFrameObserver
 public:
     MLAgoraAudioFrameObserver(id data, bool isHost = false);
     ~MLAgoraAudioFrameObserver();
-    virtual bool onRecordAudioFrame(agora::media::IAudioFrameObserver::AudioFrame& audioFrame);
-    virtual bool onPlaybackAudioFrame(agora::media::IAudioFrameObserver::AudioFrame& audioFrame);
-    virtual bool onMixedAudioFrame(agora::media::IAudioFrameObserver::AudioFrame& audioFrame);
-    virtual bool onPlaybackAudioFrameBeforeMixing(unsigned int uid, agora::media::IAudioFrameObserver::AudioFrame& audioFrame);
+    virtual bool onRecordAudioFrame(const char* channelId, AudioFrame& audioFrame);
+    virtual bool onPlaybackAudioFrame(const char* channelId, AudioFrame& audioFrame);
+    virtual bool onMixedAudioFrame(const char* channelId, AudioFrame& audioFrame);
+    virtual bool onPlaybackAudioFrameBeforeMixing(const char* channelId, rtc::uid_t uid, AudioFrame& audioFrame);
+    virtual int getObservedAudioFramePosition();
+    virtual AudioParams getPlaybackAudioParams();
+    virtual AudioParams getRecordAudioParams();
+    virtual AudioParams getMixedAudioParams();
+
     void needSend(bool enable);
     
     // Audio process
