@@ -782,6 +782,12 @@ udp下行观众的sei
 */
 - (void)setVideoBitrate:(int)videoBitrate;
 
+/**
+设置连线播放是外放还是听筒
+@param enable 外放开关
+*/
+- (void)setConferencePlaybackSpeakerphone:(BOOL)enable;
+
 #pragma mark - 切换推流器
 
 /**
