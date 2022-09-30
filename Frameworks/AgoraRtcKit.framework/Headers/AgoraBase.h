@@ -2301,6 +2301,10 @@ struct RemoteAudioStats
    * The reason for poor QoE of the local user when receiving a remote audio stream. See #EXPERIENCE_POOR_REASON.
    */
   int qualityChangedReason;
+  /**
+   * The total number of audio bytes received (bytes), represented by an aggregate value.
+   */
+  unsigned int rxAudioBytes;
 
   RemoteAudioStats() :
     uid(0),
@@ -2319,7 +2323,8 @@ struct RemoteAudioStats
     totalActiveTime(0),
     publishDuration(0),
     qoeQuality(0),
-    qualityChangedReason(0) {}
+    qualityChangedReason(0),
+    rxAudioBytes(0) {}
 };
 
 /**

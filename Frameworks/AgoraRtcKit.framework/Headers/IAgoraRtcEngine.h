@@ -404,6 +404,10 @@ struct RemoteVideoStats {
    * The SuperResolution stats. 0 is not ok. >0 is ok.
    */
   int superResolutionType;
+  /**
+   * The total number of video bytes received (bytes), represented by an aggregate value.
+   */
+  unsigned int rxVideoBytes;
 };
 
 struct VideoCompositingLayout {
@@ -6647,47 +6651,6 @@ class IRtcEngine : public agora::base::IEngineBase {
   - < 0: Failure.
   */
   virtual int clearVideoWatermarks() = 0;
-
-  /** Injects an online media stream to a live broadcast.
-
-  If the media stream is successfully injected, you can find the stream in the
-  channel and the uid of the stream is 666.
-
-  The addInjectStreamUrl() method call triggers the following callbacks:
-
-  - The local client:
-    - \ref IRtcEngineEventHandler::onStreamInjectedStatus
-    "onStreamInjectedStatus()", with the state of the injecting the online stream.
-    - \ref IRtcEngineEventHandler::onUserJoined
-    "onUserJoined(uid: 666)", if the method call is successful and the online
-    media stream is injected into the channel.
-  - The remote client:
-    - \ref IRtcEngineEventHandler::onUserJoined
-    "onUserJoined(uid: 666)", if the method call is successful and the online
-    media stream is injected into the channel.
-
-  @param url The URL address to be added to the ongoing live broadcast. You can
-  use the RTMP, HLS, and FLV protocols.
-  @param config The definition of the added voice or video stream: InjectStreamConfig.
-
-  @return
-  - 0: Success.
-  - < 0: Failure.
-  */
-  virtual int addInjectStreamUrl(const char* url, const InjectStreamConfig& config) = 0;
-
-  /** Removes the injected online media stream from a live broadcast.
-
-  If this method call is successful, the SDK triggers the
-  \ref IRtcEngineEventHandler::onUserOffline "onUserOffline()"
-  callback and returns a stream uid of 666.
-
-  @param url The HTTP/HTTPS URL address of the added stream to be removed.
-  @return
-  - 0: Success.
-  - < 0: Failure.
-  */
-  virtual int removeInjectStreamUrl(const char* url) = 0;
 
   // The following APIs are either deprecated and going to deleted.
 

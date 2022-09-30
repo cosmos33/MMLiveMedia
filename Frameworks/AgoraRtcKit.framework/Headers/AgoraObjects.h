@@ -713,7 +713,10 @@ __attribute__((visibility("default"))) @interface AgoraRtcRemoteVideoStats : NSO
  * The SuperResolution stats. 0 is not ok. >0 is ok.
  */
 @property(assign, nonatomic) NSInteger superResolutionType;
-
+/**
+ * Total number of video bytes received (bytes), represented by an aggregate value.
+ */
+@property(assign, nonatomic) NSUInteger rxVideoBytes;
 @end
 
 /**
@@ -846,6 +849,11 @@ __attribute__((visibility("default"))) @interface AgoraRtcRemoteAudioStats : NSO
   * The reason for poor QoE of the local user when receiving a remote audio stream. See #EXPERIENCE_POOR_REASON.
   */
 @property(assign, nonatomic) AgoraExperiencePoorReason qualityChangedReason;
+/**
+ * Total number of audio bytes received (bytes) before network countermeasures, represented by
+ * an aggregate value.
+ */
+@property(assign, nonatomic) NSUInteger rxAudioBytes;
 @end
 
 /** Properties of the audio volume information.
@@ -2617,6 +2625,16 @@ __attribute__((visibility("default"))) @interface AgoraContentInspectConfig: NSO
  * The AgoraRtcConnection for the AgoraRtcEngineKitEx.
  */
 __attribute__((visibility("default"))) @interface AgoraRtcConnection: NSObject <NSCopying>
+
+/**
+ * Init AgoraRtcConnection with channelId and localUid
+ *
+ * @param channelId Unique channel name for the AgoraRTC session in the string.
+ * @param localUid Local User ID. A 32-bit unsigned integer.
+ * @return AgoraRtcConnection.
+ */
+- (instancetype _Nonnull)initWithChannelId:(NSString *_Nonnull)channelId localUid:(NSInteger)localUid;
+
 /* channelId Unique channel name for the AgoraRTC session in the string
  * format. The string length must be less than 64 bytes. Supported character
  * scopes are:

@@ -110,6 +110,34 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (int)leaveChannelEx:(AgoraRtcConnection * _Nonnull)connection
     leaveChannelBlock:(void(^ _Nullable)(AgoraChannelStats* _Nonnull stat))leaveChannelBlock;
+/**
+ *Stops or resumes sending the local audio stream with connection.
+ *
+ *@param mute Determines whether to send or stop sending the local audio stream:
+ *- `YES`: Stop sending the local audio stream.
+ *- `NO`: Send the local audio stream.
+ *
+ *@param connection \ref AgoraRtcConnection by channelId and uid combine
+ *
+ *@return
+ *- 0: Success.
+ *- < 0: Failure.
+ */
+- (int)muteLocalAudioStreamEx:(BOOL)mute connection:(AgoraRtcConnection * _Nonnull)connection;
+/**
+ *Stops or resumes sending the local video stream with connection.
+ *
+ *@param mute Determines whether to send or stop sending the local video stream:
+ *- `YES`: Stop sending the local video stream.
+ *- `NO`: Send the local video stream.
+ *
+ *@param connection \ref AgoraRtcConnection by channelId and uid combine
+ *
+ *@return
+ *- 0: Success.
+ *- < 0: Failure.
+ */
+- (int)muteLocalVideoStreamEx:(BOOL)mute connection:(AgoraRtcConnection * _Nonnull)connection;
 
 /** Mutes a specified remote user's audio stream.
 
@@ -126,6 +154,22 @@ NS_ASSUME_NONNULL_BEGIN
 - (int)muteRemoteAudioStreamEx:(NSUInteger)uid
                           mute:(BOOL)mute
                     connection:(AgoraRtcConnection * _Nonnull)connection;
+
+/**
+ *Stops or resumes receiving all remote audio stream with connection.
+ *
+ *@param mute Whether to stop receiving remote audio streams:
+ *- `YES`: Stop receiving any remote audio stream.
+ *- `NO`: Resume receiving all remote audio streams.
+ *
+ *@param connection \ref AgoraRtcConnection by channelId and uid combine
+ *
+ *@return
+ *- 0: Success.
+ *- < 0: Failure.
+ */
+- (int)muteAllRemoteAudioStreamsEx:(BOOL)mute
+                        connection:(AgoraRtcConnection * _Nonnull)connection;
 
 /**
  * Sets the video encoder configuration.
@@ -195,6 +239,22 @@ NS_ASSUME_NONNULL_BEGIN
 - (int)muteRemoteVideoStreamEx:(NSUInteger)uid
                           mute:(BOOL)mute
                     connection:(AgoraRtcConnection * _Nonnull)connection;
+
+/**
+ *Stops or resumes receiving all remote video stream with connection.
+ *
+ *@param mute Whether to stop receiving remote video streams:
+ *- `YES`: Stop receiving any remote video stream.
+ *- `NO`: Resume receiving all remote video streams.
+ *
+ *@param connection \ref AgoraRtcConnection by channelId and uid combine
+ *
+ *@return
+ *- 0: Success.
+ *- < 0: Failure.
+ */
+- (int)muteAllRemoteVideoStreamsEx:(BOOL)mute
+                        connection:(AgoraRtcConnection * _Nonnull)connection;
 
  /**
    * Enables or disables the dual video stream mode.
@@ -610,6 +670,104 @@ If the remote user does not receive the data stream within five seconds, the SDK
 - (int)setSubscribeVideoWhitelistEx:(NSArray <NSNumber *> *_Nonnull)whitelist connection:(AgoraRtcConnection * _Nonnull)connection;
 
 - (NSInteger)takeSnapshotEx:(AgoraRtcConnection * _Nonnull)connection uid:(NSInteger)uid filePath:(NSString* _Nonnull)filePath;
+
+/** Publishes the local stream without transcoding to a specified CDN live RTMP address.  (CDN live only.)
+  *
+  * @param url The CDN streaming URL in the RTMP format. The maximum length of this parameter is 1024 bytes.
+  * @param connection AgoraRtcConnection.
+  * @return
+  * - 0: Success.
+  * - < 0: Failure.
+  */
+- (int)startRtmpStreamWithoutTranscodingEx:(NSString* _Nonnull)url
+                                connection:(AgoraRtcConnection * _Nonnull)connection;
+
+/** Publishes the local stream with transcoding to a specified CDN live RTMP address.  (CDN live only.)
+  *
+  * @param url The CDN streaming URL in the RTMP format. The maximum length of this parameter is 1024 bytes.
+  * @param transcoding Sets the CDN live audio/video transcoding settings.  See LiveTranscoding.
+  * @param connection AgoraRtcConnection.
+  *
+  * @return
+  * - 0: Success.
+  * - < 0: Failure.
+  */
+- (int)startRtmpStreamWithTranscodingEx:(NSString* _Nonnull)url
+                            transcoding:(AgoraLiveTranscoding* _Nullable)transcoding
+                             connection:(AgoraRtcConnection * _Nonnull)connection;
+
+/** Update the video layout and audio settings for CDN live. (CDN live only.)
+  * @note This method applies to Live Broadcast only.
+  *
+  * @param transcoding Sets the CDN live audio/video transcoding settings. See LiveTranscoding.
+  * @param connection AgoraRtcConnection.
+  *
+  * @return
+  * - 0: Success.
+  * - < 0: Failure.
+  */
+- (int)updateRtmpTranscodingEx:(AgoraLiveTranscoding* _Nullable)transcoding
+                    connection:(AgoraRtcConnection * _Nonnull)connection;
+
+/** Stop an RTMP stream with transcoding or without transcoding from the CDN. (CDN live only.)
+  * @param url The RTMP URL address to be removed. The maximum length of this parameter is 1024 bytes.
+  * @param connection AgoraRtcConnection.
+  * @return
+  * - 0: Success.
+  * - < 0: Failure.
+  */
+- (int)stopRtmpStreamEx:(NSString* _Nonnull)url
+             connection:(AgoraRtcConnection * _Nonnull)connection;
+
+/** Starts to relay media streams across channels.
+ *
+ * @param configuration The configuration of the media stream relay:AgoraChannelMediaRelayConfiguration.
+ * @param connection AgoraRtcConnection.
+ * @return
+ * - 0: Success.
+ * - < 0: Failure.
+ */
+- (int)startChannelMediaRelayEx:(AgoraChannelMediaRelayConfiguration * _Nonnull)config connection:(AgoraRtcConnection * _Nonnull)connection;
+
+/** Updates the channels for media stream relay
+ * @param configuration The media stream relay configuration: AgoraChannelMediaRelayConfiguration.
+ * @param connection AgoraRtcConnection.
+ * @return
+ * - 0: Success.
+ * - < 0: Failure.
+ */
+- (int)updateChannelMediaRelayEx:(AgoraChannelMediaRelayConfiguration * _Nonnull)config connection:(AgoraRtcConnection * _Nonnull)connection;
+
+/** Stops the media stream relay.
+ *
+ * Once the relay stops, the host quits all the destination
+ * channels.
+ *
+ * @param connection AgoraRtcConnection.
+ * @return
+ * - 0: Success.
+ * - < 0: Failure.
+ */
+- (int)stopChannelMediaRelayEx:(AgoraRtcConnection * _Nonnull)connection;
+
+/** pause the channels for media stream relay.
+ *
+ * @param connection AgoraRtcConnection.
+ * @return
+ * - 0: Success.
+ * - < 0: Failure.
+ */
+- (int)pauseAllChannelMediaRelayEx:(AgoraRtcConnection * _Nonnull)connection;
+
+/** resume the channels for media stream relay.
+ *
+ * @param connection AgoraRtcConnection.
+ * @return
+ * - 0: Success.
+ * - < 0: Failure.
+ */
+- (int)resumeAllChannelMediaRelayEx:(AgoraRtcConnection * _Nonnull)connection;
+
 @end
 
 NS_ASSUME_NONNULL_END

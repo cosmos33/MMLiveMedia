@@ -914,9 +914,69 @@ public:
 
     virtual int setupRemoteVideoEx(const VideoCanvas& canvas, const RtcConnection& connection) = 0;
 
+    /**
+     *Stops or resumes sending the local audio stream with connection.
+     *
+     *@param mute Determines whether to send or stop sending the local audio stream:
+     *- true: Stop sending the local audio stream.
+     *- false: Send the local audio stream.
+     *
+     *@param connection The connection of the user ID.
+     *
+     *@return
+     *- 0: Success.
+     *- < 0: Failure.
+     */
+    virtual int muteLocalAudioStreamEx(bool mute, const RtcConnection& connection) = 0;
+  
+    /**
+     *Stops or resumes sending the local video stream with connection.
+     *
+     *@param mute Determines whether to send or stop sending the local video stream:
+     *- true: Stop sending the local video stream.
+     *- false: Send the local video stream.
+     *
+     *@param connection The connection of the user ID.
+     *
+     *@return
+     *- 0: Success.
+     *- < 0: Failure.
+     */
+    virtual int muteLocalVideoStreamEx(bool mute, const RtcConnection& connection) = 0;
+  
     virtual int muteRemoteAudioStreamEx(uid_t uid, bool mute, const RtcConnection& connection) = 0;
+  
+    /**
+     *Stops or resumes receiving all remote audio stream with connection.
+     *
+     *@param mute Whether to stop receiving remote audio streams:
+     *- true: Stop receiving any remote audio stream.
+     *- false: Resume receiving all remote audio streams.
+     *
+     *@param connection The connection of the user ID.
+     *
+     *@return
+     *- 0: Success.
+     *- < 0: Failure.
+     */
+    virtual int muteAllRemoteAudioStreamsEx(bool mute, const RtcConnection& connection) = 0;
 
     virtual int muteRemoteVideoStreamEx(uid_t uid, bool mute, const RtcConnection& connection) = 0;
+  
+    /**
+     *Stops or resumes receiving all remote video stream with connection.
+     *
+     *@param mute Whether to stop receiving remote audio streams:
+     *- true: Stop receiving any remote audio stream.
+     *- false: Resume receiving all remote audio streams.
+     *
+     *@param connection The connection of the user ID.
+     *
+     *@return
+     *- 0: Success.
+     *- < 0: Failure.
+     */
+    virtual int muteAllRemoteVideoStreamsEx(bool mute, const RtcConnection& connection) = 0;
 
     virtual int setRemoteVideoStreamTypeEx(uid_t uid, VIDEO_STREAM_TYPE streamType, const RtcConnection& connection) = 0;
 
@@ -1021,6 +1081,99 @@ public:
                                           int value, const RtcConnection& connection) = 0;
 
     virtual int enableAudioVolumeIndicationEx(int interval, int smooth, bool reportVad, const RtcConnection& connection) = 0;
+  
+    /** Publishes the local stream without transcoding to a specified CDN live RTMP address.  (CDN live only.)
+      *
+      * @param url The CDN streaming URL in the RTMP format. The maximum length of this parameter is 1024 bytes.
+      * @param connection RtcConnection.
+      *
+      * @return
+      * - 0: Success.
+      * - < 0: Failure.
+      */
+    virtual int startRtmpStreamWithoutTranscodingEx(const char* url, const RtcConnection& connection) = 0;
+  
+    /** Publishes the local stream with transcoding to a specified CDN live RTMP address.  (CDN live only.)
+      *
+      * @param url The CDN streaming URL in the RTMP format. The maximum length of this parameter is 1024 bytes.
+      * @param transcoding Sets the CDN live audio/video transcoding settings.  See LiveTranscoding.
+      * @param connection RtcConnection.
+      *
+      * @return
+      * - 0: Success.
+      * - < 0: Failure.
+      */
+    virtual int startRtmpStreamWithTranscodingEx(const char* url, const LiveTranscoding& transcoding, const RtcConnection& connection) = 0;
+  
+    /** Update the video layout and audio settings for CDN live. (CDN live only.)
+      * @note This method applies to Live Broadcast only.
+      *
+      * @param transcoding Sets the CDN live audio/video transcoding settings. See LiveTranscoding.
+      * @param connection RtcConnection.
+      *
+      * @return
+      * - 0: Success.
+      * - < 0: Failure.
+      */
+    virtual int updateRtmpTranscodingEx(const LiveTranscoding& transcoding, const RtcConnection& connection) = 0;
+  
+    /** Stop an RTMP stream with transcoding or without transcoding from the CDN. (CDN live only.)
+      * @param url The RTMP URL address to be removed. The maximum length of this parameter is 1024 bytes.
+      * @param connection RtcConnection.
+      * @return
+      * - 0: Success.
+      * - < 0: Failure.
+      */
+    virtual int stopRtmpStreamEx(const char* url, const RtcConnection& connection) = 0;
+  
+    /** Starts to relay media streams across channels.
+     *
+     * @param configuration The configuration of the media stream relay:ChannelMediaRelayConfiguration.
+     * @param connection RtcConnection.
+     * @return
+     * - 0: Success.
+     * - < 0: Failure.
+     */
+    virtual int startChannelMediaRelayEx(const ChannelMediaRelayConfiguration& configuration, const RtcConnection& connection) = 0;
+  
+    /** Updates the channels for media stream relay
+     * @param configuration The media stream relay configuration: ChannelMediaRelayConfiguration.
+     * @param connection RtcConnection.
+     * @return
+     * - 0: Success.
+     * - < 0: Failure.
+     */
+    virtual int updateChannelMediaRelayEx(const ChannelMediaRelayConfiguration& configuration, const RtcConnection& connection) = 0;
+  
+    /** Stops the media stream relay.
+     *
+     * Once the relay stops, the host quits all the destination
+     * channels.
+     *
+     * @param connection RtcConnection.
+     * @return
+     * - 0: Success.
+     * - < 0: Failure.
+     */
+    virtual int stopChannelMediaRelayEx(const RtcConnection& connection) = 0;
+  
+    /** pause the channels for media stream relay.
+     *
+     * @param connection RtcConnection.
+     * @return
+     * - 0: Success.
+     * - < 0: Failure.
+     */
+    virtual int pauseAllChannelMediaRelayEx(const RtcConnection& connection) = 0;
+
+    /** resume the channels for media stream relay.
+     *
+     * @param connection RtcConnection.
+     * @return
+     * - 0: Success.
+     * - < 0: Failure.
+     */
+    virtual int resumeAllChannelMediaRelayEx(const RtcConnection& connection) = 0;
 
    /** Gets the user information by passing in the user account.
     *  It is same as agora::rtc::IRtcEngine::getUserInfoByUserAccount.

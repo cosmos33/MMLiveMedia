@@ -5229,28 +5229,6 @@ This method call triggers the [rtmpStreamingChangedToState]([AgoraRtcEngineDeleg
  */
 - (int)stopRtmpStream:(NSString* _Nonnull)url;
 
-/** Adds a voice or video stream into an ongoing broadcast.
-
- If successful, you can find the stream in the channels of argus and the uid of the stream is 666.
-
- @param url    URL address to add to the ongoing live broadcast. You can use the RTMP, HLS, and FLV protocols.
- @param config AgoraLiveInjectStreamConfig
-
- @return  = 0: Success.
- *        < 0: Failure.
-*/
-- (int)addInjectStreamUrl:(NSString * _Nonnull)url config:(AgoraLiveInjectStreamConfig * _Nonnull)config;
-
-/** Removes an injected stream URL.
-
- @param url URL address of the added stream to be removed.
-
- @return  = 0: Success.
- *        < 0: Failure.
- */
-- (int)removeInjectStreamUrl:(NSString * _Nonnull)url;
-
-
 #if (!(TARGET_OS_IPHONE) && (TARGET_OS_MAC))
 #pragma mark Screen Capture
 
