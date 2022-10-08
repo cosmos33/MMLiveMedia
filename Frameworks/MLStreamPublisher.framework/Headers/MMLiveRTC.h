@@ -391,7 +391,7 @@ udp下行观众的sei
 
 - (NSDictionary *) getPushWatchInfo;
 
-- (void)setAudioEffectPreset:(MLAudioEffectPreset)preset;
+- (void)setAudioEffectPreset:(MMLiveAudioEffectPreset)preset;
 
 @end
 

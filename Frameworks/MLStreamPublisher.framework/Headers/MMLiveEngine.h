@@ -1074,7 +1074,7 @@ udp下行观众的sei
 *
 * @param preset 音效类型
 */
-- (void)setAudioEffectPreset:(MLAudioEffectPreset)preset;
+- (void)setAudioEffectPreset:(MMLiveAudioEffectPreset)preset;
 
 #pragma mark - 音效
 
