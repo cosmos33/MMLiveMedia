@@ -380,7 +380,7 @@ udp下行观众的sei
 *
 * @return 上行码率,单位kbps (建议获取间隔不要小于2s)
 */
-- (long) getRealTimePushBitRate;
+- (long)getRealTimePushBitRate;
 
 /**
 * 设置RTC编码码率
@@ -390,6 +390,8 @@ udp下行观众的sei
 - (void)setVideoBitrate:(int)videoBitrate;
 
 - (NSDictionary *) getPushWatchInfo;
+
+- (void)setAudioEffectPreset:(MLAudioEffectPreset)preset;
 
 @end
 

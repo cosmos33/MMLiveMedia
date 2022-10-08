@@ -525,6 +525,8 @@
 
 - (int)sendStreamMessage:(NSInteger)streamId msg:(NSString *)msg;
 
+- (void)setAudioEffectPreset:(MLAudioEffectPreset)preset;
+
 #pragma mark - 音效
 
 /**

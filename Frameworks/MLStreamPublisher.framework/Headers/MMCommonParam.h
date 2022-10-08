@@ -9,6 +9,7 @@
 #define MMCommonParam_h
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "MLPublisherDefine.h"
 #ifndef CAMERA_ON
 #define CAMERA_ON 1
 #endif

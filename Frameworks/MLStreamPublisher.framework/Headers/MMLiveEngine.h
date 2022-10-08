@@ -1069,6 +1069,13 @@ udp下行观众的sei
 */
 - (int)sendStreamMessage:(NSInteger)streamId msg:(NSString *)msg;
 
+/**
+* 音效
+*
+* @param preset 音效类型
+*/
+- (void)setAudioEffectPreset:(MLAudioEffectPreset)preset;
+
 #pragma mark - 音效
 
 /**
