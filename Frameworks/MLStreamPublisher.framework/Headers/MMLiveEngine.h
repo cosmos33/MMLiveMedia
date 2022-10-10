@@ -1076,6 +1076,13 @@ udp下行观众的sei
 */
 - (void)setAudioEffectPreset:(MMLiveAudioEffectPreset)preset;
 
+/**
+* 设置声道模式
+*
+* @param mode 模式
+*/
+- (void)setAudioMixingDualMonoMode:(MMLiveAudioMixingDualMonoMode)mode;
+
 #pragma mark - 音效
 
 /**

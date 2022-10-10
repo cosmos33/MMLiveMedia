@@ -106,6 +106,12 @@ typedef NS_ENUM(NSInteger, MMLiveAudioEffectPreset) {
     MMLiveAudioEffectPresetPitchCorrection = 0x02040100
 };
 
+typedef NS_ENUM(NSUInteger, MMLiveAudioMixingDualMonoMode) {
+    MMLiveAudioMixingDualMonoAuto = 0,
+    MMLiveAudioMixingDualMonoL = 1,
+    MMLiveAudioMixingDualMonoR = 2,
+    MMLiveAudioMixingDualMonoMix = 3,
+};
 
 @interface MMLiveUserConfig : NSObject
 @property (nonatomic, copy) NSString *appId;

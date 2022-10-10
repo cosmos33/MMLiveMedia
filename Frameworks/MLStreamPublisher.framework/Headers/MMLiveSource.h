@@ -527,6 +527,8 @@
 
 - (void)setAudioEffectPreset:(MMLiveAudioEffectPreset)preset;
 
+- (void)setAudioMixingDualMonoMode:(MMLiveAudioMixingDualMonoMode)mode;
+
 #pragma mark - 音效
 
 /**

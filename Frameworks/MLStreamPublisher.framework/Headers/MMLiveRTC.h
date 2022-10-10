@@ -391,7 +391,19 @@ udp下行观众的sei
 
 - (NSDictionary *) getPushWatchInfo;
 
+/**
+* 音效
+*
+* @param preset 音效类型
+*/
 - (void)setAudioEffectPreset:(MMLiveAudioEffectPreset)preset;
+
+/**
+* 设置声道模式
+*
+* @param mode 模式
+*/
+- (void)setAudioMixingDualMonoMode:(MMLiveAudioMixingDualMonoMode)mode;
 
 @end
 
