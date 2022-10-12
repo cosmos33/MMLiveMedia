@@ -95,6 +95,16 @@
 - (void)MMLiveRTC:(MMLiveRTC *)pusher onConferenceAudioPacket:(NSData *)data audioInfo:(NSDictionary *)audioInfo type:(MMLivePushType)type;
 
 /**
+音乐播放开始
+*/
+- (void)MMLiveRTCMusicPlayDidStarted:(MMLiveRTC*)pusher type:(MMLivePushType)type error:(NSError*)error;
+
+/**
+音乐播放暂停
+*/
+- (void)MMLiveRTCMusicPlayPaused:(MMLiveRTC*)pusher type:(MMLivePushType)type error:(NSError*)error;
+
+/**
 音乐播放失败
 */
 - (void)MMLiveRTCMusicPlayFailed:(MMLiveRTC*)pusher type:(MMLivePushType)type error:(NSError*)error;

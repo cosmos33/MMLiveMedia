@@ -97,6 +97,17 @@
 - (void)MMLiveEnginePusher:(MMLiveEngine *)engine didOccurError:(RTCErrorCode)errorCode type:(MMLivePushType)type;
 
 /**
+音乐播放开始
+*/
+- (void)MMLiveEnginePusherMusicPlayDidStarted:(MMLiveEngine *)engine type:(MMLivePushType)type error:(NSError*)error;
+
+/**
+音乐播放暂停
+*/
+- (void)MMLiveEnginePusherMusicPlayPaused:(MMLiveEngine *)engine type:(MMLivePushType)type error:(NSError*)error;
+
+
+/**
 音乐播放失败
 */
 - (void)MMLiveEnginePusherMusicPlayFailed:(MMLiveEngine *)engine type:(MMLivePushType)type error:(NSError*)error;
