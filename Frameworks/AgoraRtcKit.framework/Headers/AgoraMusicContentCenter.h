@@ -215,6 +215,14 @@ __attribute__((visibility("default"))) @interface AgoraMusicContentCenter : NSOb
 + (instancetype)sharedContentCenterWithConfig:(AgoraMusicContentCenterConfig *)config;
 
 /**
+*  Renew token of music content center
+*  @param token    The new token.
+*  @return 
+* - 0: Success.
+* - < 0: Failure.
+*/
+- (int)renewRtmToken:(NSString * _Nonnull)token;
+/**
 *  Register event handler, only the last eventHandler is working.
 */
 - (NSInteger)registerEventHandler:(id<AgoraMusicContentCenterEventHandler>)eventHandler;
