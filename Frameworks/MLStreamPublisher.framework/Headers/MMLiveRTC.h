@@ -105,6 +105,11 @@
 - (void)MMLiveRTCMusicPlayPaused:(MMLiveRTC*)pusher type:(MMLivePushType)type error:(NSError*)error;
 
 /**
+音乐播放停止
+*/
+- (void)MMLiveRTCMusicPlayStoped:(MMLiveRTC*)pusher type:(MMLivePushType)type error:(NSError*)error;
+
+/**
 音乐播放失败
 */
 - (void)MMLiveRTCMusicPlayFailed:(MMLiveRTC*)pusher type:(MMLivePushType)type error:(NSError*)error;

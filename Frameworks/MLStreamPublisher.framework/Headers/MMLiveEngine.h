@@ -106,6 +106,11 @@
 */
 - (void)MMLiveEnginePusherMusicPlayPaused:(MMLiveEngine *)engine type:(MMLivePushType)type error:(NSError*)error;
 
+/**
+音乐播放停止
+*/
+- (void)MMLiveEnginePusherMusicPlayStoped:(MMLiveEngine *)engine type:(MMLivePushType)type error:(NSError*)error;
+
 
 /**
 音乐播放失败
@@ -1054,7 +1059,7 @@ udp下行观众的sei
 /**
 * 设置采集音量
 *
-* @param value 设置音量系数 0.0～1.0
+* @param value Recording volume; ranges from 0 to 400:
 */
 - (void)setRecordVolume:(float)value;
 
