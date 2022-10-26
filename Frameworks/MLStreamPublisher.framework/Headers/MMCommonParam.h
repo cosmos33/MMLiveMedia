@@ -119,6 +119,7 @@ typedef NS_ENUM(NSUInteger, MMLiveAudioMixingDualMonoMode) {
 @property (nonatomic, copy) NSString *roomId;
 @property (nonatomic) NSInteger provider;
 @property (nonatomic) NSInteger businessType;
+@property (nonatomic, assign) BOOL useHardwareVideoDecoder;
 - (NSString*) getConfigString;
 @end
 
