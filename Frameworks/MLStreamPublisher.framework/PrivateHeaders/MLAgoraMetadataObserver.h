@@ -19,11 +19,8 @@ public:
     MLAgoraMetadataObserver(id data, unsigned int uid);
     ~MLAgoraMetadataObserver();
     virtual int getMaxMetadataSize();
-    virtual bool onReadyToSendMetadata(Metadata &metadata);
     virtual void onMetadataReceived(const Metadata &metadata);
-    
     virtual bool onReadyToSendMetadata(Metadata &metadata, VIDEO_SOURCE_TYPE source_type);
-//    virtual void onMetadataReceived(const Metadata &metadata);
     
 private:
      __weak id _data;
