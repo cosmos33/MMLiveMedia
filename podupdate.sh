@@ -26,6 +26,6 @@ git tag "$NEWVERSION"
 git push --tags
 echo " POD ======= PUSH "
 # 发布podspec到远端的repo中
-./podpush.sh -spec MMLiveMediaSDK.podspec -repo cosmos33 -force
+./podpush.sh -spec MMLiveMediaSDK.podspec -repo cosmos33-mmspecs -force
 
 echo " POD ======= DONE "
