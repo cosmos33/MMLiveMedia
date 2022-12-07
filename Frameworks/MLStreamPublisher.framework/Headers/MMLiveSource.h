@@ -62,7 +62,9 @@
 */
 - (void)setUseDokiBeautyEnable:(BOOL)enable;
 
+#if CAMERA_ON
 - (void)setUseBeautyType:(MLCameraSourceBeautyType)beautyType;
+#endif
 
 @property (nonatomic) BOOL isLightningRenderOn;
 @property (nonatomic) BOOL isAnimojiOn;
@@ -524,6 +526,8 @@
 - (int)createDataStream:(NSInteger*)streamId reliable:(BOOL)reliable ordered:(BOOL)ordered;
 
 - (int)sendStreamMessage:(NSInteger)streamId msg:(NSString *)msg;
+
+- (int)sendStreamMessage:(NSInteger)streamId msgData:(NSData *)msgData;
 
 - (void)setAudioEffectPreset:(MMLiveAudioEffectPreset)preset;
 
