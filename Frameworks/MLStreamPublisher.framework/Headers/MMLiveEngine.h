@@ -181,9 +181,7 @@ udp下行观众的sei
 
 - (void)MMLiveEnginePusher:(MMLiveEngine *)engine recvStreamMessage:(NSString *)msg fromUID:(NSInteger)uid streamID:(NSInteger)sid;
 
-- (void)MMLiveEnginePusher:(MMLiveEngine *)engine onPlaybackAudioFrameBeforeMixing:(NSData *)audioData uid:(unsigned int)uid sampleRate:(int)sampleRate channels:(int)channels;
-
-- (void)MMLiveEnginePusher:(MMLiveEngine *)engine recvStreamMessageData:(NSData *)msgData fromUID:(NSInteger)uid streamID:(NSInteger)sid;
+- (void)MMLiveEnginePusher:(MMLiveEngine *)engine onPlaybackAudioFrameBeforeMixing:(NSData *)audioData uid:(unsigned int)uid sampleRate:(int)sampleRate channels:(int)channels;;
 
 @end
 
@@ -328,9 +326,7 @@ udp下行观众的sei
 *
 * @param beautyType 0 old, 1 new, 2 douyin . default -1. only if (> -1), 'dokiBeautyEnable' is available
 */
-#if CAMERA_ON
 - (void)setUseBeautyType:(MLCameraSourceBeautyType)beautyType;
-#endif
 
 @property (nonatomic) BOOL isLightningRenderOn;
 
@@ -361,9 +357,7 @@ udp下行观众的sei
 */
 - (int)switchCamera;
 
-#if CAMERA_ON
 - (MLCameraSource *)getCurrentCameraSource;
-#endif
 /**
 * 用户传入自己图像
 *
@@ -1092,14 +1086,6 @@ udp下行观众的sei
 * @param msg 消息内容
 */
 - (int)sendStreamMessage:(NSInteger)streamId msg:(NSString *)msg;
-
-/**
-* 数据流发送消息
-*
-* @param streamId 流id
-* @param msg 消息内容
-*/
-- (int)sendStreamMessage:(NSInteger)streamId msgData:(NSData *)msgData;
 
 /**
 * 音效

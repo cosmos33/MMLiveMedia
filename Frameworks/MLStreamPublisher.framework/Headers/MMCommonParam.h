@@ -9,7 +9,9 @@
 #define MMCommonParam_h
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-
+#ifndef CAMERA_ON
+#define CAMERA_ON 1
+#endif
 typedef enum {
     MMLivePlayerStatusPlaying = 0, //播放中
     MMLivePlayerStatusBuffering = 1, //播放加载中

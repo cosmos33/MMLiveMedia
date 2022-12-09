@@ -180,8 +180,6 @@ udp下行观众的sei
 
 - (void)MMLiveRTC:(MMLiveRTC*)pusher onPlaybackAudioFrameBeforeMixing:(NSData *)audioData uid:(unsigned int)uid sampleRate:(int)sampleRate channels:(int)channels;
 
-- (void)MMLiveRTC:(MMLiveRTC*)pusher recvStreamMessageData:(NSData *)msgData fromUID:(NSInteger)uid streamID:(NSInteger)sid;
-
 @end
 
 @protocol MLStreamMediaSource;
@@ -423,8 +421,6 @@ udp下行观众的sei
 * @param mode 模式
 */
 - (void)setAudioMixingDualMonoMode:(MMLiveAudioMixingDualMonoMode)mode;
-
-- (int64_t)getCurrentMonotonicTimeInMs;
 
 @end
 
