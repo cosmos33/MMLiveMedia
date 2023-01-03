@@ -125,6 +125,7 @@ typedef NS_ENUM(NSInteger, TXILiveRoomEventCode) {
 @property (nonatomic, assign) NSInteger videoFecRatio;      // 视频FEC比例，单位：1/100
 @property (nonatomic, assign) NSInteger videoRecvFPS;       // 视频帧网络接收帧率
 @property (nonatomic, assign) NSInteger videoFramesDrop;    // 因为晚到而被丢弃的视频帧数
+@property (nonatomic, assign) NSInteger point2PointDelay;   // 端对端延迟（ms）
 @end
 
 @interface TXILiveRoomUserAVStatistic : NSObject

@@ -198,6 +198,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)muteAllRemoteVideo:(BOOL)mute;
 
 /**
+ * 设置远端渲染回调
+ * @param mute YES:停止拉取 NO:继续拉取
+ */
+- (void)setVideoRenderDelegate:(UInt64)userId videoRenderDelegate:(id<TXILiveRoomVideoRenderDelegate>)videoRenderDelegate;
+
+/**
  *  开启大小画面双路编码模式
  *
  * 如果当前用户是房间中的主要角色（比如主播、老师、主持人等），并且使用 PC 或者 Mac 环境，可以开启该模式。
