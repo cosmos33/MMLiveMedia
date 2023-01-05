@@ -159,6 +159,8 @@ udp下行观众的sei
 */
 - (void)MMLiveRTC:(MMLiveRTC*)pusher didReceiveSEI:(NSString *)sei type:(MMLivePushType)type;
 
+- (void)MMLiveRTC:(MMLiveRTC*)pusher publisherStatisticMediaWatch:(NSMutableDictionary*)aParam;
+
 /**
 获取采集大小
 */

@@ -162,6 +162,8 @@ udp下行观众的sei
 */
 - (void)MMLiveEnginePusher:(MMLiveEngine *)engine didReceiveSEI:(NSString *)sei type:(MMLivePushType)type;
 
+- (void)MMLiveEnginePusher:(MMLiveEngine *)engine publisherStatisticMediaWatch:(NSMutableDictionary*)aParam;
+
 /**
 获取采集大小
 */
