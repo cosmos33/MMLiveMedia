@@ -82,7 +82,12 @@
 
 // 获取源数据
 - (CVPixelBufferRef)MMLiveRTMPPush:(MMLiveRTMPPush *)publisher rawData:(CVPixelBufferRef)rawdata;
+
+- (void)MMLiveRTMPPush:(MMLiveRTMPPush *)publisher  publisherStatisticMediaWatch:(NSMutableDictionary*)aParam;
+
 @end
+
+
 @protocol MLStreamMediaSource;
 @interface MMLiveRTMPPush : NSObject
 @property (nonatomic, weak) id<MMLiveRTMPPushDelegate> delegate;
