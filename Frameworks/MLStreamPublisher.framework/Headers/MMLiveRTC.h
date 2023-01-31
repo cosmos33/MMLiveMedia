@@ -9,6 +9,7 @@
 #define MMLiveRTC_h
 #import <Foundation/Foundation.h>
 #import "MMCommonParam.h"
+#import "MMCommonParam2.h"
 #import <CoreMedia/CoreMedia.h>
 
 @class MMLiveRTC;
@@ -423,6 +424,23 @@ udp下行观众的sei
 * @param mode 模式
 */
 - (void)setAudioMixingDualMonoMode:(MMLiveAudioMixingDualMonoMode)mode;
+
+/**
+* 开启屏幕录制
+* @param screenCaptureParameters 音视频参数
+*/
+- (void)startScreenCapture:(MMLiveScreenCaptureParameters *)screenCaptureParameters;
+
+/**
+* 更新屏幕录制参数
+* @param screenCaptureParameters 音视频参数
+*/
+- (void)updateScreenCapture:(MMLiveScreenCaptureParameters *)screenCaptureParameters;
+
+/**
+* 停止屏幕录制
+*/
+- (void)stopScreenCapture;
 
 @end
 

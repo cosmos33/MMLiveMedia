@@ -461,13 +461,18 @@ struct RemoteVideoTrackStats {
    */
   uint64_t publishDuration;
   int superResolutionType;
+  /**
+   * The relative time diff before av sync;
+   */
+  int beforeAvSyncRelativeMs;
 
   RemoteVideoTrackStats() : uid(0), delay(0), e2eDelay(0), width(0), height(0),
                             receivedBitrate(0), decoderOutputFrameRate(0), rendererOutputFrameRate(0),
                             frameLossRate(0), packetLossRate(0), rxStreamType(VIDEO_STREAM_HIGH),
                             totalFrozenTime(0), frozenRate(0), received_bytes(0), totalDecodedFrames(0),
                             avSyncTimeMs(0), downlink_process_time_ms(0), frame_render_delay_ms(0), 
-                            totalActiveTime(0), publishDuration(0), superResolutionType(0) {}
+                            totalActiveTime(0), publishDuration(0), superResolutionType(0),
+                            beforeAvSyncRelativeMs(0) {}
 };
 
 /**

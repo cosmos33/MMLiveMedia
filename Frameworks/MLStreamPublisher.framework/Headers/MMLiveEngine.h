@@ -12,6 +12,7 @@
 #import <MLVideoProcessing/MLCameraSource.h>
 #endif
 #import "MMCommonParam.h"
+#import "MMCommonParam2.h"
 #import "MLDomainAnalysis.h"
 #import <CoreMedia/CoreMedia.h>
 
@@ -807,6 +808,23 @@ udp下行观众的sei
 @param enable 外放开关
 */
 - (void)setConferencePlaybackSpeakerphone:(BOOL)enable;
+
+/**
+* 开启屏幕录制
+* @param screenCaptureParameters 音视频参数
+*/
+- (void)startScreenCapture:(MMLiveScreenCaptureParameters *)screenCaptureParameters;
+
+/**
+* 更新屏幕录制参数
+* @param screenCaptureParameters 音视频参数
+*/
+- (void)updateScreenCapture:(MMLiveScreenCaptureParameters *)screenCaptureParameters;
+
+/**
+* 停止屏幕录制
+*/
+- (void)stopScreenCapture;
 
 #pragma mark - 切换推流器
 
