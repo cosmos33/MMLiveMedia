@@ -184,7 +184,9 @@ udp下行观众的sei
 
 - (void)MMLiveEnginePusher:(MMLiveEngine *)engine recvStreamMessage:(NSString *)msg fromUID:(NSInteger)uid streamID:(NSInteger)sid;
 
-- (void)MMLiveEnginePusher:(MMLiveEngine *)engine onPlaybackAudioFrameBeforeMixing:(NSData *)audioData uid:(unsigned int)uid sampleRate:(int)sampleRate channels:(int)channels;;
+- (void)MMLiveEnginePusher:(MMLiveEngine *)engine onPlaybackAudioFrameBeforeMixing:(NSData *)audioData uid:(unsigned int)uid sampleRate:(int)sampleRate channels:(int)channels;
+
+- (void)MMLiveEnginePusher:(MMLiveEngine *)engine onScreenCaptureState:(NSUInteger)state errorCode:(NSUInteger)errorCode;
 
 @end
 

@@ -183,6 +183,8 @@ udp下行观众的sei
 
 - (void)MMLiveRTC:(MMLiveRTC*)pusher onPlaybackAudioFrameBeforeMixing:(NSData *)audioData uid:(unsigned int)uid sampleRate:(int)sampleRate channels:(int)channels;
 
+- (void)MMLiveRTC:(MMLiveRTC*)pusher onScreenCaptureState:(NSUInteger)state errorCode:(NSUInteger)errorCode;
+
 @end
 
 @protocol MLStreamMediaSource;
