@@ -18,6 +18,7 @@
 #import "MLStreamMediaSource.h"
 #import "MMLiveContext.h"
 #import "MMCommonParam.h"
+#import "MMCommonParam2.h"
 #import "MMLiveEngine.h"
 #import "MMLivePlayer.h"
 #import "MMLiveRTC.h"
