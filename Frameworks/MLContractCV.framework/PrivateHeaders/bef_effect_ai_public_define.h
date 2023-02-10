@@ -46,73 +46,104 @@ typedef int effect_result;
 // define bef_intensity_type
 typedef int bef_intensity_type;
 
+// start error code
+#define BEF_RESULT_SUC                       0  //  {zh} 成功返回  {en} Successful return
+#define BEF_RESULT_FAIL                     -1  //  {zh} 内部错误，检查是否初始化，初始化是否成功  {en} Internal error, check whether initialization is successful
+#define BEF_RESULT_FILE_NOT_FIND            -2  //  {zh} 文件没找到，检查代码中的文件路径与实际路径是否匹配  {en} File not found, check whether the file path in the code matches the actual path
 
-//bef_framework_public_constant_define
-#define BEF_RESULT_SUC                       0  // 成功返回
-#define BEF_RESULT_FAIL                     -1  // 内部错误
-#define BEF_RESULT_FILE_NOT_FIND            -2  // 文件没找到
+#define BEF_RESULT_INVALID_INTERFACE        -3  //  {zh} 接口未实现，检查SDK是否具备该功能  {en} The interface is not implemented, check whether the SDK has this function
+#define BEF_RESULT_FILE_OPEN_FAILED         -4  //  {zh} 文件打开失败，检查文件是否存在，检查对目标文件是否有读写权限  {en} File opening failed, check whether the file exists, check whether there are read and write permissions on the target file
 
-#define BEF_RESULT_INVALID_INTERFACE        -3  // 接口未实现
-#define BEF_RESULT_FILE_OPEN_FAILED         -4  // 文件打开失败
+#define BEF_RESULT_INVALID_EFFECT_HANDLE    -5  //  {zh} 无效的Effect句柄，检查是否初始化，初始化是否成功  {en} Invalid Effect handle to check whether initialization is successful
+#define BEF_RESULT_INVALID_EFFECT_MANAGER   -6  //  {zh} 无效的EffectManager，检查是否初始化，初始化是否成功  {en} Invalid EffectManager, check whether initialization is successful
+#define BEF_RESULT_INVALID_FEATURE_HANDLE   -7  //  {zh} 无效的Feature句柄，检查是否初始化，初始化是否成功  {en} Invalid Feature handle to check whether initialization is successful
+#define BEF_RESULT_INVALID_FEATURE          -8  //  {zh} 无效的Feature，检查是否初始化，初始化是否成功  {en} Invalid Feature, check whether initialization is successful
+#define BEF_RESULT_INVALID_RENDER_MANAGER   -9  //  {zh} 无效的RenderManager，检查是否初始化，初始化是否成功  {en} Invalid RenderManager, check whether initialization is successful
+#define BEF_RESULT_INVALID_ALG_RES          -11 //  {zh} 无效的算法结果，没有设置美颜等特效可能会有这个报错，大部分情况下可忽略  {en} Invalid algorithm results, no special effects such as beauty setting may have this error, which can be ignored in most cases
+#define BEF_RESULT_INVALID_ALG_FACE_RES     -12 //  {zh} 无效的人脸检测结果  {en} Invalid face detection results
+#define BEF_RESULT_INVALID_ALG_CAT_FACE_RES -13 //  {zh} 无效的猫脸检测结果  {en} Invalid cat face test results
+#define BEF_RESULT_INVALID_ALG_HAND_RES     -14 //  {zh} 无效的手势检测结果  {en} Invalid gesture detection result
+#define BEF_RESULT_INVALID_ALG_BODY_RES     -15 //  {zh} 无效的人体检测结果  {en} Invalid human test results
+#define BEF_RESULT_ALG_INIT_FAIL            -17 //  {zh} 算法初始化失败  {en} Algorithm initialization failed
+#define BEF_RESULT_ALG_FACE_INIT_FAIL       -21 //  {zh} 人脸检测初始化失败  {en} Face detection initialization failed
+#define BEF_RESULT_ALG_FACE_106_CREATE_FAIL -22 //  {zh} 人脸检测106算法创建失败，检查 license 是否有效，检查模型是否有效  {en} Face detection 106 algorithm creation failed, check whether the license is valid, check whether the model is valid
+#define BEF_RESULT_ALG_FACE_280_CREATE_FAIL -23 //  {zh} 人脸检测280算法创建失败，检查 license 是否有效，检查模型是否有效  {en} Face detection 280 algorithm creation failed, check whether the license is valid, check whether the model is valid
+#define BEF_RESULT_ALG_FACE_PREDICT_FAIL    -24 //  {zh} 人脸检测预测失败，检查传入图像是否正确  {en} Face detection prediction failed, check whether the incoming image is correct
+#define BEF_RESULT_ALG_EXP_CREATE_FAIL      -25 //  {zh} 表情检测初始化失败，检查 license 是否有效，检查模型是否有效  {en} Expression detection initialization failed, check whether the license is valid, check whether the model is valid
+#define BEF_RESULT_ALG_HAND_CREATE_FAIL     -26 //  {zh} 创建手势算法失败，检查 license 是否有效，检查模型是否有效  {en} Failed to create gesture algorithm, check whether the license is valid, check whether the model is valid
+#define BEF_RESULT_ALG_HAND_PREDICT_FAIL    -27 //  {zh} 手势算法预测失败，检查传入图像是否正确  {en} Gesture algorithm failed to predict, check whether the incoming image is correct
 
-#define BEF_RESULT_INVALID_EFFECT_HANDLE    -5  // 无效的Effect句柄
-#define BEF_RESULT_INVALID_EFFECT_MANAGER   -6  // 无效的EffectManager
-#define BEF_RESULT_INVALID_FEATURE_HANDLE   -7  // 无效的Feature句柄
-#define BEF_RESULT_INVALID_FEATURE          -8  // 无效的Feature
-#define BEF_RESULT_INVALID_RENDER_MANAGER   -9  // 无效的RenderManager
 
-#define BEF_RESULT_ALG_FACE_106_CREATE_FAIL -22 // 人脸检测106算法创建失败
-#define BEF_RESULT_ALG_FACE_280_CREATE_FAIL -23 // 人脸检测280算法创建失败
-#define BEF_RESULT_ALG_FACE_PREDICT_FAIL    -24 // 人脸检测预测失败
+#define BEF_RESULT_INVALID_TEXTURE          -36 //  {zh} 无效的texture，检查传入 texture 是否正确  {en} Invalid texture, check whether the incoming texture is correct
+#define BEF_RESULT_INVALID_IMAGE_DATA       -37 //  {zh} 无效的图像数据，检查传入 buffer 是否正确  {en} Invalid image data, check whether the incoming buffer is correct
+#define BEF_RESULT_INVALID_IMAGE_FORMAT     -38 //  {zh} 无效的图片格式，检查传入的图像格式是否符合要求  {en} Invalid image format, check whether the incoming image format meets the requirements
+#define BEF_RESULT_INVALID_PARAM_TYPE       -39 //  {zh} 无效的参数类型，检查传入的参数是否符合要求  {en} Invalid parameter type, check whether the passed parameter meets the requirements
+#define BEF_RESULT_INVALID_RESOURCE_VERSION -40 //  {zh} 资源文件指定sdk版本过高，检查资源文件是否正确  {en} The resource file specifies that the sdk version is too high, check whether the resource file is correct
+#define BEF_RESULT_INVALID_PARAM_VALUE      -47 //  {zh} 无效的参数值，检查传入的参数是否符合要求  {en} Invalid parameter value, check whether the passed parameter meets the requirements
 
-#define BEF_RESULT_ALG_HAND_CREATE_FAIL     -26 // 创建手势算法失败
-#define BEF_RESULT_ALG_HAND_PREDICT_FAIL    -27 // 手势算法预测失败
+#define BEF_RESULT_SMASH_E_INTERNAL         -101 //  {zh} 未定义内部错误，请联系技术支持  {en} No internal error defined, please contact technical support
+#define BEF_RESULT_SMASH_E_NOT_INITED       -102 //  {zh} 未初始化相关资源，请联系技术支持  {en} Not initializing related resources, please contact technical support
+#define BEF_RESULT_SMASH_E_MALLOC           -103 //  {zh} 申请内存失败，请联系技术支持  {en} Failed to request memory, please contact technical support
+#define BEF_RESULT_SMASH_E_INVALID_PARAM    -104 //  {zh} 无效的参数，检查传入的参数是否符合要求  {en} Invalid parameter, check whether the passed parameter meets the requirements
+#define BEF_RESULT_SMASH_E_ESPRESSO         -105 //  {zh} ESPRESSO错误，请联系技术支持  {en} ESPRESSO error, please contact technical support
+#define BEF_RESULT_SMASH_E_MOBILECV         -106 //  {zh} MOBILECV错误，请联系技术支持  {en} MOBILECV error, please contact technical support
+#define BEF_RESULT_SMASH_E_INVALID_CONFIG   -107 //  {zh} 无效的配置，请检查传入授权文件路径是否正确，授权文件是否受损  {en} Invalid configuration, please check whether the path of the incoming authorization file is correct and whether the authorization file is damaged
+#define BEF_RESULT_SMASH_E_INVALID_HANDLE   -108 //  {zh} 无效的句柄，请检查传入授权文件路径是否正确，授权文件是否受损  {en} Invalid handle, please check whether the path of the incoming authorization file is correct and whether the authorization file is damaged
+#define BEF_RESULT_SMASH_E_INVALID_MODEL    -109 //  {zh} 无效的模型，请检查传入授权文件路径是否正确，授权文件是否受损  {en} Invalid model, please check whether the path of the incoming authorization file is correct and whether the authorization file is damaged
+#define BEF_RESULT_SMASH_E_INVALID_PIXEL_FORMAT        -110 //  {zh} 无效的图像格式，请检查传入图像格式是否在SDK支持的范围内  {en} Invalid image format, please check whether the incoming image format is within the scope supported by the SDK
+#define BEF_RESULT_SMASH_E_INVALID_POINT               -111 //  {zh} 无效的点，请检查传入接口的输入或输出变量是否为null  {en} Invalid point, please check whether the input or output variable of the incoming interface is null
+#define BEF_RESULT_SMASH_E_REQUIRE_FEATURE_NOT_INIT    -112 //  {zh} 依赖模块没有初始化，请联系技术支持  {en} The dependency module is not initialized, please contact technical support
+#define BEF_RESULT_SMASH_E_NOT_IMPL                    -113 //  {zh} 未实现的接口，请检查调用函数名和参数是否正确  {en} Unimplemented interface, please check whether the calling function name and parameters are correct
 
+#define BEF_RESULT_INVALID_LICENSE                     -114 //  {zh} 无效的license，请检查授权文件路径是否正确，模型文件是否受损  {en} Invalid license, please check whether the authorization file path is correct and whether the model file is damaged
+#define BEF_RESULT_NULL_BUNDLEID                       -115 //  {zh} Application/Bundle ID 为空，请检查传入bundle Id或ApplicationId是否为空  {en} Application/Bundle ID is empty, please check whether the incoming bundle Id or ApplicationId is empty
+#define BEF_RESULT_LICENSE_STATUS_INVALID              -116 //  {zh} 非法授权文件，请检查授权文件是否正确  {en} Illegal authorization file, please check whether the authorization file is correct
+#define BEF_RESULT_LICENSE_STATUS_EXPIRED              -117 //  {zh} 授权文件过期，请检查授权文件是否正确，是否需要更新  {en} The authorization file has expired, please check whether the authorization file is correct and whether it needs to be updated
+#define BEF_RESULT_LICENSE_STATUS_NO_FUNC              -118 //  {zh} 请求功能不匹配，请检查是否购买对应功能  {en} The request function does not match, please check whether to purchase the corresponding function
+#define BEF_RESULT_LICENSE_STATUS_ID_NOT_MATCH         -119 //  {zh} Application/Bundle ID 不匹配，请检查申请授权文件和应用的Application/BundleId是否一致  {en} Application/Bundle IDs do not match, please check whether the application authorization file is consistent with the application/BundleId of the application
 
-#define BEF_RESULT_INVALID_TEXTURE          -36 // 无效的texture
-#define BEF_RESULT_INVALID_IMAGE_DATA       -37 // 无效的图像数据
-#define BEF_RESULT_INVALID_IMAGE_FORMAT     -38 // 无效的图片格式
-#define BEF_RESULT_INVALID_PARAM_TYPE       -39 // 无效的参数类型
-#define BEF_RESULT_INVALID_RESOURCE_VERSION -40 // 资源文件指定sdk版本过高
-#define BEF_RESULT_INVALID_PARAM_VALUE      -47 // 无效的参数值
+#define BEF_RESULT_LICENSE_BAG_NULL_PATH               -120 //  {zh} 授权包路径为空，请检查授权文件路径是否正确  {en} The path of the authorization package is empty, please check whether the path of the authorization file is correct
+#define BEF_RESULT_LICENSE_BAG_INVALID_PATH            -121 //  {zh} 错误的授权包路径，请检查传入sdk的路径是否正确  {en} Wrong authorization package path, please check whether the path passed into sdk is correct
+#define BEF_RESULT_LICENSE_BAG_TYPE_NOT_MATCH          -122 //  {zh} 授权包类型不匹配，请检查授权文件是否正确，是否损坏  {en} Authorization package type does not match, please check whether the authorization file is correct and damaged
+#define BEF_RESULT_LICENSE_BAG_INVALID_VERSION         -123 //  {zh} 无效的版本，请检查是否用了旧版本的授权文件  {en} Invalid version, please check whether the old version of the authorization file is used
+#define BEF_RESULT_LICENSE_BAG_INVALID_BLOCK_COUNT     -124 //  {zh} 无效的数据块，请检查授权文件是否正确，是否损坏  {en} Invalid data block, please check whether the authorization file is correct and damaged
+#define BEF_RESULT_LICENSE_BAG_INVALID_BLOCK_LEN       -125 //  {zh} 无效的数据块长度，请检查授权文件是否正确，是否损坏  {en} Invalid data block length, please check whether the authorization file is correct and damaged
+#define BEF_RESULT_LICENSE_BAG_INCOMPLETE_BLOCK        -126 //  {zh} 数据块不完整，请检查授权文件是否正确，是否损坏  {en} The data block is incomplete, please check whether the authorization file is correct and damaged
+#define BEF_RESULT_LICENSE_BAG_UNAUTHORIZED_FUNC       -127 //  {zh} license未授权的功能，请检查是否购买对应功能  {en} License unauthorized functions, please check whether to purchase corresponding functions
 
-#define BEF_RESULT_SMASH_E_INTERNAL         -101 // 未定义内部错误
-#define BEF_RESULT_SMASH_E_NOT_INITED       -102 // 未初始化相关资源
-#define BEF_RESULT_SMASH_E_MALLOC           -103 // 申请内存失败
-#define BEF_RESULT_SMASH_E_INVALID_PARAM    -104 // 无效的参数
-#define BEF_RESULT_SMASH_E_ESPRESSO         -105 // ESPRESSO错误
-#define BEF_RESULT_SMASH_E_MOBILECV         -106 // MOBILECV错误
-#define BEF_RESULT_SMASH_E_INVALID_CONFIG   -107 // 无效的配置
-#define BEF_RESULT_SMASH_E_INVALID_HANDLE   -108 // 无效的句柄
-#define BEF_RESULT_SMASH_E_INVALID_MODEL    -109 // 无效的模型
-#define BEF_RESULT_SMASH_E_INVALID_PIXEL_FORMAT        -110 // 无效的图像格式
-#define BEF_RESULT_SMASH_E_INVALID_POINT               -111 // 无效的点
-#define BEF_RESULT_SMASH_E_REQUIRE_FEATURE_NOT_INIT    -112 // 依赖模块没有初始化
-#define BEF_RESULT_SMASH_E_NOT_IMPL                    -113 // 未实现的接口
+#define BEF_RESULT_SDK_FUNC_NOT_INCLUDE                -128 //  {zh} SDK 未包含功能  {en} SDK does not include features
+#define BEF_RESULT_LICENSE_BAG_INVALID_SUB_FUNC        -129 //  {zh} 无效的subFunction，证书存在问题，请联系技术支持  {en} Invalid subFunction, there is a problem with the certificate, please contact technical support
+#define BEF_RESULT_GL_ERROR_OCCUR                      -150 //  {zh} opengl发生错误，请检查是否在opengl线程调用接口  {en} An error occurred in opengl, please check whether the interface is called in the opengl thread
+#define BEF_RESULT_GL_CONTECT                          -151 //  {zh} 无效的glcontext，请检查gl上下文是否正确  {en} Invalid glcontext, please check if the gl context is correct
+#define BEF_RESULT_GL_TEXTURE                          -152 //  {zh} 无效的gltexture，请检查纹理号是否有效  {en} Invalid gltexture, please check whether the texture number is valid
 
-#define BEF_RESULT_INVALID_LICENSE                     -114 // 无效的license
-#define BEF_RESULT_NULL_BUNDLEID                       -115 // Application/Bundle ID 为空
-#define BEF_RESULT_LICENSE_STATUS_INVALID              -116 // 非法授权文件
-#define BEF_RESULT_LICENSE_STATUS_EXPIRED              -117 // 授权文件过期
-#define BEF_RESULT_LICENSE_STATUS_NO_FUNC              -118 // 请求功能不匹配
-#define BEF_RESULT_LICENSE_STATUS_ID_NOT_MATCH         -119 // Application/Bundle ID 不匹配
+// Be Used in bach algorithm module
+#define BEF_RESULT_BACH_E_INVALID_RES_FINDER -153 // {zh} Bach算法模块错误，无效的ResourceFinder，请检查资源文件名或者路径是否正确  {en} Bach algorithm module error, invalid ResourceFinder, please check whether resource path or name is correct
+#define BEF_RESULT_BACH_E_NOT_INIT           -154 // {zh} Bach算法模块错误，检查是否初始化，初始化是否成功  {en} Bach algorithm module error, check whether initialization is successful
+#define BEF_RESULT_BACH_E_INVALID_CONFIG     -155 // {zh} Bach算法模块错误，无效的算法配置或参数，请检查配置文件或参数是否正确  {en} Bach algorithm module error, invalid algorithm config or param, please check whether input config or param is correct
+#define BEF_RESULT_BACH_E_INVALID_GRAPH      -156 // {zh} Bach算法模块错误，无效的Graph定义，请检查初始化输入的Graph是否正确  {en} Bach algorithm module error, invalid Graph define, please check whether input Graph is correct
+#define BEF_RESULT_BACH_E_INVALID_MODEL      -157 // {zh} Bach算法模块错误，无效的算法模型，请检查给定的模型或路径是否正确  {en} Bach algorithm module error, invalid algorith model, please check whether input model or path is correct
+#define BEF_RESULT_BACH_E_INVALID_TYPE       -158 // {zh} Bach算法模块错误，无效的参数类型，请检查给定的参数类型是否正确  {en} Bach algorithm module error, invalid parameter type, please check whether input parameter type is correct
+#define BEF_RESULT_BACH_E_INVALID_NODE       -159 // {zh} Bach算法模块错误，无效的算法结点，请检查算法的配置是否正确  {en} Bach algorithm module error, invalid algorithm node, please check whether algorithm config is correct
+#define BEF_RESULT_BACH_E_INVALID_FORMAT     -160 // {zh} Bach算法模块错误，无效的图像格式，请检查输入图像格式是否正确  {en} Bach algorithm module error, invalid input picture format, please check whether input picture format is correct
+#define BEF_RESULT_BACH_E_INTERNAL_ERROR     -161 // {zh} Bach算法模块错误，内部错误  {en} Bach algorithm module error, internal error
 
-#define BEF_RESULT_LICENSE_BAG_NULL_PATH               -120 // 授权包路径为空
-#define BEF_RESULT_LICENSE_BAG_INVALID_PATH            -121 // 错误的授权包路径
-#define BEF_RESULT_LICENSE_BAG_TYPE_NOT_MATCH          -122 // 授权包类型不匹配
-#define BEF_RESULT_LICENSE_BAG_INVALID_VERSION         -123 // 无效的版本
-#define BEF_RESULT_LICENSE_BAG_INVALID_BLOCK_COUNT     -124 // 无效的数据块
-#define BEF_RESULT_LICENSE_BAG_INVALID_BLOCK_LEN       -125 // 无效的数据块长度
-#define BEF_RESULT_LICENSE_BAG_INCOMPLETE_BLOCK        -126 // 数据块不完整
-#define BEF_RESULT_LICENSE_BAG_UNAUTHORIZED_FUNC       -127 // license未授权的功能
-
-#define BEF_RESULT_SDK_FUNC_NOT_INCLUDE                -128 // SDK 未包含功能
-#define BEF_RESULT_LICENSE_BAG_INVALID_SUB_FUNC        -129 // 无效的subFunction
-#define BEF_RESULT_GL_ERROR_OCCUR                      -150 // opengl发生错误
-// 注意 EffectSDK 内部使用了-114 -115， 我们使用TOB的宏进行隔离 并转换到 -151 -152，后续错误码需要避开
-//#define BEF_RESULT_GL_CONTECT               -151 //无效的glcontext
-//#define BEF_RESULT_GL_TEXTURE               -152 //无效的gltexture
-
+/* {zh} 
+ ** 画质增强的错误码都放在这里
+ */
+/* {en} 
+ ** The enhanced image error codes are all here
+ */
+#define BEF_RESULT_IMAGE_QUALITY_CREATE_ENGINE_FAILED           -64     //  {zh} 画质增强引擎创建失败  {en} Image quality enhancement engine creation failed
+#define BEF_RESULT_IMAGE_QUALITY_CREATE_VIDEO_SR_FAILED         -65     //  {zh} 视频超分算法创建失败  {en} Video super-segmentation algorithm creation failed
+#define BEF_RESULT_IMAGE_QUALITY_CREATE_NIGHT_SCENE_FAILED      -66     //  {zh} 画质算法失败  {en} Image quality algorithm failed
+#define BEF_RESULT_INVALID_HANDLE                               -67     //  {zh} 无效的画质算法handle  {en} Invalid image quality algorithm handling
+#define BEF_RESULT_IMAGE_QUALITY_CREATE_ADAPTIVE_SHARPEN_FAILED      -68     //  {zh} 画质算法失败  {en} Image quality algorithm failed
+#define BEF_RESULT_IMAGE_QUALITY_ASP_UNDER_INIT                 -69     //  {zh} 画质自适应锐化异步处理，设置完成会继续处理  {en} Image quality adaptive sharpening asynchronous processing, processing will continue after setting
+/*
+ ** END
+ */
+// end error code
 
 #define BEF_EFFECT_FEATURE_LEN                          128 //feature name 默认长度
 
@@ -187,6 +218,7 @@ typedef struct bef_ai_image_t {
     int height;
     int stride;
     int format;
+    bef_ai_rotate_type rotate;
 } bef_ai_image;
 
 typedef struct bef_ai_tt_key_point_st {
@@ -209,10 +241,32 @@ typedef enum {
     bef_ai_render_api_gles30,
 } bef_ai_render_api_type;
 
+typedef enum {
+    BEF_AI_TOUCH_EVENT_BEGAN,         ///< 触摸开始事件
+    BEF_AI_TOUCH_EVENT_MOVED,         ///< 触摸移动事件
+    BEF_AI_TOUCH_EVENT_STATIONARY,    ///< 触摸驻停事件
+    BEF_AI_TOUCH_EVENT_ENDED,         ///< 触摸结束事件
+    BEF_AI_TOUCH_EVENT_CANCELLED,     ///< 触摸取消事件
+} bef_ai_touch_event_code;
+
+typedef enum {
+    BEF_AI_GESTURE_TAP,                 ///< 单击手势
+    BEF_AI_GESTURE_PAN,                 ///< 滑动手势
+    BEF_AI_GESTURE_ROTATE,              ///< 旋转手势
+    BEF_AI_GESTURE_SCALE,               ///< 缩放手势
+    BEF_AI_GESTURE_LONG_PRESS,          ///< 长按手势
+    BEF_AI_GESTURE_DOUBLE_CLICK         ///< 双击手势
+} bef_ai_gesture_event_code;
+
+
 typedef char*(*bef_ai_resource_finder)(bef_effect_handle_t, const char *, const char *);
 
 
 #define EFFECT_HAND_DETECT_DELAY_FRAME_COUNT 4
 
+///部分贴纸需要与客户端通过消息交互
+#define BEF_EFFECT_MESSAGE_TRIGGER_CAPUTURE_IMAGE  2200   /// <触发贴纸截图  客户端发给sdk
+#define BEF_EFFECT_MESSAGE_RECEIVE_CAPUTURE_IMAGE  0x45   /// <获取贴纸截图  sdk发给客户端
+#define BEF_EFFECT_MESSAGE_OPERATE_CLIENT_UI  0x30   /// <客户端接收sdk消息来控制UI    sdk发给客户端
 
 #endif

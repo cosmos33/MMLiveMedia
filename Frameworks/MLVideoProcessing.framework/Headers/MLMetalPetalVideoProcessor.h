@@ -25,6 +25,8 @@
 @property (nonatomic, copy) NSArray <MLMetalPetalNativeViewItem *>*viewItems;
 @property (nonatomic, assign) int warpType;
 @property (nonatomic, assign) BOOL lightingRenderOn;
+@property (nonatomic, assign) int preferredFrameRate;
+@property (nonatomic, assign) BOOL shouldSkipBeautyProcess;
 
 - (void)setWebGLFilterConfig:(NSDictionary *)config;
 - (void)processingCVPixelBuffer:(CVPixelBufferRef)pixelBuffer atTime:(CMTime)frameTime options:(MLVideoProcessorOptions *)options completion:(void (^)(CVPixelBufferRef))completion;

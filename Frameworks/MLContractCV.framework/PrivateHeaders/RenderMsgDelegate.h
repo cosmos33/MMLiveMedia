@@ -1,4 +1,10 @@
-// Copyright (C) 2020 Beijing Bytedance Network Technology Co., Ltd.
+//
+//  GpuMsgDelegate
+//
+//  Created by youdong on 2017-06-13.
+//  Copyright © 2017 bytedance. All rights reserved.
+//
+#import <TargetConditionals.h>
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 
 #import <UIKit/UIKit.h>
@@ -9,16 +15,18 @@
 
 #endif
 
+//#import "bef_framework_public_base_define.h"
+
 @protocol RenderMsgDelegate <NSObject>
 
-// 消息处理，处理该消息了返回TRUE，否则返回FALSE
+// Message processing, returns TRUE after processing the message, otherwise returns FALSE
 
-/// @brief 处理消息回调
-/// @param unMsgID 消息ID
-/// @param nArg1 附加参数1
-/// @param nArg2 附加参数2
-/// @param cArg3 附加参数3
-/// @return 成功返回YES，失败返回NO
+/// @brief message callback
+/// @param unMsgID Message ID
+/// @param nArg1 Additional parameters
+/// @param nArg2 Additional parameters
+/// @param cArg3 Additional parameters
+/// @return Return YES on success, NO on failure
 - (BOOL) msgProc : (unsigned int) unMsgID
              arg1: (int) nArg1
              arg2: (int) nArg2
@@ -40,3 +48,15 @@
 - (void)destoryDelegate;
 
 @end
+
+#if (defined(__APPLE__) && TARGET_OS_IPHONE)
+
+typedef void * bef_render_msg_delegate_manager;
+typedef bool (*bef_render_msg_delegate_manager_callback)(void *, unsigned int, int, int, const char *);
+
+BEF_SDK_API void bef_render_msg_delegate_manager_init(bef_render_msg_delegate_manager *manager);
+BEF_SDK_API bool bef_render_msg_delegate_manager_add(bef_render_msg_delegate_manager manager, void *observer, bef_render_msg_delegate_manager_callback func);
+BEF_SDK_API bool bef_render_msg_delegate_manager_remove(bef_render_msg_delegate_manager manager, void *observer, bef_render_msg_delegate_manager_callback func);
+BEF_SDK_API void bef_render_msg_delegate_manager_destroy(bef_render_msg_delegate_manager *manager);
+
+#endif

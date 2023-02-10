@@ -71,6 +71,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (nullable MLContractBeautyProcessor *)makeContractFaceProcessor;
 
++ (nullable MMFaceCartoonProcessor *)makeCartoonFaceProcessor;
+
++ (nullable MMStylizeFaceProcessor *)makeStylizeFaceProcessor;
+
 + (nullable MLSelfDevelopBeautyProcessor *)makeSelfDevelopProcessor;
 
 + (nullable XEngineRender *)makeLightingRender;
@@ -96,6 +100,11 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)canCreateHandGestureDetector;
 
 + (BOOL)canCreateSelfDevelopBeautyProcessor;
+
++ (BOOL)canCreateCartoonFaceProcessor;
+
++ (BOOL)canCreateStylizeFaceProcessor;
+
 #if DEBUG
 + (BOOL)updateObjectDetectorModelWithURL:(NSURL *)url shouldValidate:(BOOL)shouldValidate; //file url
 #endif
@@ -115,6 +124,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL shouldDetectObject;
 @property (nonatomic) BOOL shouldDetectAnimoji;
 @property (nonatomic) BOOL shouldUse3DGame;
+@property (nonatomic) BOOL shouldCoverMasicWhenNoFace;
+@property (nonatomic) BOOL shouldProcessCartoonFace;
+@property (nonatomic) BOOL shouldProcessStylizeFace;
+
+
 @property (nonatomic) NSUInteger handGestureType;
 
 + (void)installFaceDetector:(MMFaceDetector *)faceDetector;
@@ -144,6 +158,13 @@ NS_ASSUME_NONNULL_BEGIN
 // process buffer & detect face
 + (void)installContractFaceProcessor:(MLContractBeautyProcessor *)faceProcessor;
 + (void)uninstallContratFaceProcessor;
+
+// cartoon face processor
++ (void)installCartoonFaceProcessor:(MMFaceCartoonProcessor *)cartoonFaceProcessor;
++ (void)uninstallCartoonFaceProcessor;
+
++ (void)installStylizeFaceProcessor:(MMStylizeFaceProcessor *)stylizeFaceProcessor;
++ (void)uninstallStylizeFaceProcessor;
 
 // 自研美颜
 + (void)installSelfDevelopBeautyProcessor:(MLSelfDevelopBeautyProcessor *)selfBeautyProcessor;
