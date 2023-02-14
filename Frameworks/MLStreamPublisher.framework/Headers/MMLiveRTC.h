@@ -185,6 +185,8 @@ udp下行观众的sei
 
 - (void)MMLiveRTC:(MMLiveRTC*)pusher onScreenCaptureState:(NSUInteger)state errorCode:(NSUInteger)errorCode;
 
+- (void)MMLiveRTC:(MMLiveRTC*)pusher onVideoSizeChangedOfUid:(NSUInteger)uid size:(CGSize)size rotation:(NSInteger)rotation;
+
 @end
 
 @protocol MLStreamMediaSource;

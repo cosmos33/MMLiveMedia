@@ -188,6 +188,8 @@ udp下行观众的sei
 
 - (void)MMLiveEnginePusher:(MMLiveEngine *)engine onScreenCaptureState:(NSUInteger)state errorCode:(NSUInteger)errorCode;
 
+- (void)MMLiveEnginePusher:(MMLiveEngine *)engine onVideoSizeChangedOfUid:(NSUInteger)uid size:(CGSize)size rotation:(NSInteger)rotation;
+
 @end
 
 @protocol MMLiveEnginePlayerDelegate <NSObject>
