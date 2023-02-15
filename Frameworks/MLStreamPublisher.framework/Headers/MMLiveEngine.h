@@ -830,6 +830,11 @@ udp下行观众的sei
 */
 - (void)stopScreenCapture;
 
+/**
+* 更新声网频道配置
+*/
+- (void)updateChannelWithMediaOptions:(MMLiveRtcChannelMediaOptions *)mediaOptions;
+
 #pragma mark - 切换推流器
 
 /**

@@ -446,6 +446,8 @@ udp下行观众的sei
 */
 - (void)stopScreenCapture;
 
+- (void)updateChannelWithMediaOptions:(MMLiveRtcChannelMediaOptions *)mediaOptions;
+
 @end
 
 #endif /* MMLiveRTC_h */

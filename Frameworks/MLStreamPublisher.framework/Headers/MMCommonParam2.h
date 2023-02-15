@@ -29,4 +29,18 @@ typedef NS_ENUM(NSInteger, MMLiveVideoFrameRate) {
 
 @end
 
+@interface MMLiveRtcChannelMediaOptions : NSObject
+
+@property(assign, nonatomic) BOOL publishCameraTrack;
+@property(assign, nonatomic) BOOL publishMicrophoneTrack;
+@property(assign, nonatomic) BOOL publishScreenCaptureVideo;
+@property(assign, nonatomic) BOOL publishScreenCaptureAudio;
+@property(assign, nonatomic) BOOL publishCustomAudioTrack;
+@property(assign, nonatomic) BOOL publishCustomVideoTrack;
+@property(assign, nonatomic) BOOL publishEncodedVideoTrack;
+@property(assign, nonatomic) BOOL autoSubscribeAudio;
+@property(assign, nonatomic) BOOL autoSubscribeVideo;
+
+@end
+
 #endif /* MMCommonParam2_h */
