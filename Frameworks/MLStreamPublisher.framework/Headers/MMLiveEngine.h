@@ -814,6 +814,13 @@ udp下行观众的sei
 - (void)setConferencePlaybackSpeakerphone:(BOOL)enable;
 
 /**
+* 是否开启卖上SEI
+*
+* @param enable  YES：开启 NO：不开启，默认NO
+*/
+- (void)setEnableRTCMetadata:(BOOL)enable;
+
+/**
 * 开启屏幕录制
 * @param screenCaptureParameters 音视频参数
 */
