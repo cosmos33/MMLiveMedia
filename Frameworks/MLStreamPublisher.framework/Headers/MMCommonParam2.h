@@ -25,7 +25,7 @@ typedef NS_ENUM(NSInteger, MMLiveVideoFrameRate) {
 @property (nonatomic, assign) BOOL captureVideo;
 @property (nonatomic, assign) CGSize captureVideoSize;
 @property (nonatomic, assign) MMLiveVideoFrameRate frameRate;
-@property (nonatomic, assign) NSInteger videoBitrate;
+@property (nonatomic, assign) NSInteger videoBitrate; // 单位：bps
 
 @end
 
