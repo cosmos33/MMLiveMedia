@@ -424,6 +424,14 @@ udp下行观众的sei
 */
 - (void)setAudioMixingDualMonoMode:(MMLiveAudioMixingDualMonoMode)mode;
 
+
+/**
+* 是否开启卖上SEI
+*
+* @param enable  YES：开启 NO：不开启，默认NO
+*/
+- (void)setEnableRTCMetadata:(BOOL)enable;
+
 @end
 
 #endif /* MMLiveRTC_h */
