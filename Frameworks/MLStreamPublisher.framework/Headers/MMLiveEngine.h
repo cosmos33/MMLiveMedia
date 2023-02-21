@@ -842,6 +842,8 @@ udp下行观众的sei
 */
 - (void)updateChannelWithMediaOptions:(MMLiveRtcChannelMediaOptions *)mediaOptions;
 
+- (void)setBusinessType:(NSInteger)businessType;
+
 #pragma mark - 切换推流器
 
 /**

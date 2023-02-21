@@ -455,6 +455,8 @@ udp下行观众的sei
 
 - (void)updateChannelWithMediaOptions:(MMLiveRtcChannelMediaOptions *)mediaOptions;
 
+- (void)setBusinessType:(NSInteger)businessType;
+
 @end
 
 #endif /* MMLiveRTC_h */

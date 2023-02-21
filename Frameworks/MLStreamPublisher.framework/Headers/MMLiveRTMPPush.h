@@ -164,5 +164,7 @@
 
 - (NSDictionary *) getPushWatchInfo;
 
+- (void)setBusinessType:(NSInteger)businessType;
+
 @end
 #endif /* MMLiveRTMPPush_h */
