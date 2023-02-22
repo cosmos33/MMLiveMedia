@@ -16,7 +16,7 @@ FOUNDATION_EXPORT void MLSkinSmoothingSetNewVersionEnabled(BOOL enabled);
 OBJC_EXTERN  NSString *const MLSkinSmoothingMethodNewVersionEnabledKey;
 OBJC_EXTERN  NSString *const MLSkinSmoothingMethodDidChangeNotification;
 
-@class FDKDecoration,MLBeautySettings,MMFaceFeature,MMObjectFeature, MMBodyFeature,MLFilterDescriptor, MMFacialExpression, MMImageSegmentationResult, MLColorEnhancement, MMHandFeature;
+@class FDKDecoration,MLBeautySettings,MMFaceFeature,MMObjectFeature, MMBodyFeature,MLFilterDescriptor, MMFacialExpression, MMImageSegmentationResult, MLColorEnhancement, MMHandFeature, MMFaceCartoonResult;
 
 @protocol MLImageSegmentResult;
 @interface MLVideoProcessorOptions : NSObject

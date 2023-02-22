@@ -19,10 +19,13 @@
 #define BEF_AI_AM_E_DIM 52
 #define BEF_AI_AM_U_DIM 75
 #define BEF_AI_ANIMOJI_MAX_FACE_COUNT 10
-typedef unsigned long long bef_ai_animoji_handle;
+typedef unsigned long bef_ai_animoji_handle;
 
-/**
+/** {zh} 
  @brief animoji 检测结果
+ */
+/** {en} 
+ @brief Animoji  detection result
  */
 typedef struct bef_ai_animoji_info {
   float alpha[BEF_AI_AM_U_DIM];
@@ -32,8 +35,8 @@ typedef struct bef_ai_animoji_info {
   float mvp[16];
   float mv[16];
   float affine_mat[9];
-  int succ;                         // 是否检测成功
-  int face_id;                      // 人脸 id
+  int succ;                         //  {zh} 是否检测成功  {en} Whether the detection was successful
+  int face_id;                      //  {zh} 人脸 id  {en} Face id
 } bef_ai_animoji_info;
 
 BEF_SDK_API
@@ -41,6 +44,9 @@ bef_effect_result_t bef_effect_ai_animoji_create(bef_ai_animoji_handle *handle);
 
 BEF_SDK_API
 bef_effect_result_t bef_effect_ai_animoji_check_license(bef_ai_animoji_handle handle, const char *licensePath);
+
+BEF_SDK_API
+bef_effect_result_t bef_effect_ai_animoji_check_online_license(bef_ai_animoji_handle handle, const char *licensePath);
 
 BEF_SDK_API
 bef_effect_result_t bef_effect_ai_animoji_set_model(bef_ai_animoji_handle handle, const char *modelPath, int inputWidth, int inputHeight);

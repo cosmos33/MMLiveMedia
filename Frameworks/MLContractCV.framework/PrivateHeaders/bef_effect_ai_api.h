@@ -8,8 +8,10 @@
 #include "bef_effect_ai_skeleton.h"
 #include "bef_effect_ai_face_attribute.h"
 
-#if defined(__ANDROID__) || defined(TARGET_OS_ANDROID)
+#if (defined(__ANDROID__) || defined(TARGET_OS_ANDROID))
+#if BEF_EFFECT_ANDROID_WITH_JNI
 #include <jni.h>
+#endif
 #endif
 
 
@@ -65,13 +67,15 @@ BEF_SDK_API bef_effect_result_t bef_effect_available_features(char (*features)[B
  */
 BEF_SDK_API bef_effect_result_t bef_effect_ai_set_camera_device_position(bef_effect_handle_t handle,  bef_ai_camera_position position);
 
-/**
-* @brief Set frame size.
-* @param handle     Effect handle
-* @param width      Texture width
-* @param height     Texture height
-* @return           If succeed return BEF_EFFECT_RESULT_SUC,  other value please see bef_effect_ai_public_define.h
-*/
+BEF_SDK_API bef_effect_result_t bef_effect_ai_set_device_rotation(bef_effect_handle_t handle, float* quaternion);
+
+ /**
+ * @brief Set frame size.
+ * @param handle     Effect handle
+ * @param width      Texture width
+ * @param height     Texture height
+ * @return           If succeed return BEF_EFFECT_RESULT_SUC,  other value please see bef_effect_ai_public_define.h
+ */
 BEF_SDK_API bef_effect_result_t bef_effect_ai_set_width_height(bef_effect_handle_t handle, int width, int height);
 
 
@@ -156,6 +160,7 @@ BEF_SDK_API bef_effect_result_t bef_effect_ai_set_effect(bef_effect_handle_t han
  * 设置composer资源包路径，使composer资源包生效
  * @param handle Effect Handle
  * @param strPath composer file path
+ * @Deprecated
  */
 BEF_SDK_API bef_effect_result_t bef_effect_ai_set_composer(bef_effect_handle_t handle, const char *strPath);
 
@@ -176,6 +181,33 @@ BEF_SDK_API bef_effect_result_t bef_effect_ai_composer_set_nodes(bef_effect_hand
 BEF_SDK_API bef_effect_result_t bef_effect_ai_composer_set_nodes_with_tags(bef_effect_handle_t handle, const char *nodePaths[], const char *nodeTags[], int nodeNum);
 
 /**
+ * @brief append composer effect path array
+ * 追加资源包路径数组,通过追加数组设置特效的组合
+ * @param nodePaths 特效资源路径的数组
+ * @param nodeNum 特效资源路径的数组长度
+ *
+ */
+BEF_SDK_API bef_effect_result_t bef_effect_ai_composer_append_nodes(bef_effect_handle_t handle, const char *nodePaths[], int nodeNum);
+/**
+ * @brief append composer effect path array
+ * 追加资源包路径数组,通过追加数组设置特效的组合
+ * @param nodePaths 特效资源路径的数组
+ * @param nodeTags 特效资源附加信息，与nodePaths 一一对应
+ * @param nodeNum 特效资源路径的数组长度
+ *
+ */
+BEF_SDK_API bef_effect_result_t bef_effect_ai_composer_append_nodes_with_tags(bef_effect_handle_t handle, const char *nodePaths[], const char *nodeTags[], int nodeNum);
+
+/**
+ * @brief remove composer effect path array
+ * 删除资源包路径数组,通过删除数组设置特效的组合
+ * @param nodePaths 特效资源路径的数组
+ * @param nodeNum 特效资源路径的数组长度
+ *
+ */
+BEF_SDK_API bef_effect_result_t bef_effect_ai_composer_remove_nodes(bef_effect_handle_t handle, const char *nodePaths[], int nodeNum);
+
+/**
  * @brief set composer node intensity
  * 设置组合特效的单个节点的强度
  * @param handle Effect Handle
@@ -190,6 +222,7 @@ BEF_SDK_API bef_effect_result_t bef_effect_ai_composer_update_node(bef_effect_ha
  * @param mode          0: A槽区+B槽区模式（Composer Feature）, 1: A槽区+B槽区+C槽区模式（Composer下沉）
  * @param orderType     0: 按照zorder排序, 目前只支持0
  * @return              成功返回BEF_EFFECT_RESULT_SUC, 其它值参考bef_effect_define.h
+ * @Deprecated
  */
 BEF_SDK_API bef_effect_result_t bef_effect_ai_composer_set_mode(bef_effect_handle_t handle, int mode, int orderType);
 
@@ -234,14 +267,14 @@ BEF_SDK_API bef_effect_result_t bef_effect_ai_algorithm_texture_with_buffer(bef_
  */
 BEF_SDK_API bef_effect_result_t
 bef_effect_ai_algorithm_buffer(
-        bef_effect_handle_t handle,
-        const unsigned char *img_in,
-        bef_ai_pixel_format fmt_in,
-        int image_width,
-        int image_height,
-        int image_stride,
-        double timestamp
-);
+                              bef_effect_handle_t handle,
+                              const unsigned char *img_in,
+                              bef_ai_pixel_format fmt_in,
+                              int image_width,
+                              int image_height,
+                              int image_stride,
+                              double timestamp
+                              );
 
 /**
  * @breif            Draw srcTexture with effects to dstTexture.
@@ -269,6 +302,7 @@ BEF_SDK_API bef_effect_result_t bef_effect_ai_process_texture(bef_effect_handle_
  * @return If succeed return BEF_RESULT_SUC, other value please see bef_effect_ai_public_define.h
  *         成功返回 BEF_RESULT_SUC, 失败返回相应错误码, 具体请参考 bef_effect_ai_public_define.h
  */
+#if BEF_EFFECT_ANDROID_WITH_JNI
 BEF_SDK_API bef_effect_result_t
 bef_effect_ai_process_buffer(bef_effect_handle_t handle,
                              const unsigned char *img_in,
@@ -279,8 +313,25 @@ bef_effect_ai_process_buffer(bef_effect_handle_t handle,
                              unsigned char *img_out,
                              bef_ai_pixel_format fmt_out,
                              double timestamp
-);
-
+                             );
+#else
+BEF_SDK_API bef_effect_result_t
+bef_effect_ai_process_buffer(bef_effect_handle_t handle,
+                            const unsigned char *img_in,
+                            bef_ai_pixel_format fmt_in,
+                            int image_width,
+                            int image_height,
+                            int image_stride,
+                            unsigned char *img_out,
+                            bef_ai_camera_position is_front,
+                            double timestamp,
+                            int readflag,
+                            int firstFrameCnt,
+                            int previewMode,
+                            bef_ai_rotate_type orientation,
+                            int dstTexture
+                            );
+#endif
 /**
  * @param handle      Effect handle that will be created
  * @param fIntensity  Filter smooth intensity, range in [0.0, 1.0]
@@ -378,30 +429,93 @@ BEF_SDK_API bef_effect_result_t bef_effect_ai_send_msg(bef_effect_handle_t handl
 */
 BEF_SDK_API bef_effect_result_t bef_effect_ai_reset_sticker(bef_effect_handle_t handle);
 
-/**
- * @brief 处理触摸事件
- * @param handle 已创建的授权
- * @param x 点击位置
- * @param y 点击位置
- * @return If succeed return BEF_RESULT_SUC, other value please refer bef_effect_ai_public_define.h
- *         成功返回 BEF_RESULT_SUC, 授权码非法返回BEF_RESULT_INVALID_LICENSE，其它失败返回相应错误码, 具体请参考 bef_effect_ai_public_define.h
- */
-BEF_SDK_API bef_effect_result_t bef_effect_ai_process_touch_event(bef_effect_handle_t handle, float x, float y);
+/// @brief 处理触摸事件
+/// @param handle 已创建的句柄
+/// @param event 触摸事件类型
+/// @param x 触摸位置
+/// @param y 触摸位置
+/// @param force 压力值
+/// @param majorRadius 触摸范围
+/// @param pointerId 触摸点id
+/// @param pointerCount 触摸点数量
+BEF_SDK_API bef_effect_result_t bef_effect_ai_process_touch(bef_effect_handle_t handle, bef_ai_touch_event_code event, float x, float y, float force, float majorRadius, int pointerId, int pointerCount);
 
+/// @brief 处理手势事件
+/// @param handle 已创建的句柄
+/// @param gesture 手势类型
+/// @param x 触摸位置，缩放手势表示缩放比例，旋转手势表示旋转角度
+/// @param y 触摸位置
+/// @param dx 移动距离
+/// @param dy 移动距离
+/// @param factor 缩放因数
+BEF_SDK_API bef_effect_result_t bef_effect_ai_process_gesture(bef_effect_handle_t handle, bef_ai_gesture_event_code gesture, float x, float y, float dx, float dy, float factor);
+
+/// @brief 通过 buffer 设置 render cache texture
+/// @details 传入一个固定名字的纹理给到 SDK，传入一个 buffer，SDK 会将其解析成纹理
+/// @param handle 句柄
+/// @param key 纹理名称
+/// @param image 图像数据
+BEF_SDK_API bef_effect_result_t bef_effect_ai_set_render_cache_texture_with_buffer(bef_effect_handle_t handle, const char* key, bef_ai_image* image);
+
+/// @brief 通过文件设置 render cache texture
+/// @details 传入一个固定名字的纹理给到 SDK，传入一个文件路径，SDK 会将其解析成纹理
+/// @param handle 句柄
+/// @param key 纹理名称
+/// @param path 文件绝对路径
+BEF_SDK_API bef_effect_result_t bef_effect_ai_set_render_cache_texture(bef_effect_handle_t handle, const char* key, const char* path);
+
+/// @brief 设置 gles 版本
+/// @details 需要在初始化之前调用才有效果
+/// @param handle 句柄
+/// @param api gles 版本，参见 bef_ai_render_api_type
+BEF_SDK_API bef_effect_result_t bef_effect_ai_set_render_api(bef_effect_handle_t handle, bef_ai_render_api_type api);
+
+/// @brief 是否使用内置传感器
+/// @param handle 句柄
+/// @param useBuiltinSensor 是否使用内置传感器
+BEF_SDK_API bef_effect_result_t bef_effect_ai_use_builtin_sensor(bef_effect_handle_t handle, bool useBuiltinSensor);
+
+/// @brief 在一定时间内加载素材
+/// @param handle 句柄
+/// @param timeout 等待时间，单位 us，-1 时表示一直等待直到素材加载完成
+BEF_SDK_API bef_effect_result_t bef_effect_ai_load_resource_with_timeout(bef_effect_handle_t handle, int timeout);
+
+/// @brief 通过key获取一张截图
+/// @param handle Effect实例
+/// @param key 要获取截图对应的key值
+/// @param image 指向由effect分配的截图，如果当前无截图返回nullptr
+/// @return 成功则返回BEF_RESULT_SUC
+BEF_SDK_API bef_effect_result_t bef_effect_ai_get_captured_image_with_key(bef_effect_handle_t handle, const char* key, bef_ai_image** image);
+
+/// @brief 释放截图
+/// @param handle Effect实例
+/// @param image 指向通过bef_effect_get_captured_image_with_key获取的截图
+/// @return
+BEF_SDK_API void bef_effect_ai_release_captured_image(bef_effect_handle_t handle, bef_ai_image* image);
+
+#ifdef __ANDROID__
 /**
  * @param handle Created effect detect handle
  *                   已创建的句柄
  * @param result Current face detect result struct
  *
  */
-#ifdef __ANDROID__
-BEF_SDK_API bef_effect_result_t
+#if BEF_EFFECT_ANDROID_WITH_JNI
+BEF_SDK_API bef_effect_result_t 
 bef_effect_ai_check_license(
-        JNIEnv* env,
-        jobject context,
-        bef_effect_handle_t handle,
-        const char *licensePath
-);
+                            JNIEnv* env, 
+                            jobject context, 
+                            bef_effect_handle_t handle, 
+                            const char *licensePath);
+
+BEF_SDK_API bef_effect_result_t
+bef_effect_ai_check_license_buffer(
+                           JNIEnv* env,
+                           jobject context,
+                           bef_effect_handle_t handle,
+                           const char *buffer,
+                           unsigned long buffer_len
+                           );
 #else
 BEF_SDK_API bef_effect_result_t
 bef_effect_ai_check_license(
@@ -410,5 +524,32 @@ bef_effect_ai_check_license(
                            );
 #endif
 
+#else
+BEF_SDK_API bef_effect_result_t
+bef_effect_ai_check_license(
+                           bef_effect_handle_t handle,
+                           const char *licensePath
+                           );
+
+BEF_SDK_API bef_effect_result_t
+bef_effect_ai_check_license_buffer(
+                           bef_effect_handle_t handle,
+                           const char *buffer,
+                           unsigned long buffer_len
+                           );
+#endif
+
+
+BEF_SDK_API bef_effect_result_t
+bef_effect_ai_check_online_license(bef_effect_handle_t handle, const char *licensePath);
+
+/// @brief 开启或关闭强制人脸检测
+/// @param handle Effect实例
+/// @param force 开关值
+/// @return 成功则返回BEF_RESULT_SUC
+BEF_SDK_API bef_effect_result_t bef_effect_ai_set_algorithm_force_detect(bef_effect_handle_t handle, bool force);
+
+BEF_SDK_API bef_effect_result_t
+bef_effect_ai_set_face_int_param(bef_effect_handle_t handle, const char* param, int value);
 
 #endif /* bef_effect_ai_h */

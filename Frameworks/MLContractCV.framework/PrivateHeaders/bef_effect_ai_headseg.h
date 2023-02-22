@@ -12,7 +12,7 @@ typedef long long bef_ai_headseg_handle;
 
 typedef struct
 {
-    int net_input_width; //网络输入的大小
+    int net_input_width; // {zh} 网络输入的大小 {en} Network input size
     int net_input_height;
 } bef_ai_headseg_config;
 
@@ -39,7 +39,7 @@ typedef struct
     int image_width;
     int image_height;
     int image_stride;
-    bef_ai_pixel_format pixel_format; // kPixelFormat_BGRA8888 或者 kPixelFormat_RGBA8888
+    bef_ai_pixel_format pixel_format; //  {zh} kPixelFormat_BGRA8888 或者 kPixelFormat_RGBA8888  {en} kPixelFormat_BGRA8888 or kPixelFormat_RGBA8888
     bef_ai_rotate_type orient;
     bef_ai_headseg_faceinfo* face_info;
     int face_count;
@@ -53,7 +53,7 @@ typedef struct
 
 typedef enum
 {
-    BEF_AI_HS_ENABLE_TRACKING = 1, // default set to 1 传递true 用于 防抖
+    BEF_AI_HS_ENABLE_TRACKING = 1, //  {zh} default set to 1 传递true 用于 防抖  {en} Default set to 1, pass true for anti-shake
     BEF_AI_HS_MAX_FACE = 2,
 } bef_ai_headseg_paramtype;
 
@@ -63,17 +63,20 @@ int BEF_AI_HSeg_CreateHandler(bef_ai_headseg_handle* out);
 BEF_SDK_API
 int BEF_AI_HSeg_CheckLicense(bef_ai_headseg_handle handle, const char* licensePath);
 
-//设置网络输入参数
+BEF_SDK_API
+int BEF_AI_HSeg_CheckOnlineLicense(bef_ai_headseg_handle handle, const char* licensePath);
+
+// {zh} 设置网络输入参数 {en} Set network input parameters
 BEF_SDK_API
 int BEF_AI_HSeg_SetConfig(bef_ai_headseg_handle handle, bef_ai_headseg_config* config);
 
-//设置模型参数
+// {zh} 设置模型参数 {en} Set model parameters
 BEF_SDK_API
 int BEF_AI_HSeg_SetModelFromBuff(bef_ai_headseg_handle handle,
                           const unsigned char* param,
                           unsigned int param_len);
 
-//设置模块参数
+// {zh} 设置模块参数 {en} Set module parameters
 BEF_SDK_API
 int BEF_AI_HSeg_SetParam(bef_ai_headseg_handle handle, bef_ai_headseg_paramtype type, float value);
 

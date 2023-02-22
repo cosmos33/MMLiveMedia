@@ -57,6 +57,13 @@ typedef NS_OPTIONS(NSUInteger, MLCameraSourceDetectorOption){
 typedef MLCameraSourceDetectorOption MLCameraSourceCVFeatureJSONOutputOption;
 
 OBJC_EXTERN NSString *const kMLDecorationManagerDecorationFilterAddedNotification;
+
+OBJC_EXTERN NSString *const kMLDecorationGridsFilterDidFinishAnimationNotification;
+
+OBJC_EXTERN NSString *const kMLCameraSourceDanceDetectorReason_TIME_OUT;
+OBJC_EXTERN NSString *const kMLCameraSourceDanceDetectorReason_USER;
+OBJC_EXTERN NSString *const kMLCameraSourceDanceDetectorReason_DETECT_SUCCESS;
+
 @interface MLCameraSourceVideoFrameBenchmark : NSObject <NSCopying>
 
 @property (atomic,readonly) NSTimeInterval faceDetectionInterval;
@@ -139,6 +146,10 @@ OBJC_EXTERN NSString *const kMLDecorationManagerDecorationFilterAddedNotificatio
         handFeatures:(NSArray <MMHandFeature *> *_Nullable)handFeatures;
 
 - (void)cameraSource:(MLCameraSource *)cameraSource faceFeatureVideoInfo:(id)info timeStamp:(CMTime)time;
+
+@optional
+- (void)cameraSource:(MLCameraSource *)cameraSource danceActionDetectorSuccess:(NSDictionary *)info;
+- (void)cameraSource:(MLCameraSource *)cameraSource danceActionDetectorRemoved:(NSDictionary *)info;
 @end
 
 
@@ -193,8 +204,8 @@ OBJC_EXTERN NSString *const kMLDecorationManagerDecorationFilterAddedNotificatio
 
 - (void)rotateCamera;
 
-// default , front YES,  back camera NOT support
-- (void)mirrorVideo:(BOOL)enable;
+// default , front YES,  back camera NOT support, return value: can be setted or not
+- (BOOL)mirrorVideo:(BOOL)enable;
 
 
 - (void)changeCameraVideoOrientation:(AVCaptureVideoOrientation)orientation;
@@ -277,6 +288,8 @@ OBJC_EXTERN NSString *const kMLDecorationManagerDecorationFilterAddedNotificatio
 - (void)updateBeautyItem:(MLContractBeautySourceItem *)item key:(NSString*)key intensity:(float)intensity;
 - (void)enableEnhanceByteDanceMakeUp:(BOOL)enable;
 
+- (void)useByteDanceLowFaceDetectInterval:(BOOL)open;
+
 - (void)setLipsSegmentEnable:(BOOL)lipsSegmentEnable;
 - (void)setBigModelEnable:(BOOL)bigModelEnable;
 
@@ -284,6 +297,26 @@ OBJC_EXTERN NSString *const kMLDecorationManagerDecorationFilterAddedNotificatio
 @property (nonatomic,readonly) BOOL isLightningRenderOn;
 
 - (NSString *)cameraParams;
+
+// gridsEffectControl
+- (void)addDeactiveGrids:(NSArray <NSNumber *>*)indexes animationDuration:(float)duration;
+- (void)resetAllGridsToDeactive;
+
+
+- (void)removeDeactiveGrids:(NSArray <NSNumber *>*)indexes; // no animation
+
+- (void)skipBeauty:(BOOL)skip;
+
+- (void)setupCameraPreset:(NSString *)preset postion:(AVCaptureDevicePosition)position;
+
+// default no
+- (void)cartoonFaceMultipleFaceProcessEnable:(BOOL)enable;
+// default no
+- (void)stylizeFaceMultipleFaceProcessEnable:(BOOL)enable;
+
+
+/// debug
+@property (nonatomic, assign, nullable) CVPixelBufferRef bufferToProcess_debug;
 @end
 
 @interface MLCameraSource (Analytics)
