@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import <LightningRender/XEngineRender.h>
-#import <MLContractCV/MLContractBeautySourceManager.h>
+
 #import <MLMediaFoundation/MLAudioPrism.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -16,12 +16,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) CGFloat preScale;
 @property (nonatomic, strong, nullable) MLAudioPrism *audioPrism;
+@property (nonatomic, assign) int orientation;
+@property (nonatomic, assign) BOOL useScaledLandmarks;
 
 + (instancetype)sharedInstance;
 
-- (void)addBeautyItems:(NSArray <MLContractBeautySourceItem *> *)items;
-- (void)removeBeautyItems:(NSArray <MLContractBeautySourceItem *> *)items;
-- (void)updateBeautyItem:(MLContractBeautySourceItem *)item key:(NSString*)key intensity:(float)intensity;
+
 
 // 处理PixelBuffer
 // @params inputPixelBuffer
@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (CVPixelBufferRef)processPixelBuffer:(CVPixelBufferRef)inputPixelBuffer;
 
 - (void)updateCVInfo:(XEngineCVInfo *)cvInfo;
+
 
 @end
 

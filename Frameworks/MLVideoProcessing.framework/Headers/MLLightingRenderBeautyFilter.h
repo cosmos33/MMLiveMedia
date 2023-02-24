@@ -8,6 +8,7 @@
 #import <Foundation/Foundation.h>
 #import <MetalPetal/MetalPetal.h>
 #import <MLMediaFoundation/MLAudioPrism.h>
+#import <MLContractCV/MLContractBeautySourceManager.h>
 NS_ASSUME_NONNULL_BEGIN
 
 
@@ -22,6 +23,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) BOOL cartoonFaceMultipleFaceProcessEnable;
 @property (nonatomic, assign) BOOL stylizeFaceMultipleFaceProcessEnable;
+
+
+- (void)addBeautyItems:(NSArray <MLContractBeautySourceItem *> *)items;
+- (void)removeBeautyItems:(NSArray <MLContractBeautySourceItem *> *)items;
+- (void)updateBeautyItem:(MLContractBeautySourceItem *)item key:(NSString*)key intensity:(float)intensity;
 @end
 
 NS_ASSUME_NONNULL_END
