@@ -11,7 +11,7 @@
 #import <MLContractCV/MLContractBeautySourceManager.h>
 NS_ASSUME_NONNULL_BEGIN
 
-
+@class MMFaceAdjustments;
 @interface MLLightingRenderBeautyFilter : NSObject<MTIUnaryFilter>
 @property (nonatomic, strong) MTIImage *inputImage;
 @property (nonatomic, assign) BOOL disable;
@@ -20,10 +20,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL useScaledLandmarks;
 - (void)updateCVInfo:(id)cvInfo;
 
+@property (nonatomic, assign) BOOL cartoonFaceEnable;
+@property (nonatomic, assign) BOOL stylizeFaceEnable;
 
 @property (nonatomic, assign) BOOL cartoonFaceMultipleFaceProcessEnable;
 @property (nonatomic, assign) BOOL stylizeFaceMultipleFaceProcessEnable;
 
+@property (nonatomic, strong, readonly) MMFaceAdjustments *adjustments;
 
 - (void)addBeautyItems:(NSArray <MLContractBeautySourceItem *> *)items;
 - (void)removeBeautyItems:(NSArray <MLContractBeautySourceItem *> *)items;

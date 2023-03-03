@@ -21,6 +21,24 @@
 @class MLContractBeautySourceItem;
 
 @interface MLMetalPetalVideoProcessor : NSObject<MLVideoProcessor>
+
+@property (nonatomic, readonly) BOOL shouldDetectFaces;
+@property (nonatomic, readonly) BOOL faceBeautifierIsEnabled;
+@property (nonatomic, readonly) BOOL hasFaceDecorations;
+@property (nonatomic, readonly) BOOL faceBeautyCanUseLowFrequencyDetection;
+@property (nonatomic, readonly) BOOL canUseLowFrequencyDetection;
+@property (nonatomic, readonly) BOOL shouldDetectBody;
+@property (nonatomic, readonly) BOOL shouldDetectExpression;
+@property (nonatomic, readonly) BOOL shouldSegmentImage;
+@property (nonatomic, readonly) BOOL shouldDetectHandGesture;
+@property (nonatomic, readonly) BOOL shouldDetectObject;
+@property (nonatomic, readonly) BOOL shouldDetectAnimoji;
+@property (nonatomic, readonly) BOOL shouldUse3DGame;
+@property (nonatomic, readonly) BOOL shouldCoverMasicWhenNoFace;
+@property (nonatomic, readonly) BOOL shouldProcessCartoonFace;
+@property (nonatomic, readonly) BOOL shouldProcessStylizeFace;
+
+
 @property (nonatomic, strong, readonly) MLAudioPrism <FDKAudioPrism>*audioPrism;
 @property (nonatomic, copy) CXBeautyConfiguration *deepBeautyConfiguration;
 @property (nonatomic, copy) NSArray <MLMetalPetalNativeViewItem *>*viewItems;

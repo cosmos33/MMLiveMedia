@@ -110,24 +110,6 @@ NS_ASSUME_NONNULL_BEGIN
 #endif
 
 
-@property (nonatomic,readonly) BOOL shouldDetectFaces;
-
-@property (nonatomic) BOOL faceBeautifierIsEnabled;
-@property (nonatomic) BOOL hasFaceDecorations;
-@property (nonatomic) BOOL faceBeautyCanUseLowFrequencyDetection;
-@property (nonatomic) BOOL canUseLowFrequencyDetection;
-@property (nonatomic) BOOL dokiEnable;
-@property (nonatomic) BOOL shouldDetectBody;
-@property (nonatomic) BOOL shouldDetectExpression;
-@property (nonatomic) BOOL shouldSegmentImage;
-@property (nonatomic) BOOL shouldDetectHandGesture;
-@property (nonatomic) BOOL shouldDetectObject;
-@property (nonatomic) BOOL shouldDetectAnimoji;
-@property (nonatomic) BOOL shouldUse3DGame;
-@property (nonatomic) BOOL shouldCoverMasicWhenNoFace;
-@property (nonatomic) BOOL shouldProcessCartoonFace;
-@property (nonatomic) BOOL shouldProcessStylizeFace;
-
 
 @property (nonatomic) NSUInteger handGestureType;
 
