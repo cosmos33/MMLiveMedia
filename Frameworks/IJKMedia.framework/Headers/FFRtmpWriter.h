@@ -8,10 +8,22 @@ typedef enum _RTMPAudioProfile{
     RTMP_AAC_HE_Profile,
     RTMP_AAC_HE_v2_Profile
 }RTMPAudioProfile;
+
+typedef struct send_history{
+    int bytes_input;
+    int bytes_output;
+    int bytes_dropped;
+    int audio_bytes_output;
+    int video_send_fps;
+    int64_t start_timeMs;
+    int64_t durationMs;
+}send_history;
+
+
 @protocol FFRtmpWriterDelegate <NSObject>
 - (void) writeFailedWithError:(NSError*)error;
 - (void) writeDropPacketsWithCache:(int32_t)lastDuration cache:(int32_t)curDuration audioDrop:(int32_t)aPackets videoDrop:(int32_t)vPackets;
-//- (void) netwowkTooSlow;
+- (void) netwowkSendTooSlow:(int64_t)elapsedTimeMs;
 @end
 
 @interface FFRtmpWriter : NSObject
@@ -26,6 +38,7 @@ typedef enum _RTMPAudioProfile{
 @property(nonatomic, assign) BOOL dropPacketFlag;
 @property(nonatomic, assign) int32_t cacheWarning;
 @property(nonatomic, assign) int32_t cacheNormal;
+@property(nonatomic, assign) BOOL enableFLVDynamicUpdateParams;
 
 
 - (instancetype) initWithStreamPath:(NSString *)path serverTime:(int64_t)serverTime;
@@ -45,6 +58,14 @@ typedef enum _RTMPAudioProfile{
             decodeTimestamp:(CMTime)dts
                 streamIndex:(NSUInteger)streamIndex
                  isKeyFrame:(BOOL)isKeyFrame;
+
+- (void) processEncodedData:(NSData*)data
+      presentationTimestamp:(CMTime)pts
+            decodeTimestamp:(CMTime)dts
+                streamIndex:(NSUInteger)streamIndex
+                 isKeyFrame:(BOOL)isKeyFrame
+                      width:(int)width
+                     height:(int)height;
 
 - (BOOL) finishWriting:(NSError**)error;
 -(void)setVideoExtradata:(NSData *) extradata;
@@ -71,4 +92,8 @@ typedef enum _RTMPAudioProfile{
 
 - (int)getAudioSendDuration;
 - (int)getVideoSentPackets;
+- (send_history *)getHistoryInfo;
+- (NSUInteger)getPacketQueueCount;
+- (int64_t)getInputTotalBytes;
+
 @end

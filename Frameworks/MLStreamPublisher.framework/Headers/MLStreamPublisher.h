@@ -9,8 +9,9 @@
 #endif
 #endif
 #endif
-
+#if IJK_ON
 #import "MLAudioSource.h"
+#endif
 #import "MLDomainAnalysis.h"
 #import "MLMediaAPI.h"
 #import "MLPublisherCameraConfiguration.h"

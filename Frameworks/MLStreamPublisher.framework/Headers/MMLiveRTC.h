@@ -179,6 +179,8 @@ udp下行观众的sei
 */
 - (void)MMLiveRTC:(MMLiveRTC*)pusher onConferenceRecordAudioPacket:(NSData *)data channel:(int)channel sampleRate:(int)sampleRate;
 
+- (void)MMLiveRTC:(MMLiveRTC*)pusher onConferencePlaybackAudioPacket:(NSData *)data channel:(int)channel sampleRate:(int)sampleRate;
+
 - (void)MMLiveRTC:(MMLiveRTC*)pusher recvStreamMessage:(NSString *)msg fromUID:(NSInteger)uid streamID:(NSInteger)sid;
 
 - (void)MMLiveRTC:(MMLiveRTC*)pusher onPlaybackAudioFrameBeforeMixing:(NSData *)audioData uid:(unsigned int)uid sampleRate:(int)sampleRate channels:(int)channels;
@@ -186,6 +188,18 @@ udp下行观众的sei
 - (void)MMLiveRTC:(MMLiveRTC*)pusher onScreenCaptureState:(NSUInteger)state errorCode:(NSUInteger)errorCode;
 
 - (void)MMLiveRTC:(MMLiveRTC*)pusher onVideoSizeChangedOfUid:(NSUInteger)uid size:(CGSize)size rotation:(NSInteger)rotation;
+
+- (void)MMLiveRTC:(MMLiveRTC*)pusher recvStreamMessageData:(NSData *)msgData fromUID:(NSInteger)uid streamID:(NSInteger)sid;
+
+- (void)MMLiveRTC:(MMLiveRTC*)pusher onEncodedVideoFrameReceived:(MLEncodedVideoFrameInfo *)encodedVideoFrameInfo;
+
+- (void)MMLiveRTC:(MMLiveRTC*)pusher remoteVideoStats:(NSUInteger)uid beforeAvSyncRelativeMs:(NSInteger)beforeAvSyncRelativeMs;
+
+- (void)MMLiveRTC:(MMLiveRTC*)pusher onRemoteConferenceVideoFrame:(CMSampleBufferRef)sampleBuffer userId:(uint32_t)uid;
+
+- (void)MMLiveRTC:(MMLiveRTC*)pusher onEvent:(NSString * _Nullable)vendor extension:(NSString *_Nullable)extension key:(NSString * _Nullable)key value:(NSString * _Nullable)value;
+
+- (void)MMLiveRTC:(MMLiveRTC*)pusher reportLocalVoicePitch:(double)voicePitch;
 
 @end
 
@@ -217,6 +231,8 @@ udp下行观众的sei
 * @return YES 代表传入成功， NO 代表传入失败
 */
 - (BOOL)pushExternalVideoSampleBuffer:(CMSampleBufferRef)sampleBuffer;
+
+- (void)pushExternalEncodedVideoFrameEx:(MLEncodedVideoFrameInfo *)encodedVideoFrameInfo;
 
 - (void)mediaSource:(id<MLStreamMediaSource>)source didOutputVideoSampleBuffer:(CMSampleBufferRef)sampleBuffer;
 
@@ -359,6 +375,18 @@ udp下行观众的sei
 - (void)setGetConferenceRecordAudio:(BOOL)enable;
 
 /**
+是否获取远端主播声音
+@param enable  YES 上报主播的音频 ,NO 不上报主播的音频
+*/
+- (void)setGetConferencePlaybackAudio:(BOOL)enable;
+
+/**
+是否获取连线主播声音
+@param enable  YES 上报主播的音频 ,NO 不上报主播的音频
+*/
+- (void)setGetConferenceAllAudio:(BOOL)enable;
+
+/**
 调整远端用户的音量
 @param volumeScale 音量
 @param userId 用户id
@@ -456,6 +484,23 @@ udp下行观众的sei
 - (void)updateChannelWithMediaOptions:(MMLiveRtcChannelMediaOptions *)mediaOptions;
 
 - (void)setBusinessType:(NSInteger)businessType;
+
+- (int64_t)getCurrentMonotonicTimeInMs;
+
+- (void)setVideoMaxDelay:(int)maxDelayMs;
+    
+- (void)setAudioMaxDelay:(int)maxDelayMs;
+
+- (int)enableExtensionWithVendor:(NSString * __nonnull)provider extension:(NSString * __nonnull)extension enabled:(BOOL)enabled;
+    
+- (int)setExtensionPropertyWithVendor:(NSString * __nonnull)provider
+                                extension:(NSString * __nonnull)extension
+                                      key:(NSString * __nonnull)key
+                                    value:(NSString * __nonnull)value;
+
+- (int)setExtensionProviderPropertyWithVendor:(NSString * __nonnull)provider
+                                          key:(NSString * __nonnull)key
+                                        value:(NSString * __nonnull)value;
 
 @end
 

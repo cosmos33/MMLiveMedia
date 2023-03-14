@@ -98,6 +98,6 @@ typedef NS_OPTIONS(NSUInteger, MDIJKPlayerConfigsMask) {
     MDIJKPlayerConfigsMaskNotManageIdleTimer = 1 << 17, //是否不由播放器管理IdleTimer
     MDIJKPlayerConfigsMaskNoFastFindStream = 1 << 18, //是否不使用fastFindStream
     MDIJKPlayerConfigsMaskAudioQueueRestartEnable = 1 << 19, //是否重启audioqueue
-    MDIJKPlayerConfigsMaskVideoDecodeFormat420fEnable = 1 << 20 //是否视频解码为420f
-
+    MDIJKPlayerConfigsMaskVideoDecodeFormat420fEnable = 1 << 20, //是否视频解码为420f
+    MDIJKPlayerConfigsMaskDisableIPv6 = 1 << 21 // 是否禁用IPv6
 };

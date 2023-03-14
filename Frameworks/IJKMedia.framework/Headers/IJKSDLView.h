@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol IJKSDLGLViewDelegate <NSObject>
 @optional
 - (CVPixelBufferRef)ijkSDLGLView:(IJKSDLView *)view beautyFilter:(CVPixelBufferRef)oldBuffer;
+- (void)ijkSDLGLView:(IJKSDLView *)view error:(NSError *)error;
 
 @end;
 
@@ -24,7 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) display: (void *) overlay;
 - (void) clearContent;
 
-- (UIImage*) snapshot;
+- (UIImage*)snapshotThreadSafe;
+- (UIImage*)snapshot;
 - (void)toggleGLPaused:(BOOL)paused;
 
 @property(nonatomic,weak) id<IJKSDLGLViewDelegate>  delegate;

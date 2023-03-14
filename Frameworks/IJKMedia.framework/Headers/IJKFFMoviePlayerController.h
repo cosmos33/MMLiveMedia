@@ -264,6 +264,13 @@ typedef NS_ENUM(NSUInteger, IJKFFMoviePlayerControllerRenderApi) {
 - (void)setDynamicBuffer:(BOOL)enable;
 
 - (void)setMaxDropBaseCache:(int)max_drop_base;
+
+- (void)setEnableHevcCreateDescFromExtradata:(BOOL)enable;
+
+- (void)setEnableHevcNewReorderAlgorithom:(BOOL)enable;
+
+- (void)setEnableIOSurface:(BOOL)enable;
+
 @end
 
 #define IJK_FF_IO_TYPE_READ (1)

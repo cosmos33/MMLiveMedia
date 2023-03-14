@@ -135,6 +135,8 @@ IJK_EXTERN NSString *const IJKMoviePlayerPlaybackSetActivePlayFailed;
 IJK_EXTERN NSString *const IJKMoviePlayerPlaybackAudioQueueInterrupt;
 IJK_EXTERN NSString *const IJKMoviePlayerPlaybackAudioSessionRouteChange;
 
+IJK_EXTERN NSString *const IJKMoviePlayerPlaybackSwitchToFFmpegNotification;
+
 @end
 
 #pragma mark IJKMediaResource
