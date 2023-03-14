@@ -175,13 +175,33 @@ udp下行观众的sei
 
 /**
 * 获取RTC主播自己的声音
-*
 * @param data 音频pcm数据
 * @param channel 声道数
 * @param sampleRate 采样率
 */
 - (void)MMLiveEnginePusher:(MMLiveEngine *)engine onConferenceRecordAudioPacket:(NSData *)data channel:(int)channel sampleRate:(int)sampleRate;
 
+/**
+* 获取RTC远端的声音
+* @param data 音频pcm数据
+* @param channel 声道数
+* @param sampleRate 采样率
+*/
+- (void)MMLiveEnginePusher:(MMLiveEngine *)engine onConferencePlaybackAudioPacket:(NSData *)data channel:(int)channel sampleRate:(int)sampleRate;
+
+/**
+* 获取RTC远端用户视频帧
+* @param sampleBuffer 视频帧
+* @param uid 用户ID
+*/
+- (void)MMLiveEnginePusher:(MMLiveEngine *)engine onRemoteConferenceVideoFrame:(CMSampleBufferRef)sampleBuffer userId:(uint32_t)uid;
+
+/**
+* 获取RTC Data Stream Msg NSString Fromat
+* @param msg 消息信息
+* @param uid 用户id
+* @param sid 流id
+*/
 - (void)MMLiveEnginePusher:(MMLiveEngine *)engine recvStreamMessage:(NSString *)msg fromUID:(NSInteger)uid streamID:(NSInteger)sid;
 
 - (void)MMLiveEnginePusher:(MMLiveEngine *)engine onPlaybackAudioFrameBeforeMixing:(NSData *)audioData uid:(unsigned int)uid sampleRate:(int)sampleRate channels:(int)channels;
@@ -189,6 +209,47 @@ udp下行观众的sei
 - (void)MMLiveEnginePusher:(MMLiveEngine *)engine onScreenCaptureState:(NSUInteger)state errorCode:(NSUInteger)errorCode;
 
 - (void)MMLiveEnginePusher:(MMLiveEngine *)engine onVideoSizeChangedOfUid:(NSUInteger)uid size:(CGSize)size rotation:(NSInteger)rotation;
+
+/**
+* 获取RTC远端主播音频数据
+* @param audioData 音频pcm数据
+* @param uid 用户id
+* @param channels 声道数
+* @param sampleRate 采样率
+*/
+- (void)MMLiveEnginePusher:(MMLiveEngine *)engine onPlaybackAudioFrameBeforeMixing:(NSData *)audioData uid:(unsigned int)uid sampleRate:(int)sampleRate channels:(int)channels;
+
+/**
+* 获取RTC Data Stream Msg NSData fromat
+* @param msgData 消息信息
+* @param uid 用户id
+* @param sid 流id
+*/
+- (void)MMLiveEnginePusher:(MMLiveEngine *)engine recvStreamMessageData:(NSData *)msgData fromUID:(NSInteger)uid streamID:(NSInteger)sid;
+
+/**
+* 获取RTC Encoded Video Frame
+* @param encodedVideoFrameInfo 视频帧信息
+*/
+- (void)MMLiveEnginePusher:(MMLiveEngine *)engine onEncodedVideoFrameReceived:(MLEncodedVideoFrameInfo *)encodedVideoFrameInfo;
+
+/**
+* 获取RTC 音视频同步数据
+* @param beforeAvSyncRelativeMs 音视频同步差值
+*/
+- (void)MMLiveEnginePusher:(MMLiveEngine *)engine remoteVideoStats:(NSUInteger)uid beforeAvSyncRelativeMs:(NSInteger)beforeAvSyncRelativeMs;
+
+/**
+* 获取RTC主播自己的声音和远端声音
+* @param data 音频pcm数据
+* @param channel 声道数
+* @param sampleRate 采样率
+*/
+- (void)MMLiveEnginePusher:(MMLiveEngine *)engine onConferenceAllAudioPacket:(NSData *)data channel:(int)channel sampleRate:(int)sampleRate;
+
+- (void)MMLiveEnginePusher:(MMLiveEngine *)engine onEvent:(NSString * _Nullable)vendor extension:(NSString *_Nullable)extension key:(NSString * _Nullable)key value:(NSString * _Nullable)value;
+
+- (void)MMLiveEnginePusher:(MMLiveEngine *)engine reportLocalVoicePitch:(double)voicePitch;
 
 @end
 
@@ -287,7 +348,9 @@ udp下行观众的sei
 @property (nonatomic, readonly, strong) MMLiveMediaConfig *pusherConfig;
 @property (nonatomic, readonly, copy) NSString *rtmpURL;
 @property (nonatomic, strong) MMLiveUserConfig* userConfig;
+#if CAMERA_ON
 @property (nonatomic, strong, readonly) MLCameraSource *cameraSource;
+#endif
 
 - (instancetype) initUserConfig:(MMLiveUserConfig *)config engineType:(MMLiveEngineType)type;
 
@@ -335,7 +398,9 @@ udp下行观众的sei
 *
 * @param beautyType 0 old, 1 new, 2 douyin . default -1. only if (> -1), 'dokiBeautyEnable' is available
 */
+#if CAMERA_ON
 - (void)setUseBeautyType:(MLCameraSourceBeautyType)beautyType;
+#endif
 
 @property (nonatomic) BOOL isLightningRenderOn;
 
@@ -366,7 +431,9 @@ udp下行观众的sei
 */
 - (int)switchCamera;
 
+#if CAMERA_ON
 - (MLCameraSource *)getCurrentCameraSource;
+#endif
 /**
 * 用户传入自己图像
 *
@@ -375,6 +442,8 @@ udp下行观众的sei
 */
 - (BOOL)pushExternalVideoSampleBuffer:(CMSampleBufferRef)sampleBuffer;
 
+- (void)pushExternalEncodedVideoFrameEx:(MLEncodedVideoFrameInfo *)encodedVideoFrameInfo;
+
 /**
 * 用户传入自己音频
 *
@@ -382,6 +451,7 @@ udp下行观众的sei
 * @return YES 代表传入成功， NO 代表传入失败
 */
 - (BOOL)pushExternalAudioSampleBuffer:(CMSampleBufferRef)sampleBuffer;
+
 #pragma mark - 美颜特效
 
 /**
@@ -797,6 +867,18 @@ udp下行观众的sei
 - (void)setGetConferenceRecordAudio:(BOOL)enable;
 
 /**
+是否获取远端主播声音
+@param enable  YES 上报主播的音频 ,NO 不上报主播的音频
+*/
+- (void)setGetConferencePlaybackAudio:(BOOL)enable;
+
+/**
+是否获取连线主播声音
+@param enable  YES 上报主播的音频 ,NO 不上报主播的音频
+*/
+- (void)setGetConferenceAllAudio:(BOOL)enable;
+
+/**
 设置视频混流背景图
 @param imgUrl 图片网络地址
 */
@@ -845,6 +927,30 @@ udp下行观众的sei
 - (void)updateChannelWithMediaOptions:(MMLiveRtcChannelMediaOptions *)mediaOptions;
 
 - (void)setBusinessType:(NSInteger)businessType;
+/**
+获取时间戳接口
+*/
+- (int64_t)getCurrentMonotonicTimeInMs;
+
+/**
+设置agora视频最大延迟
+*/
+- (void)setVideoMaxDelay:(int)maxDelayMs;
+/**
+设置agora音频最大延迟
+*/
+- (void)setAudioMaxDelay:(int)maxDelayMs;
+
+- (int)enableExtensionWithVendor:(NSString * __nonnull)provider extension:(NSString * __nonnull)extension enabled:(BOOL)enabled;
+    
+- (int)setExtensionPropertyWithVendor:(NSString * __nonnull)provider
+                                extension:(NSString * __nonnull)extension
+                                      key:(NSString * __nonnull)key
+                                    value:(NSString * __nonnull)value;
+
+- (int)setExtensionProviderPropertyWithVendor:(NSString * __nonnull)provider
+                                          key:(NSString * __nonnull)key
+                                        value:(NSString * __nonnull)value;
 
 #pragma mark - 切换推流器
 
@@ -1126,6 +1232,14 @@ udp下行观众的sei
 * @param msg 消息内容
 */
 - (int)sendStreamMessage:(NSInteger)streamId msg:(NSString *)msg;
+
+/**
+* 数据流发送消息
+*
+* @param streamId 流id
+* @param msg 消息内容
+*/
+- (int)sendStreamMessage:(NSInteger)streamId msgData:(NSData *)msgData;
 
 /**
 * 音效
