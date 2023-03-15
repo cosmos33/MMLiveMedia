@@ -92,9 +92,6 @@
 */
 - (void)MMLiveRTC:(MMLiveRTC *)pusher didOccurError:(RTCErrorCode)errorCode type:(MMLivePushType)type;
 
-
-- (void)MMLiveRTC:(MMLiveRTC *)pusher onConferenceAudioPacket:(NSData *)data audioInfo:(NSDictionary *)audioInfo type:(MMLivePushType)type;
-
 /**
 音乐播放开始
 */
@@ -170,6 +167,8 @@ udp下行观众的sei
 // 获取源数据
 - (CVPixelBufferRef)MMLiveRTC:(MMLiveRTC *)publisher rawData:(CVPixelBufferRef)rawdata type:(MMLivePushType)type;
 
+- (void)MMLiveRTC:(MMLiveRTC *)pusher onConferenceAudioPacket:(NSData *)data audioInfo:(NSDictionary *)audioInfo type:(MMLivePushType)type;
+
 /**
 * 获取RTC主播自己的声音
 *
@@ -177,9 +176,12 @@ udp下行观众的sei
 * @param channel 声道数
 * @param sampleRate 采样率
 */
+
 - (void)MMLiveRTC:(MMLiveRTC*)pusher onConferenceRecordAudioPacket:(NSData *)data channel:(int)channel sampleRate:(int)sampleRate;
 
 - (void)MMLiveRTC:(MMLiveRTC*)pusher onConferencePlaybackAudioPacket:(NSData *)data channel:(int)channel sampleRate:(int)sampleRate;
+
+- (void)MMLiveRTC:(MMLiveRTC*)pusher onConferenceAllAudioPacket:(NSData *)data channel:(int)channel sampleRate:(int)sampleRate;
 
 - (void)MMLiveRTC:(MMLiveRTC*)pusher recvStreamMessage:(NSString *)msg fromUID:(NSInteger)uid streamID:(NSInteger)sid;
 
