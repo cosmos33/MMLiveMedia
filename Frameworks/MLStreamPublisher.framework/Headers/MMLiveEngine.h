@@ -190,6 +190,23 @@ udp下行观众的sei
 - (void)MMLiveEnginePusher:(MMLiveEngine *)engine onConferencePlaybackAudioPacket:(NSData *)data channel:(int)channel sampleRate:(int)sampleRate;
 
 /**
+* 获取RTC远端单个主播音频数据
+* @param audioData 音频pcm数据
+* @param uid 用户id
+* @param channels 声道数
+* @param sampleRate 采样率
+*/
+- (void)MMLiveEnginePusher:(MMLiveEngine *)engine onPlaybackAudioFrameBeforeMixing:(NSData *)audioData uid:(unsigned int)uid sampleRate:(int)sampleRate channels:(int)channels;
+
+/**
+* 获取RTC主播自己和远端mix后的PCM数据
+* @param data 音频pcm数据
+* @param channel 声道数
+* @param sampleRate 采样率
+*/
+- (void)MMLiveEnginePusher:(MMLiveEngine *)engine onConferenceAllAudioPacket:(NSData *)data channel:(int)channel sampleRate:(int)sampleRate;
+
+/**
 * 获取RTC远端用户视频帧
 * @param sampleBuffer 视频帧
 * @param uid 用户ID
@@ -204,21 +221,6 @@ udp下行观众的sei
 */
 - (void)MMLiveEnginePusher:(MMLiveEngine *)engine recvStreamMessage:(NSString *)msg fromUID:(NSInteger)uid streamID:(NSInteger)sid;
 
-- (void)MMLiveEnginePusher:(MMLiveEngine *)engine onPlaybackAudioFrameBeforeMixing:(NSData *)audioData uid:(unsigned int)uid sampleRate:(int)sampleRate channels:(int)channels;
-
-- (void)MMLiveEnginePusher:(MMLiveEngine *)engine onScreenCaptureState:(NSUInteger)state errorCode:(NSUInteger)errorCode;
-
-- (void)MMLiveEnginePusher:(MMLiveEngine *)engine onVideoSizeChangedOfUid:(NSUInteger)uid size:(CGSize)size rotation:(NSInteger)rotation;
-
-/**
-* 获取RTC远端主播音频数据
-* @param audioData 音频pcm数据
-* @param uid 用户id
-* @param channels 声道数
-* @param sampleRate 采样率
-*/
-- (void)MMLiveEnginePusher:(MMLiveEngine *)engine onPlaybackAudioFrameBeforeMixing:(NSData *)audioData uid:(unsigned int)uid sampleRate:(int)sampleRate channels:(int)channels;
-
 /**
 * 获取RTC Data Stream Msg NSData fromat
 * @param msgData 消息信息
@@ -226,6 +228,21 @@ udp下行观众的sei
 * @param sid 流id
 */
 - (void)MMLiveEnginePusher:(MMLiveEngine *)engine recvStreamMessageData:(NSData *)msgData fromUID:(NSInteger)uid streamID:(NSInteger)sid;
+
+/**
+* 屏幕共享状态回调
+* @param state 当前状态
+* @param errorCode 错误码
+*/
+- (void)MMLiveEnginePusher:(MMLiveEngine *)engine onScreenCaptureState:(NSUInteger)state errorCode:(NSUInteger)errorCode;
+
+/**
+* 视频分辨率变化回调
+* @param uid 用户id
+* @param size 当前分辨率
+* @param rotation 旋转角度
+*/
+- (void)MMLiveEnginePusher:(MMLiveEngine *)engine onVideoSizeChangedOfUid:(NSUInteger)uid size:(CGSize)size rotation:(NSInteger)rotation;
 
 /**
 * 获取RTC Encoded Video Frame
@@ -238,14 +255,6 @@ udp下行观众的sei
 * @param beforeAvSyncRelativeMs 音视频同步差值
 */
 - (void)MMLiveEnginePusher:(MMLiveEngine *)engine remoteVideoStats:(NSUInteger)uid beforeAvSyncRelativeMs:(NSInteger)beforeAvSyncRelativeMs;
-
-/**
-* 获取RTC主播自己的声音和远端声音
-* @param data 音频pcm数据
-* @param channel 声道数
-* @param sampleRate 采样率
-*/
-- (void)MMLiveEnginePusher:(MMLiveEngine *)engine onConferenceAllAudioPacket:(NSData *)data channel:(int)channel sampleRate:(int)sampleRate;
 
 - (void)MMLiveEnginePusher:(MMLiveEngine *)engine onEvent:(NSString * _Nullable)vendor extension:(NSString *_Nullable)extension key:(NSString * _Nullable)key value:(NSString * _Nullable)value;
 
