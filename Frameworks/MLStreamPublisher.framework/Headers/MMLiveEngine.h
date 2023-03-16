@@ -8,6 +8,7 @@
 #ifndef MMLiveEngine_h
 #define MMLiveEngine_h
 #import <Foundation/Foundation.h>
+#import "MomoConstructConfig.h"
 #if CAMERA_ON
 #import <MLVideoProcessing/MLCameraSource.h>
 #endif
