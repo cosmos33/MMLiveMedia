@@ -13,6 +13,7 @@
 #import <AgoraRtcKit/IAgoraRtcEngine.h>
 #import <AgoraRtcKit/AgoraMediaBase.h>
 #import <pthread.h>
+#import "MomoConstructConfig.h"
 
 using namespace agora;
 using namespace agora::media;
