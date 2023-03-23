@@ -91,6 +91,17 @@ class JsonWrapper;
 
 typedef commons::cjson::JsonWrapper any_document_t;
 
+namespace base {
+class IEngineBase;
+
+class IParameterEngine {
+ public:
+  virtual int setParameters(const char* parameters) = 0;
+  virtual int getParameters(const char* key, any_document_t& result) = 0;
+  virtual ~IParameterEngine() {}
+};
+}  // namespace base
+
 namespace util {
 
 template <class T>
@@ -5456,28 +5467,3 @@ AGORA_API void setAgoraLicenseCallback(agora::base::LicenseCallback *callback);
  */
 
 AGORA_API agora::base::LicenseCallback* getAgoraLicenseCallback();
-
-/*
- * Get monotonic time in ms which can be used by capture time,
- * typical scenario is as follows:
- * 
- *  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- *  |  // custom audio/video base capture time, e.g. the first audio/video capture time.             |
- *  |  int64_t custom_capture_time_base;                                                             |
- *  |                                                                                                |
- *  |  int64_t agora_monotonic_time = getAgoraCurrentMonotonicTimeInMs();                            |
- *  |                                                                                                |
- *  |  // offset is fixed once calculated in the begining.                                           |
- *  |  const int64_t offset = agora_monotonic_time - custom_capture_time_base;                       |
- *  |                                                                                                |
- *  |  // realtime_custom_audio/video_capture_time is the origin capture time that customer provided.|
- *  |  // actual_audio/video_capture_time is the actual capture time transfered to sdk.              |
- *  |  int64_t actual_audio_capture_time = realtime_custom_audio_capture_time + offset;              |
- *  |  int64_t actual_video_capture_time = realtime_custom_video_capture_time + offset;              |
- *  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- * 
- * @return
- * - >= 0: Success.
- * - < 0: Failure.
- */
-AGORA_API int64_t getAgoraCurrentMonotonicTimeInMs();

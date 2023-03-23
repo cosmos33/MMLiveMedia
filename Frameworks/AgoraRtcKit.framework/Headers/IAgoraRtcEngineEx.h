@@ -1063,27 +1063,6 @@ public:
 
     virtual int enableLoopbackRecordingEx(const RtcConnection& connection, bool enabled, const char* deviceName = NULL) = 0;
 
-    /**
-     * Adjust the playback signal volume of a specified remote user.
-     * You can call this method as many times as necessary to adjust the playback volume of different remote users, or to repeatedly adjust the playback volume of the same remote user.
-     * 
-     * @note
-     * The playback volume here refers to the mixed volume of a specified remote user.
-     * This method can only adjust the playback volume of one specified remote user at a time. To adjust the playback volume of different remote users, call the method as many times, once for each remote user.
-     * 
-     * @param uid The ID of the remote user.
-     * @param volume The playback volume of the specified remote user. The value ranges between 0 and 400, including the following:
-     * 
-     * - 0: Mute.
-     * - 100: (Default) Original volume.
-     * @param connection  RtcConnection
-     * 
-     * @return
-     * - 0: Success.
-     * - < 0: Failure.
-     */    
-    virtual int adjustUserPlaybackSignalVolumeEx(unsigned int uid, int volume, const RtcConnection& connection) = 0;
-
     virtual CONNECTION_STATE_TYPE getConnectionStateEx(const RtcConnection& connection) = 0;
 
     virtual int enableEncryptionEx(const RtcConnection& connection, bool enabled, const EncryptionConfig& config) = 0;

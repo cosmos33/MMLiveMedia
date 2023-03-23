@@ -596,9 +596,6 @@ struct ExternalVideoFrame {
   /**
    * The timestamp (ms) of the incoming video frame. An incorrect timestamp results in a frame loss or
    * unsynchronized audio and video.
-   * 
-   * Please refer to getAgoraCurrentMonotonicTimeInMs or getCurrentMonotonicTimeInMs
-   * to determine how to fill this filed.
    */
   long long timestamp;
   /**

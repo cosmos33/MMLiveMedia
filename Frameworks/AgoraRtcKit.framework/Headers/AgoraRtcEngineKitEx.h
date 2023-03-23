@@ -433,32 +433,6 @@ NS_ASSUME_NONNULL_BEGIN
                       connection:(AgoraRtcConnection * _Nonnull)connection;;
 #endif
 
-/** Adjust the playback signal volume of a specified remote user.
-
- You can call this method as many times as necessary to adjust the playback volume of different remote users, or to repeatedly adjust the playback volume of the same remote user.
-
- **Note**
-
- - The playback volume here refers to the mixed volume of a specified remote user.
- - This method can only adjust the playback volume of one specified remote user at a time. To adjust the playback volume of different remote users, call the method as many times, once for each remote user.
-
- @param uid The ID of the remote user.
- @param volume The playback volume of the specified remote user. The value
- ranges between 0 and 400, including the following:
-
- - 0: Mute.
- - 100: (Default) Original volume.
- @param connection  \ref AgoraRtcConnection by channelId and uid combine
-
- @return
- - 0: Success.
- - < 0: Failure.
- */
-
-- (int)adjustUserPlaybackSignalVolumeEx:(NSUInteger)uid
-                              volume:(NSInteger)volume
-                          connection:(AgoraRtcConnection* _Nonnull)connection;
-
 - (int)sendCustomReportMessageEx:(NSString * _Nullable)messageId
                         category:(NSString * _Nullable)category
                            event:(NSString * _Nullable)event

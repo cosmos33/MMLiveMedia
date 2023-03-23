@@ -717,11 +717,6 @@ __attribute__((visibility("default"))) @interface AgoraRtcRemoteVideoStats : NSO
  * Total number of video bytes received (bytes), represented by an aggregate value.
  */
 @property(assign, nonatomic) NSUInteger rxVideoBytes;
-/**
-  * The audio/video relative time diff before av sync;
-  */
-@property(assign, nonatomic) NSInteger beforeAvSyncRelativeMs;  
-
 @end
 
 /**
@@ -1275,27 +1270,27 @@ If you set this parameter to other values, Agora adjusts it to the default value
 /** Reserved property. Extra user-defined information to send SEI for the H.264/H.265 video stream to the CDN live client. Maximum length: 4096 bytes. For more information on SEI, see [SEI-related questions](https://docs.agora.io/en/faq/sei).
  */
 @property(copy, nonatomic) NSString* _Nullable transcodingExtraInfo;
-/** @deprecated Use watermarkArray instead.
-The watermark image added to the CDN live publishing stream.
-The audience of the CDN live publishing stream can see the watermark. Ensure that the format of the image is PNG.. See AgoraImage.
+/** The watermark image added to the CDN live publishing stream.
+
+The audience of the CDN live publishing stream can see the watermark. Ensure that the format of the image is PNG.
+
+See AgoraImage for the definition of the watermark.
  */
 @property(strong, nonatomic) AgoraImage* _Nullable watermark;
 
-/** The array of watermark images added to the CDN live publishing stream.
-You can use `watermarkArray` to add one or more watermarks. Ensure that the format of the image is PNG. See AgoraImage.
-The total number of watermarks and background images on the live video must be greater than or equal to 0 and less than or equal to 10.
+/**
+ * add few watermarks
  */
 @property(copy, nonatomic) NSArray<AgoraImage*>* _Nullable watermarkArray;
 
-/** @deprecated Use backgroundImageArray instead.
-The background image added to the CDN live publishing stream.
-The audience of the CDN live publishing stream can see the background image. Ensure that the format of the image is PNG. See AgoraImage.
+/** The background image added to the CDN live publishing stream.
+
+The audience of the CDN live publishing stream can see the background image. See AgoraImage for the definition of the background image.
  */
 @property(strong, nonatomic) AgoraImage* _Nullable backgroundImage;
 
-/** The array of background images added to the CDN live publishing stream.
-You can use `backgroundImageArray` to add one or more background images. Ensure that the format of the image is PNG. See AgoraImage. 
-The total number of watermarks and background images on the live video must be greater than or equal to 0 and less than or equal to 10.
+/**
+ * add few backgroundImage
  */
 @property(copy, nonatomic) NSArray<AgoraImage*>* _Nullable backgroundImageArray;
 

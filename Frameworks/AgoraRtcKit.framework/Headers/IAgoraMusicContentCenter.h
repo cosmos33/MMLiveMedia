@@ -275,7 +275,7 @@ public:
      * - 0: Success.
      * - < 0: Failure.
      */
-    virtual int renewToken(const char* token) = 0;
+    virtual int renewRtmToken(const char* token) = 0;
 
     /**
      * release music content center resource.

@@ -22,7 +22,7 @@
  * The AgoraAudioFrameDelegate protocol enables audio frame callback event notifications to your application.
  */
 @protocol AgoraAudioFrameDelegate <NSObject>
-@optional
+@required
 
 /**
  * Occurs when the recorded audio frame is received.
@@ -5019,32 +5019,7 @@ This method requires hardware support.
  */
 - (int)adjustCustomAudioPlayoutVolume:(NSInteger)sourceId volume:(NSInteger)volume;
 
-/*
- * Get monotonic time in ms which can be used by capture time,
- * typical scenario is as follows:
- * 
- *  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- *  |  // custom audio/video base capture time, e.g. the first audio/video capture time.             |
- *  |  int64_t custom_capture_time_base;                                                             |
- *  |                                                                                                |
- *  |  int64_t agora_monotonic_time = getAgoraCurrentMonotonicTimeInMs();                            |
- *  |                                                                                                |
- *  |  // offset is fixed once calculated in the begining.                                           |
- *  |  const int64_t offset = agora_monotonic_time - custom_capture_time_base;                       |
- *  |                                                                                                |
- *  |  // realtime_custom_audio/video_capture_time is the origin capture time that customer provided.|
- *  |  // actual_audio/video_capture_time is the actual capture time transfered to sdk.              |
- *  |  int64_t actual_audio_capture_time = realtime_custom_audio_capture_time + offset;              |
- *  |  int64_t actual_video_capture_time = realtime_custom_video_capture_time + offset;              |
- *  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- * 
- * @return
- * - >= 0: Success.
- * - < 0: Failure.
- */
-- (int64_t)getCurrentMonotonicTimeInMs;
-
-#pragma mark Audio spectrum monitor   
+#pragma mark Audio spectrum monitor
 
 /**
  * Enable the audio spectrum monitor.
@@ -6304,12 +6279,6 @@ description:(NSString * _Nullable)description;
  */
 - (NSString * _Nullable)getParameter:(NSString * _Nonnull)parameter
                                 args:(NSString * _Nullable)args;
-
-
-/**
- * Return current NTP(Network Time Protocol) time in milliseconds.
- */
-- (NSInteger)getNtpTimeInMs;
 
 #pragma mark MediaPlayer
 /**-----------------------------------------------------------------------------

@@ -1151,21 +1151,11 @@ typedef NS_ENUM(NSUInteger, AgoraAudioRemoteReason) {
 
 /** Stream fallback option */
 typedef NS_ENUM(NSInteger, AgoraStreamFallbackOptions) {
-    /** 
-     * No fallback operation for the stream when the network condition is poor. The stream quality cannot be guaranteed.
-     */
+    /** Default option */
     AgoraStreamFallbackOptionDisabled = 0,
-    /** 
-     * Default option.
-     * Under poor network conditions, the SDK will send or receive AgoraVideoStreamTypeLow.
-     * You can only set this option in [setRemoteSubscribeFallbackOption]([AgoraRtcEngineKit setRemoteSubscribeFallbackOption:]).
-     * Nothing happens when you set this in [setLocalPublishFallbackOption]([AgoraRtcEngineKit setLocalPublishFallbackOption:]).
-     */
+    /** Under poor network conditions, the SDK will send or receive AgoraVideoStreamTypeLow. You can only set this option in [setRemoteSubscribeFallbackOption]([AgoraRtcEngineKit setRemoteSubscribeFallbackOption:]). Nothing happens when you set this in  [setLocalPublishFallbackOption]([AgoraRtcEngineKit setLocalPublishFallbackOption:]). */
     AgoraStreamFallbackOptionVideoStreamLow = 1,
-    /** 
-     * Under poor network conditions, the SDK may receive AgoraVideoStreamTypeLow first.
-     * But if the network still does not allow displaying the video, the SDK will send or receive audio only.
-     */
+    /** Under poor network conditions, the SDK may receive AgoraVideoStreamTypeLow first, but if the network still does not allow displaying the video, the SDK will send or receive audio only. */
     AgoraStreamFallbackOptionAudioOnly = 2,
 };
 
