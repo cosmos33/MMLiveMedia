@@ -8,7 +8,6 @@
 #ifndef MMLiveRTMPPush_h
 #define MMLiveRTMPPush_h
 #import <Foundation/Foundation.h>
-#import "MomoConstructConfig.h"
 #import "MMCommonParam.h"
 #import <CoreMedia/CoreMedia.h>
 @class MMLiveRTMPPush;
