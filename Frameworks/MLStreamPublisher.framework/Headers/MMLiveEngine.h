@@ -159,6 +159,11 @@
 - (void)MMLiveEnginePusher:(MMLiveEngine *)engine reportAudioVolumeIndicationOfSpeakers:(NSDictionary *)volumes type:(MMLivePushType)type;
 
 /**
+连线本地用户人声检测vad  0：本地无人声 1：本地有人声
+*/
+- (void)MMLiveEnginePusher:(MMLiveEngine *)engine reportLocalVoiceVad:(NSInteger)vad;
+
+/**
 udp下行观众的sei
 */
 - (void)MMLiveEnginePusher:(MMLiveEngine *)engine didReceiveSEI:(NSString *)sei type:(MMLivePushType)type;
