@@ -9,7 +9,9 @@
 #define MMCommonParam_h
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-
+#ifndef CAMERA_ON
+#define CAMERA_ON 1
+#endif
 typedef enum {
     MMLivePlayerStatusPlaying = 0, //播放中
     MMLivePlayerStatusBuffering = 1, //播放加载中
@@ -130,9 +132,6 @@ typedef NS_ENUM(NSUInteger, MMLiveAudioMixingDualMonoMode) {
 @property (nonatomic, copy) NSString *channel;//连线房间ID
 @property (nonatomic, copy) NSString *channelKey;//连线进房的密钥
 @property (nonatomic, copy) NSString *userSign;//腾讯进房签名
-@property (nonatomic, assign) BOOL enableExtensionWithVendor;
-@property (nonatomic, strong) NSString *provider;
-@property (nonatomic, strong) NSString *extension;
 - (NSString*) getConfigString;
 @end
 
@@ -171,8 +170,6 @@ typedef NS_ENUM(NSUInteger, MMLiveAudioMixingDualMonoMode) {
 @property (nonatomic) MMLiveVideoCodecType videoCodecType;//视频编码类型
 @property (nonatomic, copy) NSString *url;//推流地址
 @property (nonatomic) BOOL isAudioMainQueue; //音频采集是否在主线程,YES 在主线程，NO 非主线程,默认是走主线程
-@property (nonatomic, assign) BOOL enablePushEncodedVideoFrame;
-@property (nonatomic, assign) BOOL enableRemoteVideoSelfRender;
 - (NSString*) getConfigString;
 @end
 
