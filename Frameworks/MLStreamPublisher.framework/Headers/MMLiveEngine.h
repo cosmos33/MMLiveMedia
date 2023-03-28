@@ -160,6 +160,16 @@
 - (void)MMLiveEnginePusher:(MMLiveEngine *)engine reportAudioVolumeIndicationOfSpeakers:(NSDictionary *)volumes type:(MMLivePushType)type;
 
 /**
+连线本地用户人声音调pitch值
+*/
+- (void)MMLiveEnginePusher:(MMLiveEngine *)engine reportLocalVoicePitch:(double)voicePitch;
+
+/**
+连线本地用户人声检测vad  0：本地无人声 1：本地有人声
+*/
+- (void)MMLiveEnginePusher:(MMLiveEngine *)engine reportLocalVoiceVad:(NSInteger)vad;
+
+/**
 udp下行观众的sei
 */
 - (void)MMLiveEnginePusher:(MMLiveEngine *)engine didReceiveSEI:(NSString *)sei type:(MMLivePushType)type;
@@ -258,8 +268,6 @@ udp下行观众的sei
 - (void)MMLiveEnginePusher:(MMLiveEngine *)engine remoteVideoStats:(NSUInteger)uid beforeAvSyncRelativeMs:(NSInteger)beforeAvSyncRelativeMs;
 
 - (void)MMLiveEnginePusher:(MMLiveEngine *)engine onEvent:(NSString * _Nullable)vendor extension:(NSString *_Nullable)extension key:(NSString * _Nullable)key value:(NSString * _Nullable)value;
-
-- (void)MMLiveEnginePusher:(MMLiveEngine *)engine reportLocalVoicePitch:(double)voicePitch;
 
 @end
 

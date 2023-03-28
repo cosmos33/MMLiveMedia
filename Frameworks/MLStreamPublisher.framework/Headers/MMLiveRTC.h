@@ -152,6 +152,8 @@
 */
 - (void)MMLiveRTC:(MMLiveRTC*)pusher reportAudioVolumeIndicationOfSpeakers:(NSDictionary *)volumes type:(MMLivePushType)type;
 
+- (void)MMLiveRTC:(MMLiveRTC *)pusher reportLocalVoiceVad:(NSInteger)vad;
+
 /**
 udp下行观众的sei
 */
