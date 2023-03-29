@@ -385,6 +385,12 @@ udp下行观众的sei
 - (void)setGetConferencePlaybackAudio:(BOOL)enable;
 
 /**
+是否获取远端主播mix前声音
+@param enable  YES 上报主播的音频 ,NO 不上报主播的音频
+*/
+- (void)setGetConferencePlaybackBeforeMixingAudio:(BOOL)enable;
+
+/**
 是否获取连线主播声音
 @param enable  YES 上报主播的音频 ,NO 不上报主播的音频
 */
