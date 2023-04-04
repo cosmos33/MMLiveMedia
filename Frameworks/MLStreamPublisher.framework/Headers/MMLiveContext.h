@@ -12,27 +12,17 @@
 #import "MLDomainAnalysis.h"
 
 @interface MMLiveContextConfig : NSObject
-@property (nonatomic, copy) NSDictionary *logConfig;
-@property (nonatomic, copy) NSDictionary *pushConfig;
-@property (nonatomic, copy) NSDictionary *pullConfig;
-@property (nonatomic, copy) NSDictionary *comm_config;
 
-@property (nonatomic, strong, readonly) NSArray *pull_delay;
-@property (nonatomic, strong, readonly) NSArray *pull_comm;
-@property (nonatomic, strong, readonly) NSArray *pull_log;
-@property (nonatomic, strong, readonly) NSString *focus_enable;
-@property (nonatomic, strong, readonly) NSString *enable_B_encode;
-@property (nonatomic, strong, readonly) NSArray *push_drop;
-@property (nonatomic, strong, readonly) NSString *comm_parms;
-@property (nonatomic, strong, readonly) NSString *disable_ans;
-@property (nonatomic, strong, readonly) NSArray *push_log;
-@property (nonatomic, strong, readonly) NSArray *comm;
-@property (nonatomic, strong, readonly) NSString *enable_agora_headset;
-@property (nonatomic, strong, readonly) NSString *enable_tx_headset;
-@property (nonatomic, assign, readonly) BOOL enable_medialog;
-@property (nonatomic, assign, readonly) BOOL enable_roomconfig;
-@property (nonatomic, assign, readonly) int previewRenderApi;
-@property (nonatomic, assign, readonly) NSString *enableFdkAAC;
+//@property (nonatomic, strong) NSArray *biz_config;
+//@property (nonatomic, strong) NSDictionary *comm;
+@property (nonatomic, strong) NSDictionary *pushConfig;
+@property (nonatomic, strong) NSDictionary *pullConfig;
+
+@property (nonatomic, assign) NSUInteger push_log_count;
+@property (nonatomic, assign) NSUInteger push_log_interval;
+@property (nonatomic, assign) NSUInteger pull_log_count;
+@property (nonatomic, assign) NSUInteger pull_log_interval;
+
 @end
 
 @interface MMLiveUserContext : NSObject
@@ -96,7 +86,7 @@
 /**
  拉取直播间config
 */
-+ (void)requestRoomContextWithUserContext:(MMLiveUserContext *)userContext roomId:(NSString *)roomId completeHandler:(void (^)(MMLiveUserContext *roomContext))completeHandler;
+//+ (void)requestRoomContextWithUserContext:(MMLiveUserContext *)userContext roomId:(NSString *)roomId completeHandler:(void (^)(MMLiveUserContext *roomContext))completeHandler;
 
 + (NSString*) getSDKVersion;
 @end

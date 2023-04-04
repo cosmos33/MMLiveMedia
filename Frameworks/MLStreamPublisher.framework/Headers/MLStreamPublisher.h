@@ -9,6 +9,7 @@
 #endif
 #endif
 #endif
+#import "MomoConstructConfig.h"
 #if IJK_ON
 #import "MLAudioSource.h"
 #endif

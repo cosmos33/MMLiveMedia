@@ -12,7 +12,8 @@
 @end
 
 @protocol IJKEncoderDelegate <NSObject>
-- (void) encoder:(IJKEncoder*)encoder encodedFrame:(IJKFrame*)frame;
+- (void)encoder:(IJKEncoder*)encoder encodedFrame:(IJKFrame*)frame;
+- (void)encoder:(IJKEncoder *)encoder error:(NSError *)error;
 @end
 
 @interface IJKEncoder : NSObject

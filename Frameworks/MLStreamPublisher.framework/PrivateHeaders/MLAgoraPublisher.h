@@ -1,5 +1,6 @@
 #import "MLPublisher.h"
 #import "MLRawAudioFrame.h"
+#import "MomoConstructConfig.h"
 
 @interface MLAgoraPublisher : MLPublisher
 

@@ -28,4 +28,5 @@
 - (NSData *_Nonnull)getUserDefineSeiData;
 - (void)dynamicChangeBitrate:(int)bitrate;
 - (void)dynamicChangeFramerate:(int)framerate;
+- (void)setVideoBitrate:(int)averageBitrate;
 @end

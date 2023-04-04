@@ -118,6 +118,7 @@ typedef NS_ENUM(NSUInteger, MMLiveAudioMixingDualMonoMode) {
 @property (nonatomic) NSInteger provider;
 @property (nonatomic) NSInteger businessType;
 @property (nonatomic, assign) BOOL isSoftwareDecode;
+@property (nonatomic, assign) int renderApi;
 - (NSString*) getConfigString;
 @end
 
