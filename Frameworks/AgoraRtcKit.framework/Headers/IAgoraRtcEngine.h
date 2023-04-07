@@ -219,11 +219,11 @@ enum AUDIO_REVERB_TYPE {
 };
 
 enum STREAM_FALLBACK_OPTIONS {
-  /** 0: (Default) No fallback operation for the stream when the network
+  /** 0: No fallback operation for the stream when the network
      condition is poor. The stream quality cannot be guaranteed. */
 
   STREAM_FALLBACK_OPTION_DISABLED = 0,
-  /** 1: Under poor network conditions, the SDK will send or receive
+  /** 1: (Default) Under poor network conditions, the SDK will send or receive
      agora::rtc::VIDEO_STREAM_LOW. You can only set this option in
      RtcEngineParameters::setRemoteSubscribeFallbackOption. Nothing happens when
      you set this in RtcEngineParameters::setLocalPublishFallbackOption. */
@@ -408,6 +408,10 @@ struct RemoteVideoStats {
    * The total number of video bytes received (bytes), represented by an aggregate value.
    */
   unsigned int rxVideoBytes;
+  /**
+   * The audio/video relative time diff before av sync;
+   */
+  int beforeAvSyncRelativeMs;
 };
 
 struct VideoCompositingLayout {
@@ -7239,6 +7243,31 @@ class IRtcEngine : public agora::base::IEngineBase {
   virtual int enableVideoImageSource(bool enable, const ImageTrackOptions& options) = 0;
 
   /**
+   * Get monotonic time in ms which can be used by capture time,
+   * typical scenario is as follows:
+   * 
+   *  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   *  |  // custom audio/video base capture time, e.g. the first audio/video capture time.             |
+   *  |  int64_t custom_capture_time_base;                                                             |
+   *  |                                                                                                |
+   *  |  int64_t agora_monotonic_time = getCurrentMonotonicTimeInMs();                                 |
+   *  |                                                                                                |
+   *  |  // offset is fixed once calculated in the begining.                                           |
+   *  |  const int64_t offset = agora_monotonic_time - custom_capture_time_base;                       |
+   *  |                                                                                                |
+   *  |  // realtime_custom_audio/video_capture_time is the origin capture time that customer provided.|
+   *  |  // actual_audio/video_capture_time is the actual capture time transfered to sdk.              |
+   *  |  int64_t actual_audio_capture_time = realtime_custom_audio_capture_time + offset;              |
+   *  |  int64_t actual_video_capture_time = realtime_custom_video_capture_time + offset;              |
+   *  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   * 
+   * @return
+   * - >= 0: Success.
+   * - < 0: Failure.
+   */
+  virtual int64_t getCurrentMonotonicTimeInMs() = 0;
+  
+  /** 
    * Turn WIFI acceleration on or off.
    *
    * @note

@@ -350,11 +350,15 @@ class ILocalAudioTrack : public IAudioTrack {
    * @param enable Whether to enable local playback:
    * - `true`: Enable local playback.
    * - `false`: Disable local playback.
+   * @param sync Whether to destroy local playback synchronously:
+   * - `true`: Destroy local playback synchronously.
+   * - `false`: Destroy local playback asynchronously.
    * @return
    * - 0: Success.
    * - < 0: Failure.
    */
-  virtual int enableLocalPlayback(bool enable) = 0;
+  virtual int enableLocalPlayback(bool enable, bool sync = false) = 0;
+  
   /**
    * Enables in-ear monitoring (for Android and iOS only).
    *
