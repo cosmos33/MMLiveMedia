@@ -11,39 +11,50 @@
 
 #include "bef_effect_ai_public_define.h"
 
-typedef unsigned long long bef_ai_c2_handle;
+typedef unsigned  long long bef_ai_c2_handle;
 
 typedef struct {
     int id;                     // id
-    float confidence;           // 置信度
-    float thres;                // 置信阈值
-    bool satisfied;             // 是否检测到
+    float confidence;           //  {zh} 置信度  {en} Confidence
+    float thres;                //  {zh} 置信阈值  {en} Confidence threshold
+    bool satisfied;             //  {zh} 是否检测到  {en} Whether detected
 } bef_ai_c2_category_item;
 
-/**
+/** {zh} 
  * @brief 模型参数类型
  *
  */
+/** {en} 
+ * @brief Model parameter type
+ *
+ */
 typedef enum {
-    BEF_AI_C2_USE_VIDEO_MODE,   //默认值为1，表示视频模式, 0:图像模式
-    BEF_AI_C2_USE_MultiLabels,  // 1: 使用多标签，0：不使用多标签
+    BEF_AI_C2_USE_VIDEO_MODE,   // {zh} 默认值为1，表示视频模式, 0:图像模式 {en} The default value is 1, which means video mode, 0: image mode
+    BEF_AI_C2_USE_MultiLabels,  //  {zh} 1: 使用多标签，0：不使用多标签  {en} 1: Use multiple tags, 0: Do not use multiple tags
 } bef_ai_c2_param_type;
 
 
-/**
+/** {zh} 
  * @brief 模型枚举，有些模块可能有多个模型
+ *
+ */
+/** {en} 
+ * @brief Model enumeration, some modules may have multiple models
  *
  */
 typedef enum {
     BEF_AI_kC2Model1 = 1,
 } bef_ai_c2_model_type;
 
-/**
+/** {zh} 
  * @brief 封装预测接口的返回值
  */
+/** {en} 
+ * @brief Encapsulates the return value of the predictive interface
+ */
 typedef struct {
-    bef_ai_c2_category_item *items;         // 类别信息
-    int n_classes;                          // 数量
+    bef_ai_c2_category_item *items;         //  {zh} 类别信息  {en} Category information
+    int n_classes;                          //  {zh} 数量  {en} Quantity
 } bef_ai_c2_ret;
 
 
@@ -52,6 +63,9 @@ bef_effect_result_t bef_effect_ai_c2_create(bef_ai_c2_handle *handle);
 
 BEF_SDK_API
 bef_effect_result_t bef_effect_ai_c2_check_license(bef_ai_c2_handle handle, const char *licensePath);
+
+BEF_SDK_API
+bef_effect_result_t bef_effect_ai_c2_check_online_license(bef_ai_c2_handle handle, const char* licensePath);
 
 BEF_SDK_API
 bef_ai_c2_ret *bef_effect_ai_c2_init_ret(bef_ai_c2_handle handle);

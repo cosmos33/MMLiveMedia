@@ -17,6 +17,8 @@
 #endif
 @interface MMLiveSource : NSObject
 
+@property (nonatomic, strong, readonly) MLCameraSource *cameraSource;
+
 #pragma mark - 音视频输出的对象
 /**
 * 添加视频输出对象

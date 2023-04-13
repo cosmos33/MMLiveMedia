@@ -19,10 +19,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MLContractBeautyProcessor : NSObject
 
+// 去除美妆漂浮、消耗性能，默认关闭
 + (void)enhanceByteDacneMakeUp:(BOOL)enhance;
+
+// 设置证书path
 + (void)setLicenseURL:(NSURL *)url;
+
+// 启动低人脸检测帧数间隔，默认关闭
++ (void)lowFaceDetectInterval:(BOOL)open;
+
 - (instancetype)init NS_UNAVAILABLE;
 - (nullable instancetype)initWithModelDirectory:(NSURL *)modelDir error:(NSError **)error;
+- (nullable instancetype)initWithModelDirectory:(NSURL *)modelDir faceDetectFrameInterval:(int)interval error:(NSError **)error;
 
 @end
 
@@ -31,6 +39,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (CVPixelBufferRef)processPixelBuffer:(CVPixelBufferRef)inputPixelBuffer;
 - (CVPixelBufferRef)processPixelBuffer:(CVPixelBufferRef)inputPixelBuffer option:(nullable MLContractBeautyProcessorOption *)option;
 - (NSArray <MMFaceFeature *>*)processedFaceFeature;
+- (void)skipBeautyProcess:(BOOL)skip; //default NO;
+
 @end
 
 

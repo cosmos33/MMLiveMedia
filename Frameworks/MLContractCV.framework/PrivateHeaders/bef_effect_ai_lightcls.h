@@ -25,7 +25,7 @@ typedef struct bef_ai_light_cls_result_st {
 } bef_ai_light_cls_result;
 
 
-/**
+/** {zh} 
  @brief 创建光线检测句柄
  
  @param [in] handle 待创建的光线检测句柄
@@ -35,6 +35,16 @@ typedef struct bef_ai_light_cls_result_st {
  @return If succeed return BEF_RESULT_SUC, other value please see bef_effect_ai_public_define.h
          成功返回 BEF_RESULT_SUC, 失败返回相应错误码, 具体请参考 bef_effect_ai_public_define.h
  */
+/** {en} 
+ @brief Create a ray detection handle
+ 
+ @param  [in] handle the ray detection handle to be created
+ 
+ @param  [in] model_path model file path
+ 
+ @return If succeed returns BEF_RESULT_SUC, other values please see bef_effect_ai_public_define h
+          successfully returns BEF_RESULT_SUC, fails to return the corresponding error code, please refer to bef_effect_ai_public_define for details
+ */
 BEF_SDK_API bef_effect_result_t
 bef_effect_ai_lightcls_create(
         bef_effect_handle_t *handle,
@@ -42,7 +52,7 @@ bef_effect_ai_lightcls_create(
         int fps
         );
 
-/**
+/** {zh} 
  @brief 光线检测
  @param [in] handle Created light detect handle
                     已创建的光线检测句柄
@@ -61,6 +71,25 @@ bef_effect_ai_lightcls_create(
  @param [out] bef_ai_light_cls_result  存放结果信息，需外部分配好内存
  @return If succeed return BEF_RESULT_SUC, other value please see bef_effect_ai_public_define.h
          成功返回 BEF_RESULT_SUC, 失败返回相应错误码, 具体请参考 bef_effect_ai_public_define.h
+*//** {en} 
+ @brief Light detection
+ @param  [in] Handle Created light detection handle
+                    Created light detection handle
+ @param  [in] Image Image base address
+                   Data pointer of the input image
+ @param  [in] pixel_format Pixel format of input image
+                          Format of the input image
+ @param  [in] image_width Image width
+                          Width of the input image (in pixels)
+ @param  [in] image_height Image height
+                          Height of the input image (in pixels)
+ @param  [in] image_stride Image stride in each row
+                          Step size of each row of the input image (in pixels)
+ @param  [in] orientation Image orientation
+                         Turn the input image, please refer to the bef_rotate_type in bef_effect_ai_public_define h
+ @param  [out] bef_ai_light_cls_result Store the result information, and you need to allocate memory externally
+ @return If succeed in returning BEF_RESULT_SUC, value other please see bef_effect_ai_public_define h
+         Successfully return BEF_RESULT_SUC, fail to return the corresponding error code, please refer to bef_effect_ai_public_define h for details.
 */
 BEF_SDK_API bef_effect_result_t
 bef_effect_ai_lightcls_detect(
@@ -74,16 +103,19 @@ bef_effect_ai_lightcls_detect(
         bef_ai_light_cls_result *result
         );
 
-/**
+/** {zh} 
  @param [in] handle Destroy the created light detect handle
                     销毁创建的光线检测句柄
+*//** {en} 
+ @param [In] Handle Destroy the created light detection handle
+                    Destroy the created light detection handle
 */
 BEF_SDK_API bef_effect_result_t
 bef_effect_ai_lightcls_release(
         bef_effect_handle_t handle
         );
 
-/**
+/** {zh} 
  @brief 光线检测授权
  @param [in] handle Created light detect handle
                     已创建的光线检测句柄
@@ -91,6 +123,14 @@ bef_effect_ai_lightcls_release(
  @param [in] length  授权文件字符串长度
  @return If succeed return BEF_RESULT_SUC, other value please refer bef_effect_ai_public_define.h
          成功返回 BEF_RESULT_SUC, 授权码非法返回 BEF_RESULT_INVALID_LICENSE ，其它失败返回相应错误码, 具体请参考 bef_effect_ai_public_define.h
+*//** {en} 
+ @brief Light detection authorization
+ @param  [in] HandCreated light detection handle
+                    Created light detection handle
+ @param  [in] License authorization file character string
+ @param  [in] Length authorization file character string length
+ @return If succeed returns BEF_RESULT_SUC, other values please refer to bef_effect_ai_public_define h
+         Successfully returned BEF_RESULT_SUC, authorization code returned illegally BEF_RESULT_INVALID_LICENSE, other failures returned corresponding error codes, please refer to bef_effect_ai_public_define for details.
 */
 #if defined(__ANDROID__) || defined(TARGET_OS_ANDROID)
 BEF_SDK_API bef_effect_result_t
@@ -109,5 +149,8 @@ bef_effect_ai_lightcls_check_license(
         );
 #endif
 #endif
+
+BEF_SDK_API bef_effect_result_t
+bef_effect_ai_lightcls_check_online_license(bef_effect_handle_t handle, const char *licensePath);
 
 #endif //ANDROIDDEMO_BEF_EFFECT_AI_LIGHTCLS_H

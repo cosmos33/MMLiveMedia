@@ -292,6 +292,8 @@ udp下行观众的sei
 @property (nonatomic, readonly, strong) MMLiveMediaConfig *pusherConfig;
 @property (nonatomic, readonly, copy) NSString *rtmpURL;
 @property (nonatomic, strong) MMLiveUserConfig* userConfig;
+@property (nonatomic, strong, readonly) MLCameraSource *cameraSource;
+
 - (instancetype) initUserConfig:(MMLiveUserConfig *)config engineType:(MMLiveEngineType)type;
 
 #pragma mark - 预览
