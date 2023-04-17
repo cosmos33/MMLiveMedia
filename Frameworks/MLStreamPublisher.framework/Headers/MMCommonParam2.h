@@ -43,4 +43,18 @@ typedef NS_ENUM(NSInteger, MMLiveVideoFrameRate) {
 
 @end
 
+@interface MLEncodedVideoFrameInfo : NSObject
+@property (strong, nonatomic) NSData *frameData;
+@property (assign, nonatomic) NSInteger framesPerSecond;
+@property (assign, nonatomic) NSInteger rotation;
+@property (assign, nonatomic) NSInteger width;
+@property (assign, nonatomic) NSInteger height;
+@property (assign, nonatomic) NSInteger trackId;
+@property (assign, nonatomic) NSInteger captureTimeMs;
+@property (assign, nonatomic) NSInteger uid;
+@property (assign, nonatomic) NSInteger frameType; // 0: BlankFrame 3:KeyFrame 4:DeltaFrame 5:BFrame 6: DroppableFrame
+@property (assign, nonatomic) NSInteger streamType; // High = 0, Low = 1
+@property (assign, nonatomic) NSInteger codecType; // VP8 = 1,H264 = 2,H265 = 3,VP9 = 5,Generic = 6,GenericH264 = 7,GenericJpeg = 20,
+@end
+
 #endif /* MMCommonParam2_h */

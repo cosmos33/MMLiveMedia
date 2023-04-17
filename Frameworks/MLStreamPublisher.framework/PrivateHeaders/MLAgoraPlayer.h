@@ -10,6 +10,7 @@
 #import "MLPlayer.h"
 #import "MLRawAudioFrame.h"
 #import "MLPlayerStatistic.h"
+#import "MomoConstructConfig.h"
 
 /**
  声网SDK是多人视频会话技术，在声网中，一个频道中的人们可以互相通话和视频，每个人地位平等。当用于直播场景的时候，一个直播间就是一个频道，而主播是推送声音和视频，其余观众都只是接收声音和视频。连麦的时候，只有连麦观众和主播在推送声音和视频，其余观众则是接收他们两者的声音和视频。MLAgoraPlayer是从声网SDK中抽离出的播放行为，即观众端只接收声音和视频而无法推送的行为。
