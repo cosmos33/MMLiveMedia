@@ -6,7 +6,7 @@
 #import <Foundation/Foundation.h>
 
 /** 
- * @hidden
+ * @hidden for internal use only
  * @type api
  * @region 引擎管理
  */
@@ -15,7 +15,6 @@
 @required
 
 /** 
- * @hidden
  * @type api
  * @region 引擎管理
  * @brief 需要实现的 HTTP 异步 GET 接口。
@@ -27,7 +26,6 @@
     withCallback:(void(^ _Nullable)(int code, NSString* _Nullable data))callback;
 
 /** 
- * @hidden
  * @type api
  * @region 引擎管理
  * @brief 需要实现的 HTTP 异步 POST 接口。

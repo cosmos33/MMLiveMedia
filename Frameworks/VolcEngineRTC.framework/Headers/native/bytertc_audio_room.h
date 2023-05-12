@@ -31,7 +31,6 @@ public:
      * @brief 退出并销毁调用 createRTCRoom{@link #IRTCAudio#createRTCRoom} 所创建的房间实例。
      */
     virtual void destroy() = 0;
-
     /** 
      * @type api
      * @region 多房间
@@ -39,9 +38,9 @@ public:
      *        同一房间内的用户间可以相互通话。  <br>
      *        进房后重复调用无效。  <br>
      * @param [in] token 动态密钥，用于对登录用户进行鉴权验证。  <br>
-     *        进入房间需要携带 Token。测试时可使用控制台生成临时 Token，正式上线需要使用密钥 SDK 在您的服务端生成并下发 Token。  <br>
+     *        进入房间需要携带 Token。测试时可使用控制台生成临时 Token，正式上线需要使用密钥 SDK 在您的服务端生成并下发 Token。Token 有效期及生成方式参看[使用 Token 完成鉴权](70121)。 <br>
      *       + 使用不同 App ID 的 App 是不能互通的。  <br>
-     *       + 请务必保证生成 Token 使用的 App ID 和创建引擎时使用的 App ID 相同，否则会导致加入房间失败。  <br>
+     *       + 请务必保证生成 Token 使用的 App ID 和创建引擎时使用的 App ID 相同，否则会导致加入房间失败。具体失败原因会通过 onRoomStateChanged{@link #IRTCAudioRoomEventHandler#onRoomStateChanged} 回调告知。  <br>
      * @param [in] user_info 用户信息，参看 UserInfo{@link #UserInfo}。  <br>
      * @param [in] room_config 房间参数配置，设置房间模式以及是否自动发布或订阅流。具体配置模式参看 AudioRoomConfig{@link #AudioRoomConfig}。  <br>
      * @return  <br>
@@ -50,9 +49,8 @@ public:
      *        + -2：已经在房间内。接口调用成功后，只要收到返回值为 0 ，且未调用 `leaveRoom` 成功，则再次调用进房接口时，无论填写的房间 ID 和用户 ID 是否重复，均触发此返回值。  <br>
      * @notes  <br>
      *       + 同一个 App ID 的同一个房间内，每个用户的用户 ID 必须是唯一的。如果两个用户的用户 ID 相同，则后进房的用户会将先进房的用户踢出房间，并且先进房的用户会收到 onRoomStateChanged{@link #IRTCAudioRoomEventHandler#onRoomStateChanged} 回调通知，错误类型详见 ErrorCode{@link #ErrorCode} 中的 kErrorCodeDuplicateLogin。  <br>
-     *       + 本地用户调用此方法加入房间成功后，会收到 onRoomStateChanged{@link #IRTCAudioRoomEventHandler#onRoomStateChanged} 回调通知。  <br>
-     *       + 本地用户调用 setUserVisibility{@link #IRTCAudioRoom#setUserVisibility} 将自身设为可见后加入房间，远端用户会收到 onUserJoined{@link #IRTCAudioRoomEventHandler#onUserJoined}。  <br>
-     *       + 用户加入房间成功后，在本地网络状况不佳的情况下，SDK 可能会与服务器失去连接，此时 SDK 将会自动重连。重连成功后，本地会收到 onRoomStateChanged{@link #IRTCAudioRoomEventHandler#onRoomStateChanged} 回调通知。如果加入房间的用户可见，远端用户会收到 onUserJoined{@link #IRTCAudioRoomEventHandler#onUserJoined}。 
+     *       + 本地用户调用此方法加入房间成功后，会收到 onRoomStateChanged{@link #IRTCAudioRoomEventHandler#onRoomStateChanged} 回调通知。若本地用户同时为可见用户，加入房间时远端用户会收到 onUserJoined{@link #IRTCAudioRoomEventHandler#onUserJoined} 回调通知。关于可见性设置参看 setUserVisibility{@link #IRTCAudioRoom#setUserVisibility}。  <br>
+     *       + 用户加入房间成功后，在本地网络状况不佳的情况下，SDK 可能会与服务器失去连接，并触发 onConnectionStateChanged{@link #IRTCAudioEventHandler#onConnectionStateChanged} 回调。此时 SDK 会自动重试，直到成功重连。重连成功后，本地会收到 onRoomStateChanged{@link #IRTCAudioRoomEventHandler#onRoomStateChanged} 回调通知。
      */
     virtual int joinRoom(const char* token, const UserInfo& user_info, const AudioRoomConfig& room_config) = 0;
 
@@ -71,22 +69,21 @@ public:
 
     /** 
      * @type api
-     * @brief 更新 Token。  <br>
-     *        用于加入房间的 Token 有一定的有效期。在 Token 过期前 30 秒，会收到 onTokenWillExpire{@link #IRTCAudioRoomEventHandler#onTokenWillExpire} 回调，此时需要重新获取 Token，并调用此方法更新 Token，否则用户将因为 Token 过期被移出房间。 <br>
-     *        调用 joinRoom{@link #IRTCAudioRoom#joinRoom} 方法加入房间或断网重连进入房间时，如果 Token 过期或无效，将导致加入房间失败，并会收到 onRoomStateChanged{@link #IRTCAudioRoomEventHandler#onRoomStateChanged} 回调通知，回调错误码为 ErrorCode{@link #ErrorCode} 中的 `ERROR_CODE_INVALID_TOKEN`。此时需要重新获取 Token，并调用此方法更新 Token。 更新 Token 后，SDK 会自动加入房间。 <br>
-     * @param token 有效的 Token。  <br>
-     *        如果传入的 Token 无效，回调错误码为 ErrorCode{@link #ErrorCode} 中的 `ERROR_CODE_UPDATE_TOKEN_WITH_INVALID_TOKEN`。
-     * @return 方法调用结果。  <br>
-     *         +  0: 方法调用成功  <br>
-     *         + < 0: 方法调用失败  <br>
-     * @notes 当 Token 过期时，用户将被移出房间并将收到 OnError{@link #IRTCAudioRoomEventHandler#onError} 回调， `ERROR_CODE_EXPIRED_TOKEN`，此时需要重新获取 Token，并调用 joinRoom{@link #IRTCAudioRoom#joinRoom} 重新加入房间。
+     * @brief 更新 Token。
+     *        Token 中同时包含进房、发布和订阅权限，各权限有一定的有效期，并且到期前 30 秒会触发回调，提示用户更新 Token 相关权限。此时需要重新获取 Token，并调用此方法更新 Token，以保证通话的正常进行。
+     * @param [in] token 重新获取的有效 Token。
+     *        如果传入的 Token 无效，回调错误码为 ErrorCode{@link #ErrorCode} 中的 `-1010`。
+     * @return  <br>
+     *        + 0：成功；
+     *        + !0：失败。
+     * @notes 请勿同时调用 updateToken{@link #IRTCAudioRoom#updateToken} 和 joinRoom{@link #IRTCAudioRoom#joinRoom} 方法更新 Token。若因 Token 过期或无效导致加入房间失败或已被移出房间，你应该在获取新的有效 Token 后调用 joinRoom{@link #IRTCAudioRoom#joinRoom} 重新加入房间。
      */
-    virtual void updateToken(const char* token) = 0;
+    virtual int updateToken(const char* token) = 0;
 
     /** 
      * @type api
      * @region 多房间
-     * @brief 设置用户可见性。默认为可见。  <br>
+     * @brief 设置用户可见性。未调用该接口前，本地用户默认对他人可见。  <br>
      *        通过对用户可见性进行设置，可以控制用户在房间内的行为：<br>
      *        + 能否发布音频流；  <br>
      *        + 用户自身是否在房间中隐身。
@@ -140,7 +137,7 @@ public:
      *        二进制字符串的长度。
      * @param [in] message   <br>
      *        二进制消息的内容。
-     *        消息不超过 64KB。
+     *        消息不超过 46KB。
      * @param [in] config   <br>
      *        消息发送的可靠/有序类型，参看 MessageConfig{@link #MessageConfig}  <br>
      * @return 这次发送消息的编号，从 1 开始递增。
@@ -154,7 +151,7 @@ public:
     /** 
      * @type api
      * @region 多房间
-     * @brief 给房间内的所有其他用户群发文本消息。
+     * @brief 给房间内的所有其他用户发送广播消息。
      * @param [in] message  <br>
      *        用户发送的广播消息  <br>
      *        消息不超过 64 KB。
@@ -168,12 +165,12 @@ public:
     /** 
      * @type api
      * @region 多房间
-     * @brief 给房间内的所有其他用户群发二进制消息。
+     * @brief 给房间内的所有其他用户发送广播消息。
      * @param [in] size  <br>
      *        发送的二进制消息长度
      * @param [in] message  <br>
      *        用户发送的二进制广播消息  <br>
-     *        消息不超过 64KB。
+     *        消息不超过 46KB。
      * @return 这次发送消息的编号，从 1 开始递增。
      * @notes  <br>
      *       + 在发送房间内二进制消息前，必须先调用 joinRoom{@link #IRTCAudioRoom#joinRoom} 加入房间。  <br>
@@ -185,11 +182,11 @@ public:
     /** 
      * @type api
      * @region 房间管理
-     * @brief 在当前所在房间内发布本地麦克风采集的音频流
+     * @brief 在当前所在房间内手动发布本地通过麦克风采集的音频流。<br>
+     *        如果你需要手动向多个房间发布流，可以使用同样的 uid 加入多个房间，并在每个房间调用该方法。
      * @notes <br>
-     *        + 如果你已经在用户进房时通过调用 joinRoom{@link #IRTCAudioRoom#joinroom} 成功选择了自动发布，则无需再调用本接口。<br>
+     *        + 如果你已经在用户进房时通过调用 joinRoom{@link #IRTCAudioRoom#joinRoom} 成功选择了自动发布，则无需再调用本接口。<br>
      *        + 调用 setUserVisibility{@link #IRTCAudioRoom#setUserVisibility} 方法将自身设置为不可见后无法调用该方法，需将自身切换至可见后方可调用该方法发布音频流。 <br>
-     *        + 如果你需要向多个房间发布流，调用 startForwardStreamToRooms{@link #IRTCAudioRoom#startForwardStreamToRooms}。  <br>
      *        + 调用此方法后，房间中的所有远端用户会收到 onUserPublishStream{@link #IRTCAudioRoomEventHandler#onUserPublishStream} 回调通知，其中成功收到了音频流的远端用户会收到 onFirstRemoteAudioFrame{@link #IRTCAudioEventHandler#onFirstRemoteAudioFrame} 回调。<br>
      *        + 调用 unpublishStream{@link #IRTCAudioRoom#unpublishStream} 取消发布。
      */
@@ -211,12 +208,15 @@ public:
      * @brief 订阅房间内指定的通过麦克风采集的音频流。  <br>
      *        该方法对自动订阅和手动订阅模式均适用。
      * @param [in] user_id 指定订阅的远端发布音频流的用户 ID。
+     * @return 方法调用结果： <br>
+     *        + 0：成功；<br>
+     *        + !0：失败。
      * @notes  <br>
      *        + 你必须先通过 onUserPublishStream{@link #IRTCAudioRoomEventHandler#onUserPublishStream} 回调获取当前房间里的远端音频流信息，然后调用本方法按需订阅。  <br>
      *        + 成功订阅远端用户的媒体流后，订阅关系将持续到调用 unsubscribeStream{@link #IRTCAudioRoom#unsubscribeStream} 取消订阅或本端用户退房。 <br>
      *        + 关于其他调用异常，你会收到 onStreamStateChanged{@link #IRTCAudioRoomEventHandler#onStreamStateChanged} 回调通知，具体异常原因参看 ErrorCode{@link #ErrorCode}。
      */
-    virtual void subscribeStream(const char* user_id) = 0;
+    virtual int subscribeStream(const char* user_id) = 0;
 
     /** 
      * @type api
@@ -224,10 +224,13 @@ public:
      * @brief 取消订阅房间内指定的通过麦克风采集的音频流。  <br>
      *        该方法对自动订阅和手动订阅模式均适用。
      * @param userId 指定取消订阅的远端发布音频流的用户 ID。
+     * @return 方法调用结果： <br>
+     *        + 0：成功；<br>
+     *        + !0：失败。
      * @notes  <br>
      *        + 关于其他调用异常，你会收到 onStreamStateChanged{@link #IRTCAudioRoomEventHandler#onStreamStateChanged} 回调通知，具体失败原因参看 ErrorCode{@link #ErrorCode}。
      */
-    virtual void unsubscribeStream(const char* user_id) = 0;
+    virtual int unsubscribeStream(const char* user_id) = 0;
 
     /** 
      * @type api
@@ -278,8 +281,8 @@ public:
      *        调用本方法增加或删减房间后，将在本端触发 onForwardStreamStateChanged{@link #IRTCAudioRoomEventHandler#onForwardStreamStateChanged} 回调，包含发生了变动的目标房间中音频流转发状态。
      * @param [in] configuration 跨房间音频流转发目标房间信息。参看 ForwardStreamConfiguration{@link #ForwardStreamConfiguration}。
      * @return  <br>
-     *        0: 方法调用成功  <br>
-     *        <0: 方法调用失败  <br>
+     *        + 0: 方法调用成功  <br>
+     *        + <0: 方法调用失败
      * @notes <br>
      *        + 增加目标房间后，新增目标房间中的用户将接收到本地用户进房 onUserJoined{@link #IRTCAudioRoomEventHandler#onUserJoined} 和发布 onUserPublishStream{@link #IRTCAudioRoomEventHandler#onUserPublishStream}  的回调。
      *        + 删减目标房间后，原目标房间中的用户将接收到本地用户停止发布 onUserUnPublishStream{@link #IRTCAudioRoomEventHandler#onUserUnPublishStream}  和退房 onUserLeave{@link #IRTCAudioRoomEventHandler#onUserLeave} 的回调。
@@ -343,6 +346,20 @@ public:
      *        + SDK 最多支持 30 个用户同时开启空间音频功能。
      */
     virtual ISpatialAudio* getSpatialAudio() = 0;
+
+    /** 
+     * @type api
+     * @region 多房间
+     * @brief 调节某个房间内所有远端用户的音频播放音量。
+     * @param [in] volume 音频播放音量值和原始音量的比值，范围是 [0, 400]，单位为 %，自带溢出保护。为保证更好的通话质量，建议将 volume 值设为 [0,100]。 <br>
+     *              + 0: 静音  <br>
+     *              + 100: 原始音量，默认值  <br>
+     *              + 400: 最大可为原始音量的 4 倍(自带溢出保护)  <br>
+     * @notes 假设某远端用户 A 始终在被调节的目标用户范围内，<br>
+     *        + 当该方法与 setRemoteAudioPlaybackVolume{@link #IRTCAudio#setRemoteAudioPlaybackVolume} 共同使用时，本地收听用户 A 的音量为后调用的方法设置的音量；<br>
+     *        + 当该方法与 setPlaybackVolume{@link #IRTCAudio#setPlaybackVolume} 方法共同使用时，本地收听用户 A 的音量将为两次设置的音量效果的叠加。
+     */
+    virtual void setRemoteRoomAudioPlaybackVolume(int volume) = 0;
 };
 
 }  // namespace bytertc

@@ -89,20 +89,6 @@ public:
     /** 
      * @type callback
      * @region 引擎管理
-     * @brief 端监控日志回调。当产生一个端监控事件时触发该回调。
-     * @param [in] log_type  <br>
-     *        事件类型。目前类型固定为 "live_webrtc_monitor_log"。
-     * @param [in] log_content  <br>
-     *        端监控日志内容。
-     */
-    virtual void onLogReport(const char* log_type, const char* log_content) {
-        (void)log_type;
-        (void)log_content;
-    }
-
-    /** 
-     * @type callback
-     * @region 引擎管理
      * @brief 创建房间失败回调。
      * @param room_id 房间 ID。
      * @param error_code 创建房间错误码，具体原因参看 ErrorCode{@link #ErrorCode}。
@@ -252,6 +238,16 @@ public:
     virtual void onRecordingProgressUpdate(RecordingProgress process, RecordingInfo info) {
         (void)process;
         (void)info;
+    }
+    /** 
+     *  @type callback
+     *  @brief 调用 startAudioRecording{@link #IRTCAudio#startAudioRecording} 或 stopAudioRecording{@link #IRTCAudio#stopAudioRecording} 改变音频文件录制状态时，收到此回调。
+     *  @param [in] state 录制状态，参看 AudioRecordingState{@link #AudioRecordingState}
+     *  @param [in] error_code 录制错误码，参看 AudioRecordingErrorCode{@link #AudioRecordingErrorCode}
+     */
+    virtual void onAudioRecordingStateUpdate(AudioRecordingState state, AudioRecordingErrorCode error_code) {
+        (void)state;
+        (void)error_code;
     }
 
     /** 
@@ -438,7 +434,7 @@ public:
     }
 
     /** 
-     * @type api
+     * @type callback
      * @region 音频管理
      * @brief 音频流同步信息回调。可以通过此回调，在远端用户调用 sendStreamSyncInfo{@link #IRTCAudio#sendStreamSyncInfo} 发送音频流同步消息后，收到远端发送的音频流同步信息。  <br>
      * @param [in] stream_key 远端流信息，详见 RemoteStreamKey{@link #RemoteStreamKey} 。
@@ -537,6 +533,7 @@ public:
     }
 
     /** 
+     * @deprecated since 3.50. Use onAudioDeviceStateChanged{@link #IRTCAudioEventHandler#onAudioDeviceStateChanged} instead.
      * @type callback
      * @region 音频事件回调
      * @brief 本地音频的状态发生改变时，该回调通知当前的本地音频状态。
@@ -549,6 +546,7 @@ public:
     }
 
     /** 
+     * @hidden not available
      * @type callback
      * @region 音频事件回调
      * @brief 用户订阅来自远端的音频流状态发生改变时，会收到此回调，了解当前的远端音频流状态。
@@ -600,6 +598,33 @@ public:
         (void)interval;
     }
 
+    /** 
+     * @hidden
+     * @type callback
+     * @brief 音频dump状态改变回调
+     * @param [in] status 音频dump状态，参见 AudioDumpStatus{@link #AudioDumpStatus}
+     * @notes 本回调用于内部排查音质相关异常问题，开发者无需关注。
+     */
+
+    virtual void onAudioDumpStateChanged(AudioDumpStatus status) {
+        (void)status;
+    }
+    /** 
+     * @hidden(Linux)
+     * @type callback
+     * @brief 首次调用 getNetworkTimeInfo{@link #IRTCAudio#getNetworkTimeInfo} 后，SDK 内部启动网络时间同步，同步完成时会触发此回调。
+     */
+    virtual void onNetworkTimeSynchronized() {
+    }
+    /** 
+     * @type callback
+     * @brief license过期时间提醒
+     * @param [in] days 过期时间天数
+     */
+
+    virtual void onLicenseWillExpire(int days) {
+        (void)days;
+    }
 };
 
 }  // namespace bytertc

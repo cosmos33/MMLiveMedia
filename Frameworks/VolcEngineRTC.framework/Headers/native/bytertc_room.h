@@ -15,7 +15,7 @@
 #include "rtc/bytertc_publicstream_interface.h"
 #include "rtc/bytertc_range_audio_interface.h"
 #include "rtc/bytertc_spatial_audio_interface.h"
-
+#include "rtc/bytertc_panoramic_video_interface.h"
 namespace bytertc {
 
 /** 
@@ -25,7 +25,7 @@ namespace bytertc {
 class IRTCRoom {
 public:
     /** 
-     * @hidden
+     * @hidden constructor/destructor
      * @brief 析构函数
      */
     virtual ~IRTCRoom() {
@@ -41,7 +41,7 @@ public:
     /** 
      * @type api
      * @region 多房间
-     * @brief 设置用户可见性。默认可见。  <br>
+     * @brief 设置用户可见性。未调用该接口前，本地用户默认对他人可见。 <br>
      * @param enable 设置用户是否对房间内其他用户可见：  <br>
      *        + true: 可以在房间内发布音视频流，房间中的其他用户将收到用户的行为通知，例如进房、开启视频采集和退房。  <br>
      *        + false: 不可以在房间内发布音视频流，房间中的其他用户不会收到用户的行为通知，例如进房、开启视频采集和退房。
@@ -63,27 +63,25 @@ public:
      * @param [in] room_event_handler 参见 IRTCRoomEventHandler{@link #IRTCRoomEventHandler}
      */
     virtual void setRTCRoomEventHandler(IRTCRoomEventHandler* room_event_handler) = 0;
-
     /** 
      * @type api
      * @region 多房间
      * @brief 创建/加入房间：房间不存在时即创建房间；房间存在时，未加入房间的用户可加入这个房间。  <br>
      *        同一房间内的用户间可以相互通话。  <br>
      * @param [in] token 动态密钥，用于对登录用户进行鉴权验证。  <br>
-     *        进入房间需要携带 Token。测试时可使用控制台生成临时 Token，正式上线需要使用密钥 SDK 在您的服务端生成并下发 Token。  <br>
+     *        进入房间需要携带 Token。测试时可使用控制台生成临时 Token，正式上线需要使用密钥 SDK 在您的服务端生成并下发 Token。Token 有效期及生成方式参看[使用 Token 完成鉴权](70121)。  <br>
      *       + 使用不同 App ID 的 App 是不能互通的。  <br>
-     *       + 请务必保证生成 Token 使用的 App ID 和创建引擎时使用的 App ID 相同，否则会导致加入房间失败。  <br>
+     *       + 请务必保证生成 Token 使用的 App ID 和创建引擎时使用的 App ID 相同，否则会导致加入房间失败。具体失败原因会通过 onRoomStateChanged{@link #IRTCRoomEventHandler#onRoomStateChanged} 回调告知。  <br>
      * @param [in] user_info 用户信息，参看 UserInfo{@link #UserInfo}。  <br>
-     * @param [in] room_config 房间参数配置，设置房间模式以及是否自动发布或订阅流。具体配置模式参看 RTCRoomConfig{@link #RTCRoomConfig}。  <br>
+     * @param [in] config 房间参数配置，设置房间模式以及是否自动发布或订阅流。具体配置模式参看 RTCRoomConfig{@link #RTCRoomConfig}。  <br>
      * @return  <br>
      *        +  0: 成功  <br>
      *        + -1：room_id / user_info.uid 包含了无效的参数。  <br>
      *        + -2：已经在房间内。接口调用成功后，只要收到返回值为 0 ，且未调用 leaveRoom:{@link #IRTCRoom#leaveRoom} 成功，则再次调用进房接口时，无论填写的房间 ID 和用户 ID 是否重复，均触发此返回值。  <br>
      * @notes  <br>
      *       + 同一个 App ID 的同一个房间内，每个用户的用户 ID 必须是唯一的。如果两个用户的用户 ID 相同，则后进房的用户会将先进房的用户踢出房间，并且先进房的用户会收到 onRoomStateChanged{@link #IRTCRoomEventHandler#onRoomStateChanged} 回调通知，错误类型详见 ErrorCode{@link #ErrorCode} 中的 kErrorCodeDuplicateLogin。  <br>
-     *       + 本地用户调用此方法加入房间成功后，会收到 onRoomStateChanged{@link #IRTCRoomEventHandler#onRoomStateChanged} 回调通知。  <br>
-     *       + 本地用户调用 setUserVisibility{@link #IRTCRoom#setUserVisibility} 将自身设为可见后加入房间，远端用户会收到 onUserJoined{@link #IRTCRoomEventHandler#onUserJoined}。  <br>
-     *       + 用户加入房间成功后，在本地网络状况不佳的情况下，SDK 可能会与服务器失去连接，此时 SDK 将会自动重连。重连成功后，本地会收到 onRoomStateChanged{@link #IRTCRoomEventHandler#onRoomStateChanged} 回调通知。如果加入房间的用户可见，远端用户会收到 onUserJoined{@link #IRTCRoomEventHandler#onUserJoined}。
+     *       + 本地用户调用此方法加入房间成功后，会收到 onRoomStateChanged{@link #IRTCRoomEventHandler#onRoomStateChanged} 回调通知。若本地用户同时为可见用户，加入房间时远端用户会收到 onUserJoined{@link #IRTCRoomEventHandler#onUserJoined} 回调通知。关于可见性设置参看 setUserVisibility{@link #IRTCRoom#setUserVisibility}。  <br>
+     *       + 用户加入房间成功后，在本地网络状况不佳的情况下，SDK 可能会与服务器失去连接，并触发 onConnectionStateChanged{@link #IRTCVideoEventHandler#onConnectionStateChanged} 回调。此时 SDK 会自动重试，直到成功重连。重连成功后，本地会收到 onRoomStateChanged{@link #IRTCRoomEventHandler#onRoomStateChanged} 回调通知。
      */
     virtual int joinRoom(const char* token, const UserInfo& user_info, const RTCRoomConfig& config) = 0;
 
@@ -102,22 +100,21 @@ public:
 
     /** 
      * @type api
-     * @brief 更新 Token。  <br>
-     *        用于加入房间的 Token 有一定的有效期。在 Token 过期前 30 秒，会收到 onTokenWillExpire{@link #IRTCRoomEventHandler#onTokenWillExpire} 回调，此时需要重新获取 Token，并调用此方法更新 Token，否则用户将因为 Token 过期被移出房间。 <br>
-     *        调用 joinRoom{@link #IRTCRoom#joinRoom} 方法加入房间或断网重连进入房间时，如果 Token 过期或无效，将导致加入房间失败，并会收到 onRoomStateChanged{@link #IRTCRoomEventHandler#onRoomStateChanged} 回调通知，回调错误码为 ErrorCode{@link #ErrorCode} 中的 `ERROR_CODE_INVALID_TOKEN`。此时需要重新获取 Token，并调用此方法更新 Token。 更新 Token 后，SDK 会自动加入房间。 <br>
-     * @param token 有效的 Token。  <br>
-     *        如果传入的 Token 无效，回调错误码为 ErrorCode{@link #ErrorCode} 中的 `ERROR_CODE_UPDATE_TOKEN_WITH_INVALID_TOKEN`。
-     * @return 方法调用结果。  <br>
-     *         +  0: 方法调用成功  <br>
-     *         + < 0: 方法调用失败  <br>
-     * @notes 当 Token 过期时，用户将被移出房间并将收到 onStreamStateChanged{@link #IRTCRoomEventHandler#onStreamStateChanged} 回调， `ERROR_CODE_EXPIRED_TOKEN`，此时需要重新获取 Token，并调用 joinRoom{@link #IRTCRoom#joinRoom} 重新加入房间。
+     * @brief 更新 Token。
+     *        Token 中同时包含进房、发布和订阅权限，各权限有一定的有效期，并且到期前 30 秒会触发回调，提示用户更新 Token 相关权限。此时需要重新获取 Token，并调用此方法更新 Token，以保证通话的正常进行。
+     * @param [in] token 重新获取的有效 Token。
+     *        如果传入的 Token 无效，回调错误码为 ErrorCode{@link #ErrorCode} 中的 `-1010`。
+     * @return  <br>
+     *        + 0：成功；
+     *        + !0：失败。
+     * @notes 请勿同时调用 updateToken{@link #IRTCRoom#updateToken} 和 joinRoom{@link #IRTCRoom#joinRoom} 方法更新 Token。若因 Token 过期或无效导致加入房间失败或已被移出房间，你应该在获取新的有效 Token 后调用 joinRoom{@link #IRTCRoom#joinRoom} 重新加入房间。
      */
-    virtual void updateToken(const char* token) = 0;
+    virtual int updateToken(const char* token) = 0;
 
     /** 
      * @type api
      * @region 多房间
-     * @brief 给房间内指定的用户发送文本消息（P2P）
+     * @brief 给房间内指定的用户发送点对点文本消息（P2P）。
      * @param [in] uid  <br>
      *        消息接收用户的 ID
      * @param [in] message  <br>
@@ -135,14 +132,14 @@ public:
     /** 
      * @type api
      * @region 多房间
-     * @brief 给房间内指定的用户发送二进制消息（P2P）
+     * @brief 给房间内指定的用户发送点对点二进制消息（P2P）。
      * @param [in] uid  <br>
      *        消息接收用户的 ID
      * @param [in] length   <br>
      *        二进制字符串的长度。
      * @param [in] message   <br>
      *        二进制消息的内容。
-     *        消息不超过 64KB。
+     *        消息不超过 46KB。
      * @param [in] config 消息类型，参看 MessageConfig{@link #MessageConfig}。
      * @return 这次发送消息的编号，从 1 开始递增。
      * @notes  <br>
@@ -173,7 +170,7 @@ public:
      *        发送的二进制消息长度
      * @param [in] message  <br>
      *        用户发送的二进制广播消息  <br>
-     *        消息不超过 64KB。
+     *        消息不超过 46KB。
      * @return 这次发送消息的编号，从 1 开始递增。
      * @notes  <br>
      *       + 在发送房间内二进制消息前，必须先调用 joinRoom{@link #IRTCRoom#joinRoom} 加入房间。  <br>
@@ -181,7 +178,6 @@ public:
      *       + 同一房间内的其他用户会收到 onRoomBinaryMessageReceived{@link #IRTCRoomEventHandler#onRoomBinaryMessageReceived} 回调。
      */
     virtual int64_t sendRoomBinaryMessage(int size, const uint8_t* message) = 0;
-
     /** 
      * @type api
      * @region 房间管理
@@ -207,24 +203,23 @@ public:
      *        + 调用此方法停止发布音视频流后，房间中的其他用户将会收到 onUserUnpublishStream{@link #IRTCRoomEventHandler#onUserUnpublishStream} 回调通知。
      */
     virtual void unpublishStream(MediaStreamType type) = 0;
-
     /** 
-     * @hidden(Linux)
      * @type api
      * @region 屏幕共享
-     * @brief 在当前所在房间内发布本地屏幕共享音视频流
+     * @brief 在当前所在房间内手动发布本地屏幕共享音视频流。<br>
+     *        如果你需要手动向多个房间发布屏幕共享流，可以使用同样的 uid 加入多个房间，并在每个房间调用该方法。同时，你可以在不同的房间发布不同的屏幕共享流类型。
      * @param [in] type 媒体流类型，用于指定发布屏幕音频/视频，参看 MediaStreamType{@link #MediaStreamType}。
      * @notes <br>
      *        + 即使你已经在用户进房时通过调用 joinRoom{@link #IRTCRoom#joinRoom} 成功选择了自动发布，也需要调用本接口。<br>
      *        + 调用 setUserVisibility{@link #IRTCRoom#setUserVisibility} 方法将自身设置为不可见后无法调用该方法，需将自身切换至可见后方可调用该方法发布屏幕流。 <br>
      *        + 调用该方法后，房间中的所有远端用户会收到 onUserPublishScreen{@link #IRTCRoomEventHandler#onUserPublishScreen} 回调，其中成功收到音频流的远端用户会收到 onFirstRemoteAudioFrame{@link #IRTCVideoEventHandler#onFirstRemoteAudioFrame} 回调，订阅了视频流的远端用户会收到 onFirstRemoteVideoFrameDecoded{@link #IRTCVideoEventHandler#onFirstRemoteVideoFrameDecoded} 回调。<br>
+     *        + 调用该方法后，本地用户会收到 onScreenVideoFrameSendStateChanged{@link #IRTCVideoEventHandler#onScreenVideoFrameSendStateChanged}。<br>
      *        + 调用 unpublishScreen{@link #IRTCRoom#unpublishScreen} 取消发布。 <br>
+     *        + 对 Linux，仅支持发布视频流。<br>
      *        + 查看 [PC 端屏幕共享](https://www.volcengine.com/docs/6348/70144)，获取更多信息。
      */
     virtual void publishScreen(MediaStreamType type) = 0;
-
     /** 
-     * @hidden(Linux)
      * @type api
      * @region 屏幕共享
      * @brief 停止将本地屏幕共享音视频流发布到当前所在房间中
@@ -236,8 +231,7 @@ public:
     virtual void unpublishScreen(MediaStreamType type) = 0;
 
     /** 
-     * @hidden
-     * @deprecated since 336.1, use subscribeStream, unsubscribeStream, subscribeScreen and unsubscribeScreen instead.
+     * @deprecated since 3.36 and will be deleted in 3.51, use subscribeStream{@link #IRTCRoom#subscribeStream}, unsubscribeStream{@link #IRTCRoom#unsubscribeStream}, subscribeScreen{@link #IRTCRoom#subscribeScreen} and unsubscribeScreen{@link #IRTCRoom#unsubscribeScreen} instead.
      * @type api
      * @region 多房间
      * @brief 订阅房间内指定的远端音视频流。  <br>
@@ -248,25 +242,27 @@ public:
      * @param [in] media_type 媒体类型，用于指定订阅音/视频，参看 SubscribeMediaType{@link #SubscribeMediaType}。
      * @param [in] video_config 视频订阅配置，参看 SubscribeVideoConfig{@link #SubscribeVideoConfig}。
      * @notes  <br>
-     *        + 你必须通过 OnStreamAdd{@link #IRTCRoomEventHandler#OnStreamAdd} 和 OnStreamRemove{@link #IRTCRoomEventHandler#OnStreamRemove} 两个回调获取当前房间里的音视频流信息，并调用本方法按需订阅流或修改订阅配置。  <br>
      *        + 若订阅失败，你会收到 onStreamStateChanged{@link #IRTCRoomEventHandler#onStreamStateChanged} 回调通知，具体失败原因参看 ErrorCode{@link #ErrorCode}。
-     *        + 若调用 PauseAllSubscribedStream{@link #IRTCRoom#PauseAllSubscribedStream} 暂停接收远端音视频流，此时仍可使用该方法对暂停接收的流进行设置，你会在调用 ResumeAllSubscribedStream{@link #IRTCRoom#ResumeAllSubscribedStream} 恢复接收流后收到修改设置后的流。  <br>
+     *        + 若调用 pauseAllSubscribedStream{@link #IRTCRoom#pauseAllSubscribedStream} 暂停接收远端音视频流，此时仍可使用该方法对暂停接收的流进行设置，你会在调用 resumeAllSubscribedStream{@link #IRTCRoom#resumeAllSubscribedStream} 恢复接收流后收到修改设置后的流。  <br>
      */
-    virtual void subscribeUserStream(const char* user_id, StreamIndex stream_type, SubscribeMediaType media_type, const SubscribeVideoConfig& video_config) = 0;
+    virtual int subscribeUserStream(const char* user_id, StreamIndex stream_type, SubscribeMediaType media_type, const SubscribeVideoConfig& video_config) = 0;
     /** 
      * @type api
      * @region 视频管理
      * @brief 设置期望订阅的远端视频流的参数。
-     * @param [in] user_id 期望订阅的远端视频流发布用户的 ID。
-     * @param [in] remote_video_config 期望订阅的远端视频流参数，参看 RemoteVideoConfig{@link #RemoteVideoConfig}。
+     * @param [in] user_id 期望配置订阅参数的远端视频流发布用户的 ID。
+     * @param [in] remote_video_config 期望配置的远端视频流参数，参看 RemoteVideoConfig{@link #RemoteVideoConfig}。
+     * @return 方法调用结果： <br>
+     *        + 0：成功；<br>
+     *        + !0：失败。
      * @notes <br>
-     *        + 若使用 342 及以前版本的 SDK，调用该方法前请联系技术支持人员通过配置下发开启按需订阅功能。  <br>
+     *        + 若使用 342 及以前版本的 SDK，调用该方法前请联系技术支持人员开启按需订阅功能。  <br>
      *        + 该方法仅在发布端调用 enableSimulcastMode{@link #IRTCVideo#enableSimulcastMode} 开启了发送多路视频流的情况下生效，此时订阅端将收到来自发布端与期望设置的参数最相近的一路流；否则订阅端只会收到一路参数为分辨率 640px × 360px、帧率 15fps 的视频流。  <br>
      *        + 若发布端开启了推送多路流功能，但订阅端不对流参数进行设置，则默认接受发送端设置的分辨率最大的一路视频流。  <br>
      *        + 该方法需在进房后调用，若想进房前设置，你需调用 joinRoom{@link #IRTCRoom#joinRoom}，并对 `room_config` 中的 `remote_video_config` 进行设置。  <br>
      *        + SDK 会根据发布端和所有订阅端的设置灵活调整视频流的参数，具体调整策略详见[推送多路流](https://www.volcengine.com/docs/6348/70139)文档。
      */
-    virtual void setRemoteVideoConfig(const char *user_id,const RemoteVideoConfig &remote_video_config) = 0;
+    virtual int setRemoteVideoConfig(const char *user_id,const RemoteVideoConfig &remote_video_config) = 0;
 
     /** 
      * @type api
@@ -274,6 +270,9 @@ public:
      * @brief 订阅房间内指定的通过摄像头/麦克风采集的媒体流，或更新对指定远端用户的订阅选项
      * @param [in] user_id 指定订阅的远端发布音视频流的用户 ID。
      * @param [in] type 媒体流类型，用于指定订阅音频/视频。参看 MediaStreamType{@link #MediaStreamType}。
+     * @return 方法调用结果： <br>
+     *        + 0：成功；<br>
+     *        + !0：失败。
      * @notes  <br>
      *        + 当调用本接口时，当前用户已经订阅该远端用户，不论是通过手动订阅还是自动订阅，都将根据本次传入的参数，更新订阅配置。<br>
      *        + 你必须先通过 onUserPublishStream{@link #IRTCRoomEventHandler#onUserPublishStream}} 回调获取当前房间里的远端摄像头音视频流信息，然后调用本方法按需订阅。  <br>
@@ -281,12 +280,15 @@ public:
      *        + 成功订阅远端用户的媒体流后，订阅关系将持续到调用 unsubscribeStream{@link #IRTCRoom#unsubscribeStream} 取消订阅或本端用户退房。 <br>
      *        + 关于其他调用异常，你会收到 onStreamStateChanged{@link #IRTCRoomEventHandler#onStreamStateChanged} 回调通知，具体异常原因参看 ErrorCode{@link #ErrorCode}。
      */
-    virtual void subscribeStream(const char *user_id,MediaStreamType type) = 0;
+    virtual int subscribeStream(const char *user_id,MediaStreamType type) = 0;
     /** 
      * @type api
      * @region 房间管理
      * @brief 订阅房间内所有通过摄像头/麦克风采集的媒体流，或更新订阅选项。
      * @param [in] type 媒体流类型，用于指定订阅音频/视频。参看 MediaStreamType{@link #MediaStreamType}。
+     * @return  <br>
+     *        0: 方法调用成功  <br>
+     *        !0: 方法调用失败  <br>
      * @notes  <br>
      *        + 多次调用订阅接口时，将根据末次调用接口和传入的参数，更新订阅配置。<br>
      *        + 大会模式下，如果房间内的媒体流超过上限，建议通过调用 subscribeStream{@link #IRTCRoom#subscribeStream} 逐一指定需要订阅的媒体流。<br>
@@ -294,7 +296,7 @@ public:
      *        + 成功订阅远端用户的媒体流后，订阅关系将持续到调用 unsubscribeStream{@link #IRTCRoom#unsubscribeStream} 取消订阅或本端用户退房。 <br>
      *        + 关于其他调用异常，你会收到 onStreamStateChanged{@link #IRTCRoomEventHandler#onStreamStateChanged} 回调通知，具体异常原因参看 ErrorCode{@link #ErrorCode}。
      */
-     virtual void subscribeAllStreams(MediaStreamType type) = 0;
+     virtual int subscribeAllStreams(MediaStreamType type) = 0;
 
     /** 
      * @type api
@@ -303,28 +305,37 @@ public:
      *        该方法对自动订阅和手动订阅模式均适用。
      * @param [in] user_id 指定取消订阅的远端发布音视频流的用户 ID。
      * @param [in] type 媒体流类型，用于指定取消订阅音频/视频。参看 MediaStreamType{@link #MediaStreamType}。
+     * @return 方法调用结果： <br>
+     *        + 0：成功；<br>
+     *        + !0：失败。
      * @notes  <br>
      *        + 调用该方法后，你会收到 onStreamSubscribed{@link #IRTCRoomEventHandler#onStreamSubscribed} 通知方法调用结果。  <br>
      *        + 关于其他调用异常，你会收到 onStreamStateChanged{@link #IRTCRoomEventHandler#onStreamStateChanged} 回调通知，具体失败原因参看 ErrorCode{@link #ErrorCode}。
      */
-    virtual void unsubscribeStream(const char *user_id,MediaStreamType type) = 0;
+    virtual int unsubscribeStream(const char *user_id,MediaStreamType type) = 0;
     /** 
      * @type api
      * @region 房间管理
      * @brief 取消订阅房间内所有的通过摄像头/麦克风采集的媒体流。  <br>
      *        自动订阅和手动订阅的流都可以通过本方法取消订阅。
      * @param [in] type 媒体流类型，用于指定取消订阅音频/视频。参看 MediaStreamType{@link #MediaStreamType}。
+     * @return 方法调用结果：  <br>
+     *        + 0：成功  <br>
+     *        + !0：失败
      * @notes  <br>
      *        + 调用该方法后，你会收到 onStreamSubscribed{@link #IRTCRoomEventHandler#onStreamSubscribed} 通知方法调用结果。  <br>
      *        + 关于其他调用异常，你会收到 onStreamStateChanged{@link #IRTCRoomEventHandler#onStreamStateChanged} 回调通知，具体失败原因参看 ErrorCode{@link #ErrorCode}。
      */
-    virtual void unsubscribeAllStreams(MediaStreamType type) = 0;
+    virtual int unsubscribeAllStreams(MediaStreamType type) = 0;
     /** 
      * @type api
      * @region 房间管理
      * @brief 订阅房间内指定的远端屏幕共享音视频流，或更新对指定远端用户的订阅选项
      * @param [in] user_id 指定订阅的远端发布屏幕流的用户 ID。
      * @param [in] type 媒体流类型，用于指定订阅音频/视频。参看 MediaStreamType{@link #MediaStreamType}。
+     * @return 方法调用结果： <br>
+     *        + 0：成功；<br>
+     *        + !0：失败。
      * @notes  <br>
      *        + 当调用本接口时，当前用户已经订阅该远端用户，不论是通过手动订阅还是自动订阅，都将根据本次传入的参数，更新订阅配置。<br>
      *        + 你必须先通过 onUserPublishScreen{@link #IRTCRoomEventHandler#onUserPublishScreen}} 回调获取当前房间里的远端屏幕流信息，然后调用本方法按需订阅。  <br>
@@ -332,7 +343,7 @@ public:
      *        + 成功订阅远端用户的媒体流后，订阅关系将持续到调用 unsubscribeScreen{@link #IRTCRoom#unsubscribeScreen} 取消订阅或本端用户退房。 <br>
      *        + 关于其他调用异常，你会收到 onStreamStateChanged{@link #IRTCRoomEventHandler#onStreamStateChanged} 回调通知，具体异常原因参看 ErrorCode{@link #ErrorCode}。
      */
-    virtual void subscribeScreen(const char *user_id,MediaStreamType type) = 0;
+    virtual int subscribeScreen(const char *user_id,MediaStreamType type) = 0;
 
     /** 
      * @type api
@@ -341,14 +352,17 @@ public:
      *        该方法对自动订阅和手动订阅模式均适用。
      * @param [in] user_id 指定取消订阅的远端发布屏幕流的用户 ID。
      * @param [in] type 媒体流类型，用于指定取消订阅音频/视频。参看 MediaStreamType{@link #MediaStreamType}。
+     * @return 方法调用结果： <br>
+     *        + 0：成功；<br>
+     *        + !0：失败。
      * @notes  <br>
      *        + 调用该方法后，你会收到 onStreamSubscribed{@link #IRTCRoomEventHandler#onStreamSubscribed} 通知方法调用结果。  <br>
      *        + 关于其他调用异常，你会收到 onStreamStateChanged{@link #IRTCRoomEventHandler#onStreamStateChanged} 回调通知，具体失败原因参看 ErrorCode{@link #ErrorCode}。
      */
-    virtual void unsubscribeScreen(const char *user_id,MediaStreamType type) = 0;
+    virtual int unsubscribeScreen(const char *user_id,MediaStreamType type) = 0;
 
     /**
-     * @hidden
+     * @hidden for internal use only.
      */
     virtual void enableSubscribeLocalStream(bool enable) = 0;
 
@@ -395,14 +409,14 @@ public:
     virtual void setMultiDeviceAVSync(const char* audio_user_id) = 0;
 
     /**
-     * @hidden
-    */
-    virtual void updateCloudRending(const char* cloudrenderJsonString) = 0;
+     * @hidden for internal use only.
+     */
+    virtual void updateCloudRendering(const char* cloudrenderJsonString) = 0;
 
 #endif
 
     /**
-     * @hidden
+     * @hidden for internal use only.
      */
     virtual void setCustomUserRole(const char* role) = 0;
 
@@ -433,8 +447,8 @@ public:
      *        调用本方法增加或删减房间后，将在本端触发 onForwardStreamStateChanged{@link #IRTCRoomEventHandler#onForwardStreamStateChanged} 回调，包含发生了变动的目标房间中媒体流转发状态。
      * @param [in] configuration 跨房间媒体流转发目标房间信息。参看 ForwardStreamConfiguration{@link #ForwardStreamConfiguration}。
      * @return  <br>
-     *        0: 方法调用成功  <br>
-     *        <0: 方法调用失败  <br>
+     *        + 0: 方法调用成功  <br>
+     *        + <0: 方法调用失败
      * @notes <br>
      *        + 增加目标房间后，新增目标房间中的用户将接收到本地用户进房 onUserJoined{@link #IRTCRoomEventHandler#onUserJoined} 和发布 onUserPublishStream{@link #IRTCRoomEventHandler#onUserPublishStream}/onUserPublishScreen{@link #IRTCRoomEventHandler#onUserPublishScreen} 的回调。
      *        + 删减目标房间后，原目标房间中的用户将接收到本地用户停止发布 onUserUnpublishStream{@link #IRTCRoomEventHandler#onUserUnpublishStream}/onUserUnpublishScreen{@link #IRTCRoomEventHandler#onUserUnpublishScreen} 和退房 onUserLeave{@link #IRTCRoomEventHandler#onUserLeave} 的回调。
@@ -490,17 +504,44 @@ public:
      * @hidden(Linux)
      * @type api
      * @region 空间音频
-     * @brief 获取空间音频接口实例。  <br>
+     * @brief 获取空间音频接口实例。
      * @return 方法调用结果：  <br>
      *        + ISpatialAudio：成功，返回一个 ISpatialAudio{@link #ISpatialAudio} 实例。  <br>
      *        + nullptr：失败，当前 SDK 不支持空间音频功能。
      * @notes  <br>
-     *        + 首次调用该方法须在创建房间后、加入房间前。 空间音频相关 API 和调用时序详见[空间音频](https://www.volcengine.com/docs/6348/93903)。 <br>
+     *        + 首次调用该方法须在创建房间后、加入房间前。空间音频相关 API 和调用时序详见[空间音频](https://www.volcengine.com/docs/6348/93903)。 <br>
      *        + 只有在使用支持真双声道播放的设备时，才能开启空间音频效果；  <br>
      *        + 机型性能不足可能会导致音频卡顿，使用低端机时，不建议开启空间音频效果；  <br>
      *        + SDK 最多支持 30 个用户同时开启空间音频功能。
      */
     virtual ISpatialAudio* getSpatialAudio() = 0;
+    /** 
+     * @type api
+     * @region 多房间
+     * @brief 调节某个房间内所有远端用户的音频播放音量。
+     * @param [in] volume 音频播放音量值和原始音量的比值，范围是 [0, 400]，单位为 %，自带溢出保护。为保证更好的通话质量，建议将 volume 值设为 [0,100]。 <br>
+     *              + 0: 静音  <br>
+     *              + 100: 原始音量，默认值  <br>
+     *              + 400: 最大可为原始音量的 4 倍(自带溢出保护)  <br>
+     * @notes 假设某远端用户 A 始终在被调节的目标用户范围内，<br>
+     *        + 当该方法与 setRemoteAudioPlaybackVolume{@link #IRTCVideo#setRemoteAudioPlaybackVolume} 共同使用时，本地收听用户 A 的音量为后调用的方法设置的音量；<br>
+     *        + 当该方法与 setPlaybackVolume{@link #IRTCVideo#setPlaybackVolume} 方法共同使用时，本地收听用户 A 的音量将为两次设置的音量效果的叠加。
+     */
+    virtual void setRemoteRoomAudioPlaybackVolume(int volume) = 0;
+    /** 
+     * @hidden for internal use only on Windows and Android
+     * @type api
+     * @region 视频管理
+     * @brief 接收端调用本接口获取全景视频接口引擎。
+     * @return 方法调用结果： <br>
+     *        + IPanoramicVideo：成功，返回一个 IPanoramicVideo{@link #IPanoramicVideo} 实例。  <br>
+     *        + null：失败，当前 SDK 不支持全景视频功能。
+     * @notes <br>
+     *        + 调用时序为 createRTCFovVideo{@link #IRTCVideo#createRTCFovVideo} > createRTCRoom{@link #IRTCVideo#createRTCRoom} > 本接口 > joinRoom{@link #IRTCRoom#joinRoom}。<br>
+     *        + 获取 IPanoramicVideo 实例后，再调用 updateQuaternionf{@link #IPanoramicVideo#updateQuaternionf} 更新头位姿四元数。<br>
+     *        + 你需要使用外部渲染器对接收到的全景视频进行渲染，参见 setRemoteVideoSink{@link #IRTCVideo#setRemoteVideoSink}。
+     */
+    virtual IPanoramicVideo* getPanoramicVideo() = 0;
 };
 
 } // namespace bytertc

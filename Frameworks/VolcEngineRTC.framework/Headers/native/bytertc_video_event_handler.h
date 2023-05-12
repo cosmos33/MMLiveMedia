@@ -19,7 +19,7 @@ class IRTCVideoEventHandler {
 public:
 
     /**
-     * @hidden
+     * @hidden constructor/destructor
      */
     virtual ~IRTCVideoEventHandler() {
     }
@@ -27,9 +27,10 @@ public:
     /** 
      * @type callback
      * @region 警告码
-     * @brief 当内部发生警告事件时触发该回调
-     * @param [in] warn
-     *        警告标识码，详见:WarningCode{@link #WarningCode}
+     * @brief 发生警告回调。  <br>
+     *        SDK 运行时出现了警告。SDK 通常会自动恢复，警告信息可以忽略。<br>
+     *        你可能需要干预.
+     * @param [in] warn 警告标识码，详见:WarningCode{@link #WarningCode}
      */
     virtual void onWarning(int warn) {
         (void)warn;
@@ -38,7 +39,8 @@ public:
     /** 
      * @type callback
      * @region 错误码
-     * @brief 当 SDK 内部发生不可逆转错误时触发该回调。
+     * @brief 发生错误回调。<br>
+     *        SDK 运行时出现了网络或媒体相关的错误，且无法自动恢复时触发此回调。
      * @param [in] err 错误标识码，参看 ErrorCode{@link #ErrorCode}
      */
     virtual void onError(int err) {
@@ -88,7 +90,7 @@ public:
     /** 
      * @type callback
      * @region 引擎管理
-     * @brief 端监控日志回调。当产生一个端监控事件时触发该回调。
+     * @brief 上报日志时回调该事件。
      * @param [in] log_type  <br>
      *        事件类型。目前类型固定为 "live_webrtc_monitor_log"。
      * @param [in] log_content  <br>
@@ -100,10 +102,11 @@ public:
     }
 
     /** 
-     * @hidden
+     * @hidden(Windows,Linux,macOS)
+     * @deprecated since 3.38 and will be deleted in 3.51, use onAudioRouteChanged{@link #IRTCVideoEventHandler#onAudioRouteChanged} instead.
      * @type callback
      * @region 音频事件回调
-     * @brief 音频播放设备变化时回调该事件。
+     * @brief 移动端音频播放设备变化时回调该事件。
      * @param [in] device 变化后的音频播放设备，参看 AudioPlaybackDevice{@link #AudioPlaybackDevice}。  <br>
      */
     virtual void onAudioPlaybackDeviceChanged(AudioPlaybackDevice device) {
@@ -132,7 +135,6 @@ public:
     }
 
     /** 
-     * @hidden(Linux)
      * @type callback
      * @region 引擎管理
      * @brief SDK 当前网络连接类型改变回调。当 SDK 的当前网络连接类型发生改变时回调该事件。
@@ -173,8 +175,7 @@ public:
     }
 
     /** 
-     * @hidden
-     * @deprecated since 337, using onAudioDeviceStateChanged and onVideoDeviceStateChanged instead.
+     * @deprecated since 3.37 and will be deleted in 3.51, use onAudioDeviceStateChanged{@link #IRTCVideoEventHandler#onAudioDeviceStateChanged} and onVideoDeviceStateChanged{@link #IRTCVideoEventHandler#onVideoDeviceStateChanged} instead.
      * @type callback
      * @region 引擎管理
      * @brief 媒体设备状态回调。提示音频采集、音频播放、摄像头视频采集、屏幕视频采集四种媒体设备的状态。
@@ -227,8 +228,7 @@ public:
     }
 
     /** 
-     * @hidden
-     * @deprecated since 337, using onAudioDeviceWarning and onVideoDeviceWarning instead.
+     * @deprecated since 3.37 and will be deleted in 3.51, use onAudioDeviceWarning{@link #IRTCVideoEventHandler#onAudioDeviceWarning} and onVideoDeviceWarning{@link #IRTCVideoEventHandler#onVideoDeviceWarning} instead.
      * @type callback
      * @region 引擎管理
      * @brief 媒体设备警告回调。媒体设备包括：音频采集设备、音频渲染设备、和视频采集设备。
@@ -274,8 +274,8 @@ public:
     /** 
      * @type callback
      * @region 引擎管理
-     * @brief 周期性（2s）地发出回调，报告当前cpu与memory使用率
-     * @param [in] stats 返回包含当前系统状态信息的结构体，详见 SysStats{@link #SysStats}
+     * @brief 周期性（2s）发出回调，报告当前 CPU 与内存的相关信息。
+     * @param [in] stats 包含当前 CPU 与内存相关信息的结构体。详见 SysStats{@link #SysStats}。
      */
     virtual void onSysStats(const bytertc::SysStats& stats) {
     }
@@ -313,8 +313,8 @@ public:
     /** 
      * @type callback
      * @region 代理回调
-     * @brief Socks5 代理状态改变时，收到该回调。
-     * @param [out] state SOCKS5 代理连接状态，详见 Socks5ProxyState{@link #Socks5ProxyState}
+     * @brief SOCKS5 代理状态改变时，收到该回调。
+     * @param [out] state SOCKS5 代理连接状态
      * @param [out] cmd 代理连接的每一步操作命令
      * @param [out] proxy_address 代理地址信息
      * @param [out] local_address 当前连接使用的本地地址
@@ -328,7 +328,6 @@ public:
     }
 
     /** 
-     * @hidden(Linux)
      * @type callback
      * @region 本地录制
      * @brief 获取本地录制状态回调。  <br>
@@ -343,7 +342,6 @@ public:
     }
 
     /** 
-     * @hidden(Linux)
      * @type callback
      * @region 本地录制
      * @brief 本地录制进度回调。  <br>
@@ -353,6 +351,14 @@ public:
      * @param [out] info 录制文件的详细信息，参看 RecordingInfo{@link #RecordingInfo}
      */
     virtual void onRecordingProgressUpdate(StreamIndex type, RecordingProgress process, RecordingInfo info) {
+    }
+    /** 
+     *  @type callback
+     *  @brief 调用 startAudioRecording{@link #IRTCVideo#startAudioRecording} 或 stopAudioRecording{@link #IRTCVideo#stopAudioRecording} 改变音频文件录制状态时，收到此回调。
+     *  @param [in] state 录制状态，参看 AudioRecordingState{@link #AudioRecordingState}
+     *  @param [in] error_code 录制错误码，参看 AudioRecordingErrorCode{@link #AudioRecordingErrorCode}
+     */
+    virtual void onAudioRecordingStateUpdate(AudioRecordingState state, AudioRecordingErrorCode error_code) {
     }
 
     /** 
@@ -475,7 +481,7 @@ public:
     /** 
      * @type callback
      * @region 视频管理
-     * @brief 收到通过 sendSEIMessage{@link #IRTCVideo#sendSEIMessage} 发送的带有 SEI 消息的视频帧时，收到此回调
+     * @brief 收到通过调用 sendSEIMessage{@link #IRTCVideo#sendSEIMessage} 发送带有 SEI 消息的视频帧时，收到此回调。
      * @param [in] stream_key 包含 SEI 发送者的用户名，所在的房间名和媒体流，参看 RemoteStreamKey{@link #RemoteStreamKey}
      * @param [in] message 收到的 SEI 消息内容
      * @param [in] length 收到的 SEI 消息长度
@@ -486,7 +492,6 @@ public:
         (void)length;
     }
     /** 
-     * @hidden
      * @type callback
      * @region 消息
      * @brief 黑帧视频流发布状态回调。  <br>
@@ -503,7 +508,7 @@ public:
      /** 
       * @type callback
       * @region 音频管理
-      * @brief 远端用户进房后，本地调用 enableAudioPropertiesReport{@link #IRTCVideo#enableAudioPropertiesReport}，根据设置的 interval 值，本地会周期性地收到此回调，了解订阅的远端用户的音频信息。<br>
+      * @brief 远端用户进房后，本地调用 enableAudioPropertiesReport{@link #IRTCVideo#enableAudioPropertiesReport}，根据设置的 interval 值，本地会周期性地收到此回调，了解订阅的远端用户的音频信息。<br>
       *        远端用户的音频包括使用 RTC SDK 内部机制/自定义机制采集的麦克风音频和屏幕音频。
       * @param [in] audio_properties_infos 远端音频信息，其中包含音频流属性、房间 ID、用户 ID ，详见 RemoteAudioPropertiesInfo{@link #RemoteAudioPropertiesInfo}。
       * @param [in] audio_properties_info_number 数组长度
@@ -548,9 +553,9 @@ public:
      * @type callback
      * @region 设备管理
      * @brief 音频设备音量改变回调。当通过系统设置，改变音频设备音量或静音状态时，触发本回调。本回调无需手动开启。
-     * @param device_type 设备类型，包括麦克风和扬声器，参阅 ByteRTCAudioDeviceType{@link #ByteRTCAudioDeviceType}。
-     * @param volume 音量值，[0, 255]。当 volume 变为 0 时，muted 会变为 True。注意：在 Windows 端，当麦克风 volume 变为 0 时，muted 值不变。
-     * @param muted 是否禁音状态。扬声器被设置为禁音时，muted 为 True，但 volume 保持不变。
+     * @param [in] device_type 设备类型，包括麦克风和扬声器，参阅 RTCAudioDeviceType{@link #RTCAudioDeviceType}。
+     * @param [in] volume 音量值，[0, 255]。当 volume 变为 0 时，muted 会变为 True。注意：在 Windows 端，当麦克风 volume 变为 0 时，muted 值不变。
+     * @param [in] muted 是否禁音状态。扬声器被设置为禁音时，muted 为 True，但 volume 保持不变。
      */
     virtual void onAudioDeviceVolumeChanged(bytertc::RTCAudioDeviceType device_type, int volume, bool muted) {
         (void)device_type;
@@ -559,9 +564,10 @@ public:
     }
 
     /** 
+     * @deprecated since 3.50 and will be deleted in 3.55, use onAudioDeviceStateChanged{@link #IRTCVideoEventHandler#onAudioDeviceStateChanged} instead.
      * @type callback
      * @region 音频事件回调
-     * @brief 本地音频的状态发生改变时，该回调通知当前的本地音频状态。
+     * @brief 本地音频流的状态发生改变时，收到此回调。
      * @param [in] state 本地音频设备的状态，详见： LocalAudioStreamState{@link #LocalAudioStreamState}
      * @param [in] error 本地音频状态改变时的错误码，详见：LocalAudioStreamError{@link #LocalAudioStreamError}
      */
@@ -604,7 +610,7 @@ public:
     }
 
     /** 
-     * @type api
+     * @type callback
      * @region 音频管理
      * @brief 音频流同步信息回调。可以通过此回调，在远端用户调用 sendStreamSyncInfo{@link #IRTCVideo#sendStreamSyncInfo} 发送音频流同步消息后，收到远端发送的音频流同步信息。  <br>
      * @param [in] stream_key 远端流信息，详见 RemoteStreamKey{@link #RemoteStreamKey} 。
@@ -665,25 +671,28 @@ public:
      * @param [in] public_stream_id 公共流的 ID
      * @param [in] errorCode 公共流订阅结果状态码。详见 PublicStreamErrorCode{@link #PublicStreamErrorCode}。
      */
-    virtual void onPlayPublicStreamResult(const char* public_stream_id, int errorCode) {
+    virtual void onPlayPublicStreamResult(const char* public_stream_id, PublicStreamErrorCode errorCode) {
         (void)public_stream_id;
         (void)errorCode;
     }
     /** 
      * @type callback
-     * @brief 回调公共流中包含的 SEI 信息<br>
-     *        通过 startPlayPublicStream{@link #IRTCVideo#startPlayPublicStream} 开始播放公共流后，可以通过本回调获取公共流中包含的 SEI 信息。
-     * @param [in] public_stream_id 公共流 ID
-     * @param [in] message SEI 信息
-     * @param [in] message_length SEI 信息的长度
-     * @notes 当公共流中的多路视频流均包含有 SEI 信息时：<br>
-     *       SEI 不互相冲突时，将通过多次回调分别发送；<br>
-     *       SEI 在同一帧有冲突时，则只有一条流中的 SEI 信息被透传并融合到公共流中。
+     * @brief 回调公共流中包含的 SEI 信息。
+     *        调用 startPlayPublicStream{@link #IRTCVideo#startPlayPublicStream} 接口启动拉公共流功能后，通过此回调收到公共流中的 SEI 消息。
+     * @param [in] public_stream_id 公共流 ID。
+     * @param [in] message 收到的 SEI 消息内容。
+     * @param [in] message_length SEI 信息的长度。
+     * @param [in] source_type SEI 消息类型，参看 SEIMessageSourceType{@link #SEIMessageSourceType}。
+     * @notes 当公共流中的多路视频流均包含有 SEI 信息：SEI 不互相冲突时，将通过多次回调分别发送；SEI 在同一帧有冲突时，则只有一条流中的 SEI 信息被透传并融合到公共流中。
      */
-    virtual void onPublicStreamSEIMessageReceived(const char* public_stream_id, const uint8_t* message, int message_length) {
+    virtual void onPublicStreamSEIMessageReceived(const char* public_stream_id,
+        const uint8_t* message,
+        int message_length,
+        SEIMessageSourceType source_type) {
         (void)public_stream_id;
         (void)message;
         (void)message_length;
+        (void)source_type;
     }
     /** 
      * @type callback
@@ -718,7 +727,7 @@ public:
     /** 
      * @type callback
      * @region 视频管理
-     * @brief 本地视频大小或旋转配置发生改变时，收到此回调。
+     * @brief 本地视频大小或旋转信息发生改变时，收到此回调。
      * @param [in] index 流属性。参看 StreamIndex{@link #StreamIndex}。
      * @param [in] info 视频帧信息。参看 VideoFrameInfo{@link #VideoFrameInfo}。
      */
@@ -729,7 +738,7 @@ public:
     /** 
      * @type callback
      * @region 视频管理
-     * @brief 远端视频大小或旋转配置发生改变时，房间内订阅此视频流的用户会收到此回调。
+     * @brief 远端视频大小或旋转信息发生改变时，房间内订阅此视频流的用户会收到此回调。
      * @param [in] key 远端流信息。参看 RemoteStreamKey{@link #RemoteStreamKey}。
      * @param [in] info 视频帧信息。参看 VideoFrameInfo{@link #VideoFrameInfo}。
      */
@@ -750,11 +759,10 @@ public:
         (void)info;
     }
     /** 
-     * @hidden
-     * @deprecated since 336.1, use onUserPublishStream, onUserPublishScreen, onUserUnPublishStream and onUserUnPublishScreen instead.
+     * @deprecated since 3.36 and will be deleted in 3.51, use onUserPublishStream{@link #IRTCRoomEventHandler#onUserPublishStream}, onUserPublishScreen{@link #IRTCRoomEventHandler#onUserPublishScreen}, onUserUnpublishStream{@link #IRTCRoomEventHandler#onUserUnpublishStream} and onUserUnpublishScreen{@link #IRTCRoomEventHandler#onUserUnpublishScreen} instead.
      * @type callback
      * @region 媒体流管理
-     * @brief 房间内用户暂停/恢复发送音频流时，房间内其他用户会收到此回调。参看 muteLocalAudio{@link #IRTCVideo#muteLocalAudio}。
+     * @brief 房间内用户暂停/恢复发送音频流时，房间内其他用户会收到此回调。
      * @param [in] user_id 改变本地音频发送状态的用户 ID
      * @param [in] mute_state 发送状态，参看 MuteState{@link #MuteState}
      */
@@ -773,11 +781,10 @@ public:
         (void)key;
     }
     /** 
-     * @hidden
-     * @deprecated since 336.1, use onUserPublishStream, onUserPublishScreen, onUserUnPublishStream and onUserUnPublishScreen instead.
+     * @deprecated since 3.36 and will be deleted in 3.51, use onUserPublishStream{@link #IRTCRoomEventHandler#onUserPublishStream}, onUserPublishScreen{@link #IRTCRoomEventHandler#onUserPublishScreen}, onUserUnpublishStream{@link #IRTCRoomEventHandler#onUserUnpublishStream} and onUserUnpublishScreen{@link #IRTCRoomEventHandler#onUserUnpublishScreen} instead.
      * @type callback
      * @region 媒体流管理
-     * @brief 房间内用户暂停/恢复发送视频流时，房间内其他用户会收到此回调。参看 muteLocalVideo{@link #IRTCVideo#muteLocalVideo}。
+     * @brief 房间内用户暂停/恢复发送视频流时，房间内其他用户会收到此回调。
      * @param [in] uid 暂停/恢复发送视频流的用户 ID。
      * @param [in] mute 视频流的发送状态。参看 MuteState{@link #MuteState}。
      */
@@ -786,6 +793,7 @@ public:
         (void)mute;
     }
     /** 
+     * @hidden not available
      * @type callback
      * @region 音频事件回调
      * @brief 用户订阅来自远端的音频流状态发生改变时，会收到此回调，了解当前的远端音频流状态。
@@ -800,6 +808,7 @@ public:
         (void)reason;
     }
     /** 
+     * @deprecated since 3.50 and will be deleted in 3.55. Use onVideoDeviceStateChanged{@link #IRTCVideoEventHandler#onVideoDeviceStateChanged} instead.
      * @type callback
      * @region 视频管理
      * @brief 本地视频流的状态发生改变时，收到该事件。
@@ -813,6 +822,7 @@ public:
         (void)error;
     }
     /** 
+     * @hidden not available
      * @type callback
      * @region 视频管理
      * @brief 远端视频流的状态发生改变时，房间内订阅此流的用户会收到该事件。
@@ -826,10 +836,27 @@ public:
         (void)state;
         (void)reason;
     }
+
+    /** 
+     * @type callback
+     * @hidden for internal use only on Android, iOS, macOS, and Windows
+     * @region 音视频处理
+     * @brief 远端视频流的超分状态发生改变时，房间内订阅此流的用户会收到该回调。
+     * @param [in] stream_key 远端流信息，包括房间 ID、用户 ID、流属性，参看 RemoteStreamKey{@link #RemoteStreamKey}。
+     * @param [in] mode 超分模式，参看 VideoSuperResolutionMode{@link #VideoSuperResolutionMode}。
+     * @param [in] reason 超分模式改变原因，参看 VideoSuperResolutionModeChangedReason{@link #VideoSuperResolutionModeChangedReason}。
+     */
+    virtual void onRemoteVideoSuperResolutionModeChanged(
+            RemoteStreamKey stream_key, VideoSuperResolutionMode mode, VideoSuperResolutionModeChangedReason reason) {
+        (void)stream_key;
+        (void)mode;
+        (void)reason;
+    }
+
     /** 
      * @type callback
      * @region 房间管理
-     * @brief 音频首帧发送状态改变回调
+     * @brief 本地音频首帧发送状态发生改变时，收到此回调。
      * @param [in] room_id 音频发布用户所在的房间 ID
      * @param [in] user 本地用户信息，详见 RtcUser{@link #RtcUser}
      * @param [in] state 首帧发送状态，详见 FirstFrameSendState{@link #FirstFrameSendState}
@@ -838,10 +865,24 @@ public:
         (void)user;
         (void)state;
     }
+
     /** 
      * @type callback
      * @region 房间管理
-     * @brief 视频首帧发送状态改变回调
+     * @brief 屏幕音频首帧发送状态改变回调
+     * @param [in] room_id 音频发布用户所在的房间 ID
+     * @param [in] user 本地用户信息，详见 RtcUser{@link #RtcUser}
+     * @param [in] state 首帧发送状态，详见 FirstFrameSendState{@link #FirstFrameSendState}
+     */
+    virtual void onScreenAudioFrameSendStateChanged(const char* room_id, const RtcUser& user, FirstFrameSendState state) {
+        (void)user;
+        (void)state;
+    }
+
+    /** 
+     * @type callback
+     * @region 房间管理
+     * @brief 本地视频首帧发送状态发生改变时，收到此回调。
      * @param [in] room_id 视频发布用户所在的房间 ID
      * @param [in] user 本地用户信息，详见 RtcUser{@link #RtcUser}
      * @param [in] state 首帧发送状态，详见 FirstFrameSendState{@link #FirstFrameSendState}
@@ -875,7 +916,7 @@ public:
     /** 
      * @type callback
      * @region 房间管理
-     * @brief 屏幕共享流视频首帧发送状态改变回调
+     * @brief 屏幕共享流的视频首帧发送状态发生改变时，收到此回调。
      * @param [in] room_id 流的发布房间的 ID
      * @param [in] user 本地用户信息，详见 RtcUser{@link #RtcUser}
      * @param [in] state 首帧发送状态，详见 FirstFrameSendState{@link #FirstFrameSendState}
@@ -887,12 +928,24 @@ public:
     /** 
      * @type callback
      * @region 房间管理
-     * @brief 音频首帧播放状态改变回调
+     * @brief 音频首帧播放状态发生改变时，收到此回调。
      * @param [in] room_id 首帧播放状态发生改变的流所在的房间 ID
      * @param [in] user 远端用户信息，详见 RtcUser{@link #RtcUser}
      * @param [in] state 首帧播放状态，详见 FirstFramePlayState{@link #FirstFramePlayState}
      */
     virtual void onAudioFramePlayStateChanged(const char* room_id, const RtcUser& user, FirstFramePlayState state) {
+        (void)user;
+        (void)state;
+    }
+    /** 
+     * @type callback
+     * @region 房间管理
+     * @brief 屏幕音频首帧播放状态改变回调
+     * @param [in] room_id 首帧播放状态发生改变的流所在的房间 ID
+     * @param [in] user 远端用户信息，详见 RtcUser{@link #RtcUser}
+     * @param [in] state 首帧播放状态，详见 FirstFramePlayState{@link #FirstFramePlayState}
+     */
+    virtual void onScreenAudioFramePlayStateChanged(const char* room_id, const RtcUser& user, FirstFramePlayState state) {
         (void)user;
         (void)state;
     }
@@ -911,7 +964,7 @@ public:
     /** 
      * @type callback
      * @region 房间管理
-     * @brief 屏幕共享流视频首帧播放状态改变回调
+     * @brief 屏幕共享流视频首帧播放状态发生改变时，收到此回调。
      * @param [in] room_id 首帧播放状态发生改变的流所在的房间 ID
      * @param [in] user 远端用户信息，详见 RtcUser{@link #RtcUser}
      * @param [in] state 首帧播放状态，详见 FirstFramePlayState{@link #FirstFramePlayState}
@@ -937,15 +990,9 @@ public:
      *        调用 startPushPublicStream{@link #IRTCVideo#startPushPublicStream} 接口发布公共流后，启动结果通过此回调方法通知用户。
      * @param [in] room_id 公共流的发布房间的 ID
      * @param [in] public_streamid 公共流 ID
-     * @param [in] errorCode 公共流发布结果状态码。<br>
-     *             `200`: 发布成功<br>
-     *             `1191`: 推流参数存在异常 <br>
-     *             `1192`: 当前状态异常，通常为无法发起任务<br>
-     *             `1193`: 服务端错误，不可恢复<br>
-     *             `1195`: 服务端调用发布接口返回失败<br>
-     *             `1196`: 超时无响应。推流请求发送后 10s 没有收到服务端的结果回调。客户端将每隔 10s 重试，3 次重试失败后停止。
+     * @param [in] errorCode 公共流发布结果状态码。详见 PublicStreamErrorCode{@link #PublicStreamErrorCode}
      */
-    virtual void onPushPublicStreamResult(const char* room_id, const char* public_streamid, int errorCode) {
+    virtual void onPushPublicStreamResult(const char* room_id, const char* public_streamid, PublicStreamErrorCode errorCode) {
         (void)room_id;
         (void)public_streamid;
         (void)errorCode;
@@ -983,6 +1030,51 @@ public:
         (void)result;
     };
 
+    /** 
+     * @hidden for internal use only
+     * @type callback
+     * @brief 音频dump状态改变回调
+     * @param [in] status 音频dump状态，参见 AudioDumpStatus{@link #AudioDumpStatus}
+     * @notes 本回调用于内部排查音质相关异常问题，开发者无需关注。
+     */
+
+    virtual void onAudioDumpStateChanged(AudioDumpStatus status) {
+        (void)status;
+    }
+    /** 
+     * @hidden(Linux)
+     * @type callback
+     * @brief 首次调用 getNetworkTimeInfo{@link #IRTCVideo#getNetworkTimeInfo} 后，SDK 内部启动网络时间同步，同步完成时会触发此回调。
+     */
+    virtual void onNetworkTimeSynchronized() {
+    }
+    /** 
+     * @type callback
+     * @brief license过期时间提醒
+     * @param [in] days 过期时间天数
+     */
+
+    virtual void onLicenseWillExpire(int days) {
+        (void)days;
+    }
+
+    /** 
+     * @hidden(Linux,Android,iOS)
+     * @type callback
+     * @brief 外部采集时，调用 setOriginalScreenVideoInfo{@link #IRTCVideo#setOriginalScreenVideoInfo}设置屏幕或窗口大小改变前的分辨率后，若屏幕采集模式为智能模式，你将收到此回调，根据 RTC 智能决策合适的帧率和分辨率积（宽*高）重新采集。
+     * @param [in] frameUpdateInfo RTC 智能决策后合适的帧率和分辨率积（宽*高）。参看 FrameUpdateInfo{@link #FrameUpdateInfo}。
+     */
+    virtual void onExternalScreenFrameUpdate(FrameUpdateInfo frameUpdateInfo) {
+        (void)frameUpdateInfo;
+    }
+    /** 
+     * @type callback
+     * @brief 试验性接口回调
+     * @param param 回调内容(JSON string)
+     */
+    virtual void onInvokeExperimentalAPI(const char* param) {
+        (void)param;
+    }
 };
 
 } // namespace bytertc
