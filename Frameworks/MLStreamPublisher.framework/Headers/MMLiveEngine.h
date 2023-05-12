@@ -853,6 +853,8 @@ udp下行观众的sei
 */
 - (void)accrossOtherRoomWithRoomId:(NSString *)roomId userId:(NSString *)userId;
 
+- (void)accrossOtherRoomWithRoomId:(NSString *)roomId userId:(NSString *)userId token:(NSString *)token;
+
 /**
 结束跨房pk
 @param roomid 房间id
