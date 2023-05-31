@@ -132,6 +132,12 @@
 - (void)stopPush;
 
 /**
+* 修改编码码率
+*
+*/
+- (void)changeVideoBitrate:(NSInteger)videoBitrate;
+
+/**
 * 打开平滑切换功能，默认关闭
 *
 * @param enable YES 打开 NO 关闭

@@ -686,6 +686,12 @@ udp下行观众的sei
 */
 - (void)stopAudioCapture;
 
+/**
+* 修改编码码率
+*
+*/
+- (void)changeVideoBitrate:(NSInteger)videoBitrate;
+
 #pragma mark - RTC
 
 /**
