@@ -14,6 +14,7 @@ typedef NS_ENUM(NSInteger, MLVideoCaptureQuality) {
     MLVideoCaptureQualityMedium = 1,
     MLVideoCaptureQualityHigh = 2,
     MLVideoCaptureQualitySuper = 3,
+    MLVideoCaptureQuality1080P = 4,
 };
 
 typedef NS_ENUM(NSInteger, MLMediaCaptureDevicePosition) {
