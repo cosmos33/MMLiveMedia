@@ -9,6 +9,7 @@
 #define MMLiveSource_h
 #import <Foundation/Foundation.h>
 #import "MMCommonParam.h"
+#import "MMCommonParam2.h"
 #if CAMERA_ON
 #import <MLVideoProcessing/MLCameraSource.h>
 #import <MLContractCV/MLContractCV.h>
@@ -467,6 +468,8 @@
 */
 - (int)selectAudioTrack:(NSInteger)index;
 
+- (void)setAudioMixingDualMonoMode:(MMLiveAudioMixingDualMonoMode)mode;
+
 /**
 * 暂停音乐播放
 *
@@ -529,7 +532,15 @@
 
 - (void)setAudioEffectPreset:(MMLiveAudioEffectPreset)preset;
 
-- (void)setAudioMixingDualMonoMode:(MMLiveAudioMixingDualMonoMode)mode;
+- (void)setAudioEffectParameters:(MMLiveAudioEffectPreset)preset param1:(int)param1 param2:(int)param2;
+
+- (void)setVoiceBeautifierPreset:(MMLiveVoiceBeautifierPreset)beautifierPreset;
+
+- (void)setVoiceBeautifierParameters:(MMLiveVoiceBeautifierPreset)beautifierPreset param1:(int)param1 param2:(int)param2;
+
+- (void)setVoiceConversionPreset:(MMLiveVoiceConversionPreset)conversionPreset;
+
+- (void)setVoiceConversionParameters:(MMLiveVoiceConversionPreset)conversionPreset param1:(int)param1 param2:(int)param2;
 
 #pragma mark - 音效
 

@@ -83,29 +83,6 @@ typedef enum {
     MMLiveVideoCodecTypeVTB265 = 2,//h265硬编
 }MMLiveVideoCodecType;
 
-typedef NS_ENUM(NSInteger, MMLiveAudioEffectPreset) {
-    MMLiveAudioEffectPresetOff = 0x00000000,
-    MMLiveAudioEffectPresetRoomAcousticsKTV = 0x02010100,
-    MMLiveAudioEffectPresetRoomAcousVocalConcer = 0x02010200,
-    MMLiveAudioEffectPresetRoomAcousStudio = 0x02010300,
-    MMLiveAudioEffectPresetRoomAcousPhonograph = 0x02010400,
-    MMLiveAudioEffectPresetRoomAcousVirtualStereo = 0x02010500,
-    MMLiveAudioEffectPresetRoomAcousSpatial = 0x02010600,
-    MMLiveAudioEffectPresetRoomAcousEthereal = 0x02010700,
-    MMLiveAudioEffectPresetRoomAcous3DVoice = 0x02010800,
-    MMLiveAudioEffectPresetRoomAcousVirtualSurroundSound = 0x02010900,
-    MMLiveAudioEffectPresetVoiceChangerEffectUncle = 0x02020100,
-    MMLiveAudioEffectPresetVoiceChangerEffectOldMan = 0x02020200,
-    MMLiveAudioEffectPresetVoiceChangerEffectBoy= 0x02020300,
-    MMLiveAudioEffectPresetVoiceChangerEffectSister= 0x02020400,
-    MMLiveAudioEffectPresetVoiceChangerEffectGirl = 0x02020500,
-    MMLiveAudioEffectPresetVoiceChangerEffectPigKin = 0x02020600,
-    MMLiveAudioEffectPresetVoiceChangerEffectHulk = 0x02020700,
-    MMLiveAudioEffectPresetStyleTransformationRnb = 0x02030100,
-    MMLiveAudioEffectPresetStyleTransformationPopular= 0x02030200,
-    MMLiveAudioEffectPresetPitchCorrection = 0x02040100
-};
-
 typedef NS_ENUM(NSUInteger, MMLiveAudioMixingDualMonoMode) {
     MMLiveAudioMixingDualMonoAuto = 0,
     MMLiveAudioMixingDualMonoL = 1,

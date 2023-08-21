@@ -1054,6 +1054,13 @@ udp下行观众的sei
 - (int)selectAudioTrack:(NSInteger)index;
 
 /**
+* 设置声道模式
+*
+* @param mode 模式
+*/
+- (void)setAudioMixingDualMonoMode:(MMLiveAudioMixingDualMonoMode)mode;
+
+/**
 * 停止音乐播放
 *
 */
@@ -1140,17 +1147,19 @@ udp下行观众的sei
 
 /**
 * 音效
-*
 * @param preset 音效类型
 */
 - (void)setAudioEffectPreset:(MMLiveAudioEffectPreset)preset;
 
-/**
-* 设置声道模式
-*
-* @param mode 模式
-*/
-- (void)setAudioMixingDualMonoMode:(MMLiveAudioMixingDualMonoMode)mode;
+- (void)setAudioEffectParameters:(MMLiveAudioEffectPreset)preset param1:(int)param1 param2:(int)param2;
+
+- (void)setVoiceBeautifierPreset:(MMLiveVoiceBeautifierPreset)beautifierPreset;
+
+- (void)setVoiceBeautifierParameters:(MMLiveVoiceBeautifierPreset)beautifierPreset param1:(int)param1 param2:(int)param2;
+
+- (void)setVoiceConversionPreset:(MMLiveVoiceConversionPreset)conversionPreset;
+
+- (void)setVoiceConversionParameters:(MMLiveVoiceConversionPreset)conversionPreset param1:(int)param1 param2:(int)param2;
 
 #pragma mark - 音效
 

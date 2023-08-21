@@ -415,21 +415,7 @@ udp下行观众的sei
 */
 - (void)setVideoBitrate:(int)videoBitrate;
 
-- (NSDictionary *) getPushWatchInfo;
-
-/**
-* 音效
-*
-* @param preset 音效类型
-*/
-- (void)setAudioEffectPreset:(MMLiveAudioEffectPreset)preset;
-
-/**
-* 设置声道模式
-*
-* @param mode 模式
-*/
-- (void)setAudioMixingDualMonoMode:(MMLiveAudioMixingDualMonoMode)mode;
+- (NSDictionary *)getPushWatchInfo;
 
 /**
 * 是否开启卖上SEI
