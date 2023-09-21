@@ -22,6 +22,10 @@ NS_ASSUME_NONNULL_BEGIN
 // 去除美妆漂浮、消耗性能，默认关闭
 + (void)enhanceByteDacneMakeUp:(BOOL)enhance;
 
+// set before initialization
+// 0,default GLES2.0; 1, GLES3.0
++ (void)renderingAPI:(int)apiVer;
+
 // 设置证书path
 + (void)setLicenseURL:(NSURL *)url;
 
